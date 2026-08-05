@@ -12,11 +12,9 @@ import streamlit as st
 import graph_builder as gb
 import taxonomy
 import volumes
-from figure import build_figure, view_revision
+from interactive_html import render_page
 
 st.set_page_config(page_title="Credit Card Intent Graph", layout="wide")
-
-ALL_PERIODS = "All periods"
 
 
 @st.cache_data(show_spinner=False)
@@ -31,14 +29,30 @@ def layout_for(node_key: tuple, algorithm: str, _graph: nx.Graph) -> dict:
 
 
 @st.cache_data(show_spinner=False)
-def sizes_for(
+def page_html(
+    node_key: tuple,
+    labelled_key: tuple,
+    layout_algo: str,
     scale: str,
-    multiplier: float,
-    period: int | None,
     emphasis: float,
+    multiplier: float,
+    height: int,
     _graph: nx.Graph,
-) -> dict:
-    return gb.compute_node_sizes(_graph, scale, multiplier, period, emphasis)
+    _pos: dict,
+) -> str:
+    """The embedded page. Cached so it is only rebuilt when a sidebar control
+    actually changes - the timeline and focus never reach this far."""
+    return render_page(
+        _graph,
+        _pos,
+        set(labelled_key),
+        scale=scale,
+        emphasis=emphasis,
+        multiplier=multiplier,
+        height=height,
+        include_plotlyjs=True,
+        chrome=False,
+    )
 
 
 # =============================================================================
@@ -140,52 +154,27 @@ view = gb.filter_graph(full, visible_types, selected_uis)
 if focus_ui and focus_ui in view:
     view = gb.neighborhood(view, focus_ui, depth=2)
 
-edge_kinds = set(gb.EDGE_COLORS)
-
-st.title("Credit Card intent graph")
-st.caption(
-    "Product -> unified intents -> sub-intents, with life events and complaints "
-    "linking in from their own groups. Node size = conversation volume in the "
-    "selected period."
-)
-
-# --- timeline ----------------------------------------------------------------
-# Sits above the canvas rather than in the sidebar so it can be dragged while
-# watching the graph.
-period_label = st.select_slider(
-    "Timeline",
-    options=volumes.PERIODS + [ALL_PERIODS],
-    value=volumes.PERIODS[-1],
-    key="period",
-    help=(
-        "Drag or click through the months. Node positions are fixed, so only the "
-        "sizes move. 'All periods' totals every month together."
-    ),
-)
-period = None if period_label == ALL_PERIODS else volumes.PERIODS.index(period_label)
-
-counts = gb.summary(view, period)
-sizes = sizes_for(size_scale, size_multiplier, period, size_emphasis, full)
+counts = gb.summary(view)
 
 labelled = set()
 for node, data in view.nodes(data=True):
     ntype = data["node_type"]
     if ntype not in label_types:
         continue
-    if ntype == gb.SUB_INTENT and gb.node_volume(view, node, period) < label_threshold:
+    if ntype == gb.SUB_INTENT and data["volume"] < label_threshold:
         continue
     labelled.add(node)
 
-cols = st.columns(6)
-cols[0].metric(
-    f"Conversations ({period_label})",
-    volumes.fmt(counts["conversations"]),
-    delta=(
-        volumes.fmt(counts["conversations_delta"])
-        if counts.get("conversations_delta") is not None
-        else None
-    ),
+st.title("Credit Card intent graph")
+st.caption(
+    "Product -> unified intents -> sub-intents, with life events and complaints "
+    "linking in from their own groups. Node size = conversation volume. The "
+    "timeline and click-to-focus run inside the canvas, so neither disturbs your "
+    "zoom."
 )
+
+cols = st.columns(6)
+cols[0].metric("Conversations (all periods)", volumes.fmt(counts["conversations"]))
 cols[1].metric("Nodes", counts["nodes"])
 cols[2].metric("Unified intents", counts[gb.UNIFIED_INTENT])
 cols[3].metric("Sub-intents", counts[gb.SUB_INTENT])
@@ -198,28 +187,34 @@ with tab_graph:
     if view.number_of_nodes() == 0:
         st.warning("Nothing to draw - widen the filters in the sidebar.")
     else:
-        pos = layout_for(tuple(sorted(view.nodes())), layout_algo, view)
-        # Changing the layout or the visible nodes resets the viewport; stepping
-        # through the timeline must not, so the period is deliberately excluded.
-        revision = view_revision(layout_algo, view.nodes(), selected_uis)
-        fig = build_figure(
-            view, pos, sizes, labelled, edge_kinds, height, period, revision
+        node_key = tuple(sorted(view.nodes()))
+        pos = layout_for(node_key, layout_algo, view)
+
+        # The whole canvas - timeline, play button, focus - runs in the browser.
+        # Streamlit only rebuilds it when one of these sidebar values changes,
+        # and every one of those genuinely moves nodes, so resetting the view
+        # there is the correct behaviour.
+        html = page_html(
+            node_key,
+            tuple(sorted(labelled)),
+            layout_algo,
+            size_scale,
+            size_emphasis,
+            size_multiplier,
+            height,
+            view,
+            pos,
         )
-        # The stable key matters: without it Streamlit gives the chart a fresh
-        # identity on every rerun, remounting the component and throwing away the
-        # zoom/pan state that `uirevision` exists to preserve.
-        st.plotly_chart(
-            fig,
-            width="stretch",
-            key="intent_graph",
-            config={"scrollZoom": True, "doubleClick": "reset"},
-        )
+        st.iframe(html, height=height + 150)
+
         st.caption(
-            "Scroll to zoom, drag to pan, hover a node for its volume, change since "
-            "the previous month, parent and degree. Positions are pinned across the "
-            "timeline, so any movement you see is real change in volume. Unified "
-            "intents and sub-intents are each sized within their own level, and the "
-            "scale spans every period so growth between months is visible."
+            "**Timeline** - press Play or drag the slider under the canvas. "
+            "**Focus** - click any node to isolate it and everything it connects "
+            "to; click it again or press Clear to restore. *Focus depth: 2* "
+            "widens focus to neighbours-of-neighbours, so a service also picks up "
+            "the life events and complaints hanging off its sub-intents. "
+            "Both run entirely in the browser, so your zoom and the period you "
+            "are on survive. Scroll to zoom, drag to pan, hover for volumes."
         )
 
 with tab_tables:
@@ -292,11 +287,7 @@ with tab_tables:
                         "Life event": ev,
                         "Unified intent": ui,
                         "Sub-intent": sub,
-                        f"Conversations ({period_label})": (
-                            volumes.SUB_TOTALS[(ui, sub)]
-                            if period is None
-                            else volumes.SUB_SERIES[(ui, sub)][period]
-                        ),
+                        "Conversations (all periods)": volumes.SUB_TOTALS[(ui, sub)],
                     }
                     for ev, links in taxonomy.LIFE_EVENTS.items()
                     for ui, sub in links
@@ -315,11 +306,7 @@ with tab_tables:
                         "Complaint": c,
                         "Unified intent": ui,
                         "Sub-intent": sub,
-                        f"Conversations ({period_label})": (
-                            volumes.SUB_TOTALS[(ui, sub)]
-                            if period is None
-                            else volumes.SUB_SERIES[(ui, sub)][period]
-                        ),
+                        "Conversations (all periods)": volumes.SUB_TOTALS[(ui, sub)],
                     }
                     for c, links in taxonomy.COMPLAINTS.items()
                     for ui, sub in links

@@ -13,25 +13,6 @@ import graph_builder as gb
 import volumes
 
 
-def view_revision(layout_algo: str, node_ids, selected_unified_intents) -> str:
-    """Identity of the current viewport, fed to Plotly's `uirevision`.
-
-    Plotly keeps the user's zoom and pan across re-renders for as long as this
-    string is unchanged. It deliberately depends on what determines node
-    POSITIONS - the layout algorithm and which nodes are on screen - and
-    deliberately NOT on the selected period, so scrubbing the timeline never
-    throws away the viewport. Changing layout or filters does move things, so
-    those correctly reset it.
-    """
-    return "|".join(
-        [
-            layout_algo,
-            str(len(node_ids)),
-            ",".join(sorted(selected_unified_intents)),
-        ]
-    )
-
-
 def build_figure(
     g: nx.Graph,
     pos: dict,

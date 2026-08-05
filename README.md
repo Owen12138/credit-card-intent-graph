@@ -6,9 +6,9 @@ intent taxonomy.
 **[View the live graph →](https://owen12138.github.io/credit-card-intent-graph/)**
 
 That link is a *static export*. GitHub Pages serves files only — it cannot run
-Python — so the published page is built with Plotly animation frames instead of
-Streamlit: the timeline, play button, hover, zoom and pan all work client-side,
-but the layout switching, filtering and sizing controls are Streamlit-only. Run
+Python — but the timeline, play button, click-to-focus, hover, zoom and pan are
+all client-side, so the published page behaves exactly like the app's canvas.
+Only the layout switching, filtering and sizing controls are Streamlit-only; run
 the app locally for those.
 
 ## Graph structure
@@ -57,21 +57,46 @@ are available; nothing downstream needs to change.
 
 ### Why the graph doesn't jump when you scrub
 
-Four things are deliberately pinned so that *only* size changes as you move
-through time:
+**The timeline never reaches the server.** Every Streamlit rerun rebuilds the
+chart from scratch and throws away the viewport; `uirevision` and a stable
+widget `key` are supposed to survive that and don't do so reliably. So the fix
+isn't to preserve state across a rerun — it's to not rerun at all.
 
-- **Positions.** The layout depends only on graph structure, never on volume, and
-  it's cached on the node set — so it's byte-identical across periods.
-- **Axis ranges.** Fixed to the layout's own extent. Plotly would otherwise
-  autorange around the markers, so one node growing would nudge the whole view.
-- **Zoom and pan.** A Plotly `uirevision` (see `figure.view_revision`) keyed on
-  the layout algorithm and visible node set, deliberately *excluding* the period
-  — so scrubbing keeps your viewport, while switching layout or filters correctly
-  resets it.
-- **Component identity.** `st.plotly_chart` is given a stable `key`. Without one
-  Streamlit hands the chart a fresh identity on every rerun and remounts it,
-  discarding the very zoom state `uirevision` exists to preserve. This is the
-  part people usually miss.
+The canvas is a self-contained page (`interactive_html.py`) embedded via
+`st.iframe`, and both frequent interactions run entirely in the browser:
+
+- **Timeline** — Plotly animation frames driven by a native slider. Each frame
+  carries *only* marker sizes and hover text: no coordinates, no layout, no axis
+  ranges. A period change therefore physically cannot move a node or rescale an
+  axis. `export_test.py` asserts this against the serialised frames.
+- **Focus** — a `plotly_click` handler that restyles opacity in place.
+
+Neither triggers a rerun, so zoom, pan *and* the selected period all survive.
+Sidebar changes still rerun and still reset the view — correctly, since every
+one of them genuinely moves nodes.
+
+On top of that, positions are pinned by construction: the layout depends only on
+graph structure, never on volume, and is cached on the node set, so it's
+byte-identical across periods. Axis ranges are fixed to the layout's own extent,
+since Plotly would otherwise autorange around the markers and let a growing node
+nudge the whole view.
+
+### Click to focus
+
+Click any node to isolate it and everything it connects to — the rest of the
+graph drops to 10% opacity, unrelated edges to 5%, the focused edges are drawn
+in a bold overlay, and labels are hidden outside the focus set so the
+neighbourhood is readable. Click the same node again, or press **Clear**, to
+restore.
+
+**Focus depth: 1** shows direct neighbours — a unified intent gives you its 8
+sub-intents plus the product; a sub-intent gives you its parent plus every life
+event and complaint attached to it. **Focus depth: 2** extends to
+neighbours-of-neighbours, so a service also picks up the life events and
+complaints hanging off its sub-intents (Balance Transfer: 9 nodes at depth 1, 44
+at depth 2).
+
+This works on the GitHub Pages site too — it's the same page.
 
 ### Why sizes are normalised across all periods
 
@@ -159,7 +184,8 @@ sizing, tables) reads the list, so nothing is hard-coded to five.
 | `graph_builder.py` | Builds the NetworkX graph, plus filtering, layouts, and node sizing. |
 | `figure.py` | Plotly rendering. Streamlit-free, so it's testable and reusable. |
 | `app.py` | Streamlit UI. |
-| `export_static.py` | Builds `docs/index.html`, the static page GitHub Pages serves. |
+| `interactive_html.py` | The canvas: timeline frames + click-to-focus JS. Shared by the app and the export. |
+| `export_static.py` | Writes `docs/index.html`, the page GitHub Pages serves. |
 | `smoke_test.py` | Structural checks (counts, parentage, layouts, sizing, timeline). |
 | `app_test.py` | End-to-end run of the app via `streamlit.testing.v1.AppTest`. |
 | `export_test.py` | Verifies the static export animates and is self-contained. |
