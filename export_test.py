@@ -51,6 +51,19 @@ assert not (set(meta["edgeTraces"]) & node_trace_ids), "edge/node traces overlap
 assert fig.layout.xaxis.autorange is False and fig.layout.xaxis.range is not None
 assert fig.layout.yaxis.autorange is False and fig.layout.yaxis.range is not None
 
+# No layout-level transition. It would apply to every re-render - including the
+# initial mount and the responsive resize right after it - so the graph would
+# animate its sizes into place each time the page opened. Easing between periods
+# is specified per animate() call instead, below.
+layout_json = fig.to_plotly_json()["layout"]
+assert "transition" not in layout_json, "layout.transition makes the graph play on load"
+
+# ...and those per-interaction transitions do exist, so Play and the slider ease
+step_args = fig.layout.sliders[0].steps[0].args[1]
+assert step_args["transition"]["duration"] > 0, "slider steps should ease"
+play_args = fig.layout.updatemenus[0].buttons[0].args[1]
+assert play_args["transition"]["duration"] > 0, "Play should ease"
+
 # controls
 assert [s.label for s in fig.layout.sliders[0].steps] == volumes.PERIODS
 assert all(s.method == "animate" for s in fig.layout.sliders[0].steps)

@@ -132,7 +132,12 @@ def build_figure(
         # Keeps the user's zoom/pan across reruns. Changing the layout algorithm
         # or the visible nodes changes this string, which resets the view.
         uirevision=uirevision,
-        transition=dict(duration=350, easing="cubic-in-out"),
+        # No layout-level `transition` here on purpose. It would apply to EVERY
+        # re-render, including the initial mount and the responsive resize that
+        # fires as soon as the iframe settles - so the graph would animate its
+        # node sizes into place every time you opened it. Easing between periods
+        # belongs in the animate arguments of the slider steps and Play button
+        # (see interactive_html), which only run when the user asks for them.
     )
     return fig
 
