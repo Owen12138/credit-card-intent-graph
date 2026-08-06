@@ -160,14 +160,46 @@ assert graph_metrics(c) == before, (
 print("sub-intent selection leaves the focused graph on the parent service")
 
 # --- the detail sits above the canvas in focus mode, below it in full ---------
-blurb = channels.CHANNELS[0].blurb
-detail_at, graph_at = caption_order(b, blurb, "**Timeline**")
+# "Channel intents" is a card's own caption, so it anchors the detail section;
+# "**Timeline**" is the caption under the canvas.
+detail_at, graph_at = caption_order(b, "Channel intents", "**Timeline**")
 assert detail_at < graph_at, "the detail is still under the canvas in focus mode"
 
 full = fresh()
-graph_at, detail_at = caption_order(full, "**Timeline**", blurb)
+graph_at, detail_at = caption_order(full, "**Timeline**", "Channel intents")
 assert graph_at < detail_at, "the full graph no longer leads its tab"
 print("order ok: detail above the canvas when focused, below it on the full graph")
+
+# --- the graph metrics travel with the canvas, not the top of the page --------
+# Metrics render in document order, so the row's position relative to the
+# cards' own "Conversations" metrics says which section it belongs to.
+def metric_order(at_):
+    return [m.label for m in at_.metric]
+
+
+focus_labels, full_labels = metric_order(b), metric_order(full)
+assert focus_labels.index(CONV) > focus_labels.index("Conversations"), (
+    f"the metric row is still above the detail when focused: {focus_labels}"
+)
+assert full_labels.index(CONV) < full_labels.index("Conversations"), (
+    f"the metric row no longer leads the full graph: {full_labels}"
+)
+assert focus_labels[focus_labels.index(CONV):focus_labels.index(CONV) + 6] == [
+    CONV, "Nodes", "Unified intents", "Sub-intents", "Life events", "Complaints"
+], focus_labels
+print("order ok: the metric row sits directly above the canvas in both views")
+
+# --- the detail's own metric row is gone --------------------------------------
+for gone in ("Conversations, all channels", "Channels carrying it",
+             "Sub-intents in this service"):
+    assert gone not in metrics(b), f"'{gone}' is still rendered"
+
+# --- and so are the per-channel blurbs ----------------------------------------
+detail_text = prose(b)
+for c in channels.CHANNELS:
+    assert c.label in detail_text, f"{c.label} card missing"
+    assert c.blurb not in detail_text, f"{c.label}: the blurb is still under the title"
+print("removed: the detail metric row and the channel blurbs")
 
 # --- and the full graph ignores the picker entirely ---------------------------
 full_a = fresh()
@@ -216,10 +248,16 @@ ui = at.selectbox(key="focus_unified").options[0]
 subs = taxonomy.UNIFIED_INTENTS[ui]
 
 # --- unified intent selected, no sub-intent ---------------------------------
-m = metrics(at)
+# The per-channel numbers are all that is left of the counts, and they still
+# have to add up to the intent's total across the three channels.
 expected = channels.total(data, ui, "unified")
-assert m["Conversations, all channels"] == volumes.fmt(expected), m
-assert m["Sub-intents in this service"] == str(len(subs)), m
+card_totals = [
+    rec["numberOfConversations"]
+    for _, rec in channels.records(data, ui, "unified") if rec
+]
+assert sum(card_totals) == expected, (card_totals, expected)
+shown = [m.value for m in at.metric if m.label == "Conversations"]
+assert shown == [volumes.fmt(v) for v in card_totals], (shown, card_totals)
 
 body = " ".join(str(x.value) for x in at.markdown)
 assert ui in body, "the selected unified intent is not named"
@@ -251,11 +289,15 @@ a.selectbox(key="focus_unified").select(ui).run()
 a.selectbox(key="focus_sub").select(picked).run()
 assert not a.exception, [e.value for e in a.exception]
 
-m = metrics(a)
 sub_expected = channels.total(data, picked, "sub")
-assert m["Conversations, all channels"] == volumes.fmt(sub_expected), m
 assert sub_expected != expected, "test is vacuous - sub and unified totals coincide"
-assert "Sub-intents in this service" not in m, "sub view still shows the parent's count"
+sub_cards = [
+    rec["numberOfConversations"]
+    for _, rec in channels.records(data, picked, "sub") if rec
+]
+shown = [m.value for m in a.metric if m.label == "Conversations"]
+assert shown == [volumes.fmt(v) for v in sub_cards], (shown, sub_cards)
+assert sum(sub_cards) == sub_expected, (sub_cards, sub_expected)
 
 sub_body = " ".join(str(x.value) for x in a.markdown)
 assert picked in sub_body, "the selected sub-intent is not named"

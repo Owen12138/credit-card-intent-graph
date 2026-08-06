@@ -193,20 +193,24 @@ st.caption(
     "zoom."
 )
 
-cols = st.columns(6)
-cols[0].metric("Conversations (all periods)", volumes.fmt(counts["conversations"]))
-cols[1].metric("Nodes", counts["nodes"])
-cols[2].metric("Unified intents", counts[gb.UNIFIED_INTENT])
-cols[3].metric("Sub-intents", counts[gb.SUB_INTENT])
-cols[4].metric("Life events", counts[gb.LIFE_EVENT])
-cols[5].metric("Complaints", counts[gb.COMPLAINT])
-
 tab_graph, tab_tables = st.tabs(["Graph", "Data"])
 
 UNIFIED_ONLY = "— none: show the unified intent —"
 
 
 def render_graph() -> None:
+    # These count what the canvas below is actually drawing, so they sit with
+    # it rather than at the top of the page - in the focus view the detail is
+    # between the two, and a metric row up there would describe a graph that is
+    # no longer next to it.
+    cols = st.columns(6)
+    cols[0].metric("Conversations (all periods)", volumes.fmt(counts["conversations"]))
+    cols[1].metric("Nodes", counts["nodes"])
+    cols[2].metric("Unified intents", counts[gb.UNIFIED_INTENT])
+    cols[3].metric("Sub-intents", counts[gb.SUB_INTENT])
+    cols[4].metric("Life events", counts[gb.LIFE_EVENT])
+    cols[5].metric("Complaints", counts[gb.COMPLAINT])
+
     if view.number_of_nodes() == 0:
         st.warning("Nothing to draw - widen the filters in the sidebar.")
     else:
@@ -295,21 +299,11 @@ def render_detail() -> None:
         unsafe_allow_html=True,
     )
 
-    across = channels.total(channel_data, name, kind)
-    head = st.columns(3)
-    head[0].metric("Conversations, all channels", volumes.fmt(across))
-    head[1].metric("Channels carrying it", f"{len(carried)} of {len(rows)}")
-    if kind == "unified":
-        head[2].metric(
-            "Sub-intents in this service", len(taxonomy.UNIFIED_INTENTS[picked_ui])
-        )
-
     st.markdown("#### By channel")
     cols = st.columns(len(rows))
     for col, (channel, rec) in zip(cols, rows):
         with col, st.container(border=True):
             st.markdown(f"**{channel.label}**")
-            st.caption(channel.blurb)
 
             if rec is None:
                 # Always three cards, even for a channel that does not carry the
