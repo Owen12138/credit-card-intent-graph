@@ -6,11 +6,16 @@ covers the Streamlit shell around it: the sidebar controls, the metrics, and
 that no combination of controls raises.
 """
 
+import channels
 import graph_builder as gb
+import taxonomy
 import volumes
 from streamlit.testing.v1 import AppTest
 
 CONV = "Conversations (all periods)"
+FOCUS = "Focus on one unified intent"
+GRAPH_METRICS = (CONV, "Nodes", "Unified intents", "Sub-intents",
+                 "Life events", "Complaints")
 
 
 def fresh(timeout=240):
@@ -22,6 +27,39 @@ def fresh(timeout=240):
 
 def metrics(at):
     return {m.label: m.value for m in at.metric}
+
+
+def graph_metrics(at):
+    return {k: v for k, v in metrics(at).items() if k in GRAPH_METRICS}
+
+
+def prose(at):
+    """All rendered text. Headings are their own element type, not markdown."""
+    parts = []
+    for collection in (at.markdown, at.subheader, at.header, at.caption):
+        parts += [str(x.value) for x in collection]
+    return " ".join(parts)
+
+
+def caption_order(at, *needles):
+    """Where each needle's caption sits in document order. Captions render in
+    the order the script emits them, which is how section order is checked."""
+    caps = [str(c.value) for c in at.caption]
+    found = []
+    for needle in needles:
+        hit = next((i for i, c in enumerate(caps) if needle in c), None)
+        assert hit is not None, f"no caption containing {needle!r}"
+        found.append(hit)
+    return found
+
+
+def focused(ui):
+    """The app in focus mode, showing `ui`."""
+    a = fresh()
+    a.radio(key="view_mode").set_value(FOCUS).run()
+    a.selectbox(key="focus_unified").select(ui).run()
+    assert not a.exception, (ui, [e.value for e in a.exception])
+    return a
 
 
 # --- default view -------------------------------------------------------------
@@ -72,14 +110,80 @@ for key, value in [
     assert not a.exception, (key, value, [e.value for e in a.exception])
     print(f"slider ok: {key}={value}")
 
-# --- focus mode ----------------------------------------------------------------
+# =============================================================================
+# Focus mode: the detail's unified picker is the only thing that chooses the
+# service, and it sits above the canvas
+# =============================================================================
+ALL_UIS = list(taxonomy.UNIFIED_INTENTS)
+
 a = fresh()
-a.radio(key="view_mode").set_value("Focus on one unified intent").run()
+a.radio(key="view_mode").set_value(FOCUS).run()
 assert not a.exception, [e.value for e in a.exception]
 m = metrics(a)
 print("focus metrics:", m)
 assert m["Unified intents"] == "1", m
 assert m["Sub-intents"] == "8", m
+
+# the sidebar's own unified-intent selectbox is gone: focus mode used to render
+# a second control with this same label, which could disagree with the detail
+labelled_ui = [s for s in a.selectbox if s.label == "Unified intent"]
+assert len(labelled_ui) == 1, (
+    f"{len(labelled_ui)} 'Unified intent' selectboxes - the sidebar one is still there"
+)
+assert labelled_ui[0].key == "focus_unified", labelled_ui[0].key
+
+# --- the picker really drives the canvas -------------------------------------
+first_ui, other_ui = ALL_UIS[0], ALL_UIS[1]
+
+a, b = focused(first_ui), focused(other_ui)
+assert graph_metrics(a) != graph_metrics(b), (
+    "changing the unified intent did not change the focused graph"
+)
+for ui, at_ in ((first_ui, a), (other_ui, b)):
+    expected = sum(
+        volumes.SUB_TOTALS[(ui, s)] for s in taxonomy.UNIFIED_INTENTS[ui]
+    )
+    got = graph_metrics(at_)
+    assert got[CONV] == volumes.fmt(expected), (ui, got[CONV], expected)
+    assert got["Unified intents"] == "1", (ui, got)
+print(f"focus graph follows the detail picker: '{other_ui}' -> "
+      f"{graph_metrics(b)[CONV]} conversations")
+
+# --- but a sub-intent selection leaves the graph alone ------------------------
+c = focused(other_ui)
+before = graph_metrics(c)
+c.selectbox(key="focus_sub").select(taxonomy.UNIFIED_INTENTS[other_ui][0]).run()
+assert not c.exception, [e.value for e in c.exception]
+assert graph_metrics(c) == before, (
+    f"picking a sub-intent moved the graph: {before} -> {graph_metrics(c)}"
+)
+print("sub-intent selection leaves the focused graph on the parent service")
+
+# --- the detail sits above the canvas in focus mode, below it in full ---------
+blurb = channels.CHANNELS[0].blurb
+detail_at, graph_at = caption_order(b, blurb, "**Timeline**")
+assert detail_at < graph_at, "the detail is still under the canvas in focus mode"
+
+full = fresh()
+graph_at, detail_at = caption_order(full, "**Timeline**", blurb)
+assert graph_at < detail_at, "the full graph no longer leads its tab"
+print("order ok: detail above the canvas when focused, below it on the full graph")
+
+# --- and the full graph ignores the picker entirely ---------------------------
+full_a = fresh()
+full_a.selectbox(key="focus_unified").select(other_ui).run()
+assert not full_a.exception, [e.value for e in full_a.exception]
+assert graph_metrics(full_a) == graph_metrics(full), (
+    "the picker moved the full graph; it should only scope the focus view"
+)
+assert graph_metrics(full_a)["Unified intents"] == "31", graph_metrics(full_a)
+print("full graph stays whole regardless of the picker")
+
+# --- the sub-intent table is gone ---------------------------------------------
+assert "Sub-intents of this unified intent" not in prose(b), (
+    "the sub-intent table is still rendered"
+)
+print("removed: the sub-intent table under the detail")
 
 # --- hiding a node type ---------------------------------------------------------
 a = fresh()
@@ -104,9 +208,6 @@ print("empty view warns cleanly")
 # =============================================================================
 # Intent detail (on the Graph tab): three channel cards, two-level selection
 # =============================================================================
-import channels
-import taxonomy
-
 at = fresh()
 assert len(at.tabs) == 2, len(at.tabs)
 

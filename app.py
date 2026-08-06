@@ -90,7 +90,12 @@ view_mode = st.sidebar.radio(
 all_uis = list(taxonomy.UNIFIED_INTENTS)
 
 if view_mode == "Focus on one unified intent":
-    focus_ui = st.sidebar.selectbox("Unified intent", all_uis)
+    # Which service the focus view draws is chosen in the Intent detail section
+    # at the top of the Graph tab, not here - one picker rather than two that
+    # can disagree. Streamlit has already restored that widget's value into
+    # session state by the time this line runs; on the very first run, before
+    # the selectbox exists, this falls back to the same default it will take.
+    focus_ui = st.session_state.get("focus_unified", all_uis[0])
     selected_uis = {focus_ui}
 else:
     focus_ui = None
@@ -198,7 +203,10 @@ cols[5].metric("Complaints", counts[gb.COMPLAINT])
 
 tab_graph, tab_tables = st.tabs(["Graph", "Data"])
 
-with tab_graph:
+UNIFIED_ONLY = "— none: show the unified intent —"
+
+
+def render_graph() -> None:
     if view.number_of_nodes() == 0:
         st.warning("Nothing to draw - widen the filters in the sidebar.")
     else:
@@ -241,26 +249,26 @@ with tab_graph:
             "on survive. Drag to pan, hover for volumes."
         )
 
-with tab_graph:
-    # Re-entering the same tab appends to it, so the detail view sits under the
-    # canvas rather than behind a separate tab.
-    st.divider()
-    st.subheader("Intent detail")
 
-    UNIFIED_ONLY = "— none: show the unified intent —"
+def render_detail() -> None:
+    st.subheader("Intent detail")
 
     picked_ui = st.selectbox(
         "Unified intent",
         list(taxonomy.UNIFIED_INTENTS),
         key="focus_unified",
+        help=(
+            "In the focus view this also sets which service the graph draws. "
+            "In the full graph it only changes the detail below."
+        ),
     )
     picked_sub = st.selectbox(
         "Sub-intent",
         [UNIFIED_ONLY] + taxonomy.UNIFIED_INTENTS[picked_ui],
         key="focus_sub",
         help=(
-            "Optional second-level filter. Leave it unset to see the unified "
-            "intent's own data; pick one and its data takes precedence."
+            "Optional second level. It changes the detail only - the graph "
+            "stays the top-level picture for the whole service."
         ),
     )
 
@@ -324,31 +332,20 @@ with tab_graph:
             else:
                 st.caption("None recorded.")
 
-    if kind == "unified":
-        st.markdown("#### Sub-intents of this unified intent")
-        sub_rows = []
-        for sub in taxonomy.UNIFIED_INTENTS[picked_ui]:
-            row = {"Sub-intent": sub}
-            for channel, rec in channels.records(channel_data, sub, "sub"):
-                row[channel.label] = rec["numberOfConversations"] if rec else None
-            row["All channels"] = channels.total(channel_data, sub, "sub")
-            sub_rows.append(row)
-        st.dataframe(
-            pd.DataFrame(sub_rows),
-            width="stretch",
-            hide_index=True,
-            column_config={
-                **{
-                    c.label: st.column_config.NumberColumn(format="%,d")
-                    for c in channels.CHANNELS
-                },
-                "All channels": st.column_config.NumberColumn(format="%,d"),
-            },
-        )
-        st.caption(
-            "Blank means that channel does not carry the sub-intent at all, "
-            "which is why a channel's unified total can be lower than another's."
-        )
+
+with tab_graph:
+    if view_mode == "Focus on one unified intent":
+        # The unified picker drives the canvas here, so it belongs above it:
+        # pick at the top, watch the graph redraw underneath.
+        render_detail()
+        st.divider()
+        render_graph()
+    else:
+        # Nothing in the detail moves the full graph, so the canvas leads and
+        # the detail reads as a footnote to it.
+        render_graph()
+        st.divider()
+        render_detail()
 
 with tab_tables:
     st.subheader("Conversations over time")

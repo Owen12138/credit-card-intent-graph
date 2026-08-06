@@ -347,8 +347,8 @@ Then open http://localhost:8501.
 
 - **Timeline** (above the canvas) — drag or click through Apr–Aug 2026, or *All periods* for totals.
 - **Layout** — Clustered organic hubs (default), Anchored wedges, Spring (force-directed), Radial by type, Kamada-Kawai, or Layered hierarchy.
-- **View** — full graph, or focus on a single unified intent and its 2-hop neighbourhood.
-- **Unified intents shown** — trim the 31 services to compare a handful side by side.
+- **View** — full graph, or focus on a single unified intent and its 2-hop neighbourhood. Which service the focus view draws is chosen by the **Unified intent** picker in Intent detail, not in the sidebar.
+- **Unified intents shown** (full graph only) — trim the 31 services to compare a handful side by side.
 - **Scale by conversation volume** — log / square root / linear / uniform, plus **Emphasis** and a size multiplier.
 - **Node types / Labels** — toggle each layer's visibility and its text labels independently.
 - **Hide sub-intent labels below** — all 248 sub-intent labels show by default; raise this to keep only the busier ones when the canvas gets crowded.
@@ -416,12 +416,23 @@ A unified intent record carries `description`, `sampleConversation`,
 A sub-intent record is identical except `parentIntent` names its unified intent
 and there is no `subIntent` list.
 
-**Intent detail** sits under the canvas on the Graph tab. It picks a unified
+**Intent detail** shares the Graph tab with the canvas. It picks a unified
 intent and, optionally, a sub-intent beneath it. The most specific selection
 wins: choose a sub-intent and its description, channel intents, counts and
 samples replace the parent's. Three channel cards always render — a channel that
 doesn't carry the intent shows an empty card rather than disappearing, since the
 gap is itself worth seeing.
+
+Its unified picker doubles as the focus view's control, so where it sits depends
+on what it drives:
+
+| View | Order | Why |
+| --- | --- | --- |
+| Focus on one unified intent | detail, then canvas | the picker chooses the service, so it belongs above the thing it redraws |
+| Full graph | canvas, then detail | nothing in the detail moves the graph; it reads as a footnote |
+
+The sub-intent picker never moves the canvas in either view — the graph stays
+the top-level picture for the whole service.
 
 ### How the numbers relate to the graph
 
