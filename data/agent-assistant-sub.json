@@ -1,0 +1,2978 @@
+{
+  "Check limit increase eligibility": {
+    "description": "Customers wanting to check limit increase eligibility, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check limit increase eligibility. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "ICL_CLIE",
+      "ICL_CLIE_ASSIST"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 1958
+  },
+  "Request permanent limit increase": {
+    "description": "Customers wanting to request permanent limit increase, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request permanent limit increase. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "ICL_RPLI",
+      "ICL_RPLI_ASSIST"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 13639
+  },
+  "Request temporary limit increase": {
+    "description": "Customers wanting to request temporary limit increase, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request temporary limit increase. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "ICL_RTLI",
+      "ICL_RTLI_ASSIST"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 1497
+  },
+  "Upload income proof for limit review": {
+    "description": "Customers wanting to upload income proof for limit review, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to upload income proof for limit review. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "ICL_UIPFLR",
+      "ICL_UIPFLR_ASSIST"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 8406
+  },
+  "Track limit increase application status": {
+    "description": "Customers wanting to track limit increase application status, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to track limit increase application status. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "ICL_TLIAS",
+      "ICL_TLIAS_ASSIST"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 1760
+  },
+  "Understand limit increase decline reason": {
+    "description": "Customers wanting to understand limit increase decline reason, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand limit increase decline reason. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "ICL_ULIDR",
+      "ICL_ULIDR_ASSIST"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 6680
+  },
+  "Reapply after a declined limit request": {
+    "description": "Customers wanting to reapply after a declined limit request, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to reapply after a declined limit request. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "ICL_RAADLR",
+      "ICL_RAADLR_ASSIST"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 940
+  },
+  "Set limit increase reminder": {
+    "description": "Customers wanting to set limit increase reminder, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to set limit increase reminder. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "ICL_SLIR",
+      "ICL_SLIR_ASSIST"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 1604
+  },
+  "Request permanent limit reduction": {
+    "description": "Customers wanting to request permanent limit reduction, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request permanent limit reduction. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "DCL_RPLR",
+      "DCL_RPLR_ASSIST"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 74909
+  },
+  "Set a self-imposed spending cap": {
+    "description": "Customers wanting to set a self-imposed spending cap, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to set a self-imposed spending cap. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "DCL_SASISC",
+      "DCL_SASISC_ASSIST"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 107482
+  },
+  "Reverse a previous limit reduction": {
+    "description": "Customers wanting to reverse a previous limit reduction, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to reverse a previous limit reduction. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "DCL_RAPLR",
+      "DCL_RAPLR_ASSIST"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 37224
+  },
+  "Understand how a lower limit affects credit score": {
+    "description": "Customers wanting to understand how a lower limit affects credit score, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand how a lower limit affects credit score. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "DCL_UHALLACS",
+      "DCL_UHALLACS_ASSIST"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 28126
+  },
+  "Reduce limit on a supplementary card": {
+    "description": "Customers wanting to reduce limit on a supplementary card, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to reduce limit on a supplementary card. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "DCL_RLOASC",
+      "DCL_RLOASC_ASSIST"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 34936
+  },
+  "Confirm new limit effective date": {
+    "description": "Customers wanting to confirm new limit effective date, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to confirm new limit effective date. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "DCL_CNLED",
+      "DCL_CNLED_ASSIST"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 19240
+  },
+  "Cancel a pending reduction request": {
+    "description": "Customers wanting to cancel a pending reduction request, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to cancel a pending reduction request. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "DCL_CAPRR",
+      "DCL_CAPRR_ASSIST"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 16978
+  },
+  "Limit reduction for budgeting support": {
+    "description": "Customers wanting to limit reduction for budgeting support, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to limit reduction for budgeting support. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "DCL_LRFBS",
+      "DCL_LRFBS_ASSIST"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 8939
+  },
+  "Activate a newly issued card": {
+    "description": "Customers wanting to activate a newly issued card, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to activate a newly issued card. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARACT_AANIC",
+      "CARACT_AANIC_ASSIST"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 202
+  },
+  "Activate a replacement card": {
+    "description": "Customers wanting to activate a replacement card, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to activate a replacement card. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARACT_AARC",
+      "CARACT_AARC_ASSIST"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 885
+  },
+  "Activate via mobile app": {
+    "description": "Customers wanting to activate via mobile app, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to activate via mobile app. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARACT_AVMA",
+      "CARACT_AVMA_ASSIST"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 162
+  },
+  "Activate via IVR or phone banking": {
+    "description": "Customers wanting to activate via IVR or phone banking, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to activate via IVR or phone banking. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARACT_AVIOPB",
+      "CARACT_AVIOPB_ASSIST"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 280
+  },
+  "Troubleshoot failed activation": {
+    "description": "Customers wanting to troubleshoot failed activation, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to troubleshoot failed activation. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARACT_TFA",
+      "CARACT_TFA_ASSIST"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 277
+  },
+  "Confirm activation status": {
+    "description": "Customers wanting to confirm activation status, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to confirm activation status. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARACT_CAS",
+      "CARACT_CAS_ASSIST"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 98
+  },
+  "Activate contactless payments": {
+    "description": "Customers wanting to activate contactless payments, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to activate contactless payments. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARACT_ACP",
+      "CARACT_ACP_ASSIST"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 682
+  },
+  "Activate card for online transactions": {
+    "description": "Customers wanting to activate card for online transactions, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to activate card for online transactions. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARACT_ACFOT",
+      "CARACT_ACFOT_ASSIST"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 148
+  },
+  "Request replacement for damaged card": {
+    "description": "Customers wanting to request replacement for damaged card, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request replacement for damaged card. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARREP_RRFDC",
+      "CARREP_RRFDC_ASSIST"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 202
+  },
+  "Request replacement for expiring card": {
+    "description": "Customers wanting to request replacement for expiring card, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request replacement for expiring card. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARREP_RRFEC",
+      "CARREP_RRFEC_ASSIST"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 204
+  },
+  "Request replacement for worn magnetic stripe": {
+    "description": "Customers wanting to request replacement for worn magnetic stripe, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request replacement for worn magnetic stripe. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARREP_RRFWMS",
+      "CARREP_RRFWMS_ASSIST"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 134
+  },
+  "Request expedited replacement delivery": {
+    "description": "Customers wanting to request expedited replacement delivery, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request expedited replacement delivery. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARREP_RERD",
+      "CARREP_RERD_ASSIST"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 124
+  },
+  "Check replacement card fee": {
+    "description": "Customers wanting to check replacement card fee, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check replacement card fee. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARREP_CRCF",
+      "CARREP_CRCF_ASSIST"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 890
+  },
+  "Update address before replacement": {
+    "description": "Customers wanting to update address before replacement, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to update address before replacement. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARREP_UABR",
+      "CARREP_UABR_ASSIST"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 391
+  },
+  "Track replacement card shipment": {
+    "description": "Customers wanting to track replacement card shipment, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to track replacement card shipment. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARREP_TRCS",
+      "CARREP_TRCS_ASSIST"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 194
+  },
+  "Cancel a replacement request": {
+    "description": "Customers wanting to cancel a replacement request, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to cancel a replacement request. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARREP_CARR",
+      "CARREP_CARR_ASSIST"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 151
+  },
+  "Report card lost": {
+    "description": "Customers wanting to report card lost, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to report card lost. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "RLOSC_RCL",
+      "RLOSC_RCL_ASSIST"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 1633
+  },
+  "Report card stolen": {
+    "description": "Customers wanting to report card stolen, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to report card stolen. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "RLOSC_RCS",
+      "RLOSC_RCS_ASSIST"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 1168
+  },
+  "Block card immediately": {
+    "description": "Customers wanting to block card immediately, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to block card immediately. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "RLOSC_BCI",
+      "RLOSC_BCI_ASSIST"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 4869
+  },
+  "Unblock a card found again": {
+    "description": "Customers wanting to unblock a card found again, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to unblock a card found again. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "RLOSC_UACFA",
+      "RLOSC_UACFA_ASSIST"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 292
+  },
+  "Order emergency replacement card": {
+    "description": "Customers wanting to order emergency replacement card, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to order emergency replacement card. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "RLOSC_OERC",
+      "RLOSC_OERC_ASSIST"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 1509
+  },
+  "Review transactions after loss": {
+    "description": "Customers wanting to review transactions after loss, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to review transactions after loss. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "RLOSC_RTAL",
+      "RLOSC_RTAL_ASSIST"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 338
+  },
+  "File police report reference": {
+    "description": "Customers wanting to file police report reference, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to file police report reference. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "RLOSC_FPRR",
+      "RLOSC_FPRR_ASSIST"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 2924
+  },
+  "Request emergency cash advance abroad": {
+    "description": "Customers wanting to request emergency cash advance abroad, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request emergency cash advance abroad. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "RLOSC_RECAA",
+      "RLOSC_RECAA_ASSIST"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 486
+  },
+  "Raise a new transaction dispute": {
+    "description": "Customers wanting to raise a new transaction dispute, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to raise a new transaction dispute. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "DAT_RANTD",
+      "DAT_RANTD_ASSIST"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 57574
+  },
+  "Dispute a duplicate charge": {
+    "description": "Customers wanting to dispute a duplicate charge, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to dispute a duplicate charge. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "DAT_DADC",
+      "DAT_DADC_ASSIST"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 12205
+  },
+  "Dispute an incorrect amount": {
+    "description": "Customers wanting to dispute an incorrect amount, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to dispute an incorrect amount. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "DAT_DAIA",
+      "DAT_DAIA_ASSIST"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 35706
+  },
+  "Dispute a merchant refund not received": {
+    "description": "Customers wanting to dispute a merchant refund not received, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to dispute a merchant refund not received. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "DAT_DAMRNR",
+      "DAT_DAMRNR_ASSIST"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 20252
+  },
+  "Upload supporting dispute evidence": {
+    "description": "Customers wanting to upload supporting dispute evidence, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to upload supporting dispute evidence. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "DAT_USDE",
+      "DAT_USDE_ASSIST"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 24058
+  },
+  "Track dispute case status": {
+    "description": "Customers wanting to track dispute case status, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to track dispute case status. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "DAT_TDCS",
+      "DAT_TDCS_ASSIST"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 19217
+  },
+  "Understand provisional credit": {
+    "description": "Customers wanting to understand provisional credit, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand provisional credit. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "DAT_UPC",
+      "DAT_UPC_ASSIST"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 22603
+  },
+  "Withdraw an existing dispute": {
+    "description": "Customers wanting to withdraw an existing dispute, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to withdraw an existing dispute. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "DAT_WAED",
+      "DAT_WAED_ASSIST"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 10777
+  },
+  "Report unauthorized transaction": {
+    "description": "Customers wanting to report unauthorized transaction, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to report unauthorized transaction. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "FRAREP_RUT",
+      "FRAREP_RUT_ASSIST"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 2529
+  },
+  "Report suspected card skimming": {
+    "description": "Customers wanting to report suspected card skimming, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to report suspected card skimming. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "FRAREP_RSCS",
+      "FRAREP_RSCS_ASSIST"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 1869
+  },
+  "Report phishing or scam contact": {
+    "description": "Customers wanting to report phishing or scam contact, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to report phishing or scam contact. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "FRAREP_RPOSC",
+      "FRAREP_RPOSC_ASSIST"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 2683
+  },
+  "Request card reissue after fraud": {
+    "description": "Customers wanting to request card reissue after fraud, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request card reissue after fraud. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "FRAREP_RCRAF",
+      "FRAREP_RCRAF_ASSIST"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 21316
+  },
+  "Track fraud investigation status": {
+    "description": "Customers wanting to track fraud investigation status, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to track fraud investigation status. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "FRAREP_TFIS",
+      "FRAREP_TFIS_ASSIST"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 6401
+  },
+  "Request fraud loss reimbursement": {
+    "description": "Customers wanting to request fraud loss reimbursement, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request fraud loss reimbursement. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "FRAREP_RFLR",
+      "FRAREP_RFLR_ASSIST"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 2219
+  },
+  "Add extra verification on account": {
+    "description": "Customers wanting to add extra verification on account, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to add extra verification on account. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "FRAREP_AEVOA",
+      "FRAREP_AEVOA_ASSIST"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 9828
+  },
+  "Report identity theft": {
+    "description": "Customers wanting to report identity theft, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to report identity theft. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "FRAREP_RIT",
+      "FRAREP_RIT_ASSIST"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 3025
+  },
+  "Check current outstanding balance": {
+    "description": "Customers wanting to check current outstanding balance, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check current outstanding balance. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "BALINQ_CCOB",
+      "BALINQ_CCOB_ASSIST"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 235
+  },
+  "Check available credit": {
+    "description": "Customers wanting to check available credit, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check available credit. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "BALINQ_CAC",
+      "BALINQ_CAC_ASSIST"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 197
+  },
+  "Check pending transactions": {
+    "description": "Customers wanting to check pending transactions, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check pending transactions. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "BALINQ_CPT",
+      "BALINQ_CPT_ASSIST"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 323
+  },
+  "Check last statement balance": {
+    "description": "Customers wanting to check last statement balance, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check last statement balance. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "BALINQ_CLSB",
+      "BALINQ_CLSB_ASSIST"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 154
+  },
+  "Check minimum amount due": {
+    "description": "Customers wanting to check minimum amount due, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check minimum amount due. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "BALINQ_CMAD",
+      "BALINQ_CMAD_ASSIST"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 217
+  },
+  "Check balance across multiple cards": {
+    "description": "Customers wanting to check balance across multiple cards, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check balance across multiple cards. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "BALINQ_CBAMC",
+      "BALINQ_CBAMC_ASSIST"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 138
+  },
+  "Set low available credit alert": {
+    "description": "Customers wanting to set low available credit alert, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to set low available credit alert. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "BALINQ_SLACA",
+      "BALINQ_SLACA_ASSIST"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 520
+  },
+  "Explain balance discrepancy": {
+    "description": "Customers wanting to explain balance discrepancy, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to explain balance discrepancy. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "BALINQ_EBD",
+      "BALINQ_EBD_ASSIST"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 166
+  },
+  "Download latest e-statement": {
+    "description": "Customers wanting to download latest e-statement, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to download latest e-statement. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "STAREQ_DLES",
+      "STAREQ_DLES_ASSIST"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 183
+  },
+  "Request historical statements": {
+    "description": "Customers wanting to request historical statements, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request historical statements. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "STAREQ_RHS",
+      "STAREQ_RHS_ASSIST"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 132
+  },
+  "Request physical statement copy": {
+    "description": "Customers wanting to request physical statement copy, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request physical statement copy. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "STAREQ_RPSC",
+      "STAREQ_RPSC_ASSIST"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 369
+  },
+  "Change statement delivery preference": {
+    "description": "Customers wanting to change statement delivery preference, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to change statement delivery preference. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "STAREQ_CSDP",
+      "STAREQ_CSDP_ASSIST"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 641
+  },
+  "Change statement cycle date": {
+    "description": "Customers wanting to change statement cycle date, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to change statement cycle date. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "STAREQ_CSCD",
+      "STAREQ_CSCD_ASSIST"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 143
+  },
+  "Explain a statement line item": {
+    "description": "Customers wanting to explain a statement line item, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to explain a statement line item. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "STAREQ_EASLI",
+      "STAREQ_EASLI_ASSIST"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 140
+  },
+  "Request consolidated annual statement": {
+    "description": "Customers wanting to request consolidated annual statement, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request consolidated annual statement. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "STAREQ_RCAS",
+      "STAREQ_RCAS_ASSIST"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 152
+  },
+  "Resend statement to email": {
+    "description": "Customers wanting to resend statement to email, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to resend statement to email. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "STAREQ_RSTE",
+      "STAREQ_RSTE_ASSIST"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 212
+  },
+  "Make a one-time card payment": {
+    "description": "Customers wanting to make a one-time card payment, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to make a one-time card payment. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "PAYPRO_MAOTCP",
+      "PAYPRO_MAOTCP_ASSIST"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 123
+  },
+  "Pay minimum amount due": {
+    "description": "Customers wanting to pay minimum amount due, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to pay minimum amount due. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "PAYPRO_PMAD",
+      "PAYPRO_PMAD_ASSIST"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 737
+  },
+  "Pay full outstanding balance": {
+    "description": "Customers wanting to pay full outstanding balance, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to pay full outstanding balance. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "PAYPRO_PFOB",
+      "PAYPRO_PFOB_ASSIST"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 217
+  },
+  "Check payment posting status": {
+    "description": "Customers wanting to check payment posting status, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check payment posting status. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "PAYPRO_CPPS",
+      "PAYPRO_CPPS_ASSIST"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 580
+  },
+  "Report payment not credited": {
+    "description": "Customers wanting to report payment not credited, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to report payment not credited. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "PAYPRO_RPNC",
+      "PAYPRO_RPNC_ASSIST"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 276
+  },
+  "Reverse a duplicate payment": {
+    "description": "Customers wanting to reverse a duplicate payment, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to reverse a duplicate payment. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "PAYPRO_RADP",
+      "PAYPRO_RADP_ASSIST"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 156
+  },
+  "Change payment source account": {
+    "description": "Customers wanting to change payment source account, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to change payment source account. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "PAYPRO_CPSA",
+      "PAYPRO_CPSA_ASSIST"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 192
+  },
+  "Request payment receipt": {
+    "description": "Customers wanting to request payment receipt, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request payment receipt. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "PAYPRO_RPR",
+      "PAYPRO_RPR_ASSIST"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 924
+  },
+  "Enroll in autopay": {
+    "description": "Customers wanting to enroll in autopay, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to enroll in autopay. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AUTSET_EIA",
+      "AUTSET_EIA_ASSIST"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 607
+  },
+  "Modify autopay amount option": {
+    "description": "Customers wanting to modify autopay amount option, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to modify autopay amount option. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AUTSET_MAAO",
+      "AUTSET_MAAO_ASSIST"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 1534
+  },
+  "Change autopay debit account": {
+    "description": "Customers wanting to change autopay debit account, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to change autopay debit account. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AUTSET_CADA",
+      "AUTSET_CADA_ASSIST"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 3624
+  },
+  "Change autopay debit date": {
+    "description": "Customers wanting to change autopay debit date, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to change autopay debit date. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AUTSET_CADD",
+      "AUTSET_CADD_ASSIST"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 1329
+  },
+  "Cancel autopay enrollment": {
+    "description": "Customers wanting to cancel autopay enrollment, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to cancel autopay enrollment. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AUTSET_CAE",
+      "AUTSET_CAE_ASSIST"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 1548
+  },
+  "Investigate failed autopay run": {
+    "description": "Customers wanting to investigate failed autopay run, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to investigate failed autopay run. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AUTSET_IFAR",
+      "AUTSET_IFAR_ASSIST"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 1918
+  },
+  "Pause autopay temporarily": {
+    "description": "Customers wanting to pause autopay temporarily, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to pause autopay temporarily. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AUTSET_PAT",
+      "AUTSET_PAT_ASSIST"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 763
+  },
+  "Confirm autopay enrollment status": {
+    "description": "Customers wanting to confirm autopay enrollment status, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to confirm autopay enrollment status. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AUTSET_CAES",
+      "AUTSET_CAES_ASSIST"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 1166
+  },
+  "Request one-time late fee waiver": {
+    "description": "Customers wanting to request one-time late fee waiver, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request one-time late fee waiver. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "LFW_ROTLFW",
+      "LFW_ROTLFW_ASSIST"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 18592
+  },
+  "Check late fee waiver eligibility": {
+    "description": "Customers wanting to check late fee waiver eligibility, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check late fee waiver eligibility. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "LFW_CLFWE",
+      "LFW_CLFWE_ASSIST"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 18412
+  },
+  "Dispute an incorrectly charged late fee": {
+    "description": "Customers wanting to dispute an incorrectly charged late fee, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to dispute an incorrectly charged late fee. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "LFW_DAICLF",
+      "LFW_DAICLF_ASSIST"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 12083
+  },
+  "Request waiver due to hardship": {
+    "description": "Customers wanting to request waiver due to hardship, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request waiver due to hardship. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "LFW_RWDTH",
+      "LFW_RWDTH_ASSIST"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 63733
+  },
+  "Track waiver request status": {
+    "description": "Customers wanting to track waiver request status, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to track waiver request status. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "LFW_TWRS",
+      "LFW_TWRS_ASSIST"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 101494
+  },
+  "Understand late fee policy": {
+    "description": "Customers wanting to understand late fee policy, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand late fee policy. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "LFW_ULFP",
+      "LFW_ULFP_ASSIST"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 116093
+  },
+  "Request reversal of related interest": {
+    "description": "Customers wanting to request reversal of related interest, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request reversal of related interest. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "LFW_RRORI",
+      "LFW_RRORI_ASSIST"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 129913
+  },
+  "Escalate a declined waiver": {
+    "description": "Customers wanting to escalate a declined waiver, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to escalate a declined waiver. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "LFW_EADW",
+      "LFW_EADW_ASSIST"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 42201
+  },
+  "Check current purchase APR": {
+    "description": "Customers wanting to check current purchase APR, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check current purchase APR. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IRI_CCPA",
+      "IRI_CCPA_ASSIST"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 315
+  },
+  "Check cash advance APR": {
+    "description": "Customers wanting to check cash advance APR, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check cash advance APR. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IRI_CCAA",
+      "IRI_CCAA_ASSIST"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 401
+  },
+  "Request an APR reduction": {
+    "description": "Customers wanting to request an APR reduction, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request an APR reduction. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IRI_RAAR",
+      "IRI_RAAR_ASSIST"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 426
+  },
+  "Understand promotional 0% APR period": {
+    "description": "Customers wanting to understand promotional 0% APR period, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand promotional 0% APR period. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IRI_UP0AP",
+      "IRI_UP0AP_ASSIST"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 267
+  },
+  "Understand penalty APR trigger": {
+    "description": "Customers wanting to understand penalty APR trigger, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand penalty APR trigger. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IRI_UPAT",
+      "IRI_UPAT_ASSIST"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 478
+  },
+  "Explain interest charged on statement": {
+    "description": "Customers wanting to explain interest charged on statement, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to explain interest charged on statement. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IRI_EICOS",
+      "IRI_EICOS_ASSIST"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 125
+  },
+  "Compare APR across products": {
+    "description": "Customers wanting to compare APR across products, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to compare APR across products. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IRI_CAAP",
+      "IRI_CAAP_ASSIST"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 254
+  },
+  "Check variable rate change notice": {
+    "description": "Customers wanting to check variable rate change notice, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check variable rate change notice. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IRI_CVRCN",
+      "IRI_CVRCN_ASSIST"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 119
+  },
+  "Redeem points for cashback": {
+    "description": "Customers wanting to redeem points for cashback, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to redeem points for cashback. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "REWRED_RPFC",
+      "REWRED_RPFC_ASSIST"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 301
+  },
+  "Redeem points for travel booking": {
+    "description": "Customers wanting to redeem points for travel booking, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to redeem points for travel booking. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "REWRED_RPFTB",
+      "REWRED_RPFTB_ASSIST"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 7828
+  },
+  "Redeem points for merchandise": {
+    "description": "Customers wanting to redeem points for merchandise, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to redeem points for merchandise. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "REWRED_RPFM",
+      "REWRED_RPFM_ASSIST"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 2347
+  },
+  "Redeem points for gift vouchers": {
+    "description": "Customers wanting to redeem points for gift vouchers, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to redeem points for gift vouchers. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "REWRED_RPFGV",
+      "REWRED_RPFGV_ASSIST"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 38560
+  },
+  "Transfer points to partner program": {
+    "description": "Customers wanting to transfer points to partner program, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to transfer points to partner program. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "REWRED_TPTPP",
+      "REWRED_TPTPP_ASSIST"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 2753
+  },
+  "Cancel or reverse a redemption": {
+    "description": "Customers wanting to cancel or reverse a redemption, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to cancel or reverse a redemption. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "REWRED_CORAR",
+      "REWRED_CORAR_ASSIST"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 2011
+  },
+  "Check redemption processing status": {
+    "description": "Customers wanting to check redemption processing status, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check redemption processing status. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "REWRED_CRPS",
+      "REWRED_CRPS_ASSIST"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 1582
+  },
+  "Understand redemption rates": {
+    "description": "Customers wanting to understand redemption rates, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand redemption rates. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "REWRED_URR",
+      "REWRED_URR_ASSIST"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 7300
+  },
+  "Check current points balance": {
+    "description": "Customers wanting to check current points balance, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check current points balance. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "POIBAL_CCPB",
+      "POIBAL_CCPB_ASSIST"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 4016
+  },
+  "Check points earned this cycle": {
+    "description": "Customers wanting to check points earned this cycle, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check points earned this cycle. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "POIBAL_CPETC",
+      "POIBAL_CPETC_ASSIST"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 3747
+  },
+  "Check points expiry schedule": {
+    "description": "Customers wanting to check points expiry schedule, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check points expiry schedule. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "POIBAL_CPES",
+      "POIBAL_CPES_ASSIST"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 1687
+  },
+  "Report missing points from a purchase": {
+    "description": "Customers wanting to report missing points from a purchase, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to report missing points from a purchase. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "POIBAL_RMPFAP",
+      "POIBAL_RMPFAP_ASSIST"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 5446
+  },
+  "Understand points earning rules": {
+    "description": "Customers wanting to understand points earning rules, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand points earning rules. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "POIBAL_UPER",
+      "POIBAL_UPER_ASSIST"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 5726
+  },
+  "Request retroactive points credit": {
+    "description": "Customers wanting to request retroactive points credit, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request retroactive points credit. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "POIBAL_RRPC",
+      "POIBAL_RRPC_ASSIST"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 1682
+  },
+  "Combine points across cards": {
+    "description": "Customers wanting to combine points across cards, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to combine points across cards. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "POIBAL_CPAC",
+      "POIBAL_CPAC_ASSIST"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 21150
+  },
+  "Set points expiry reminder": {
+    "description": "Customers wanting to set points expiry reminder, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to set points expiry reminder. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "POIBAL_SPER",
+      "POIBAL_SPER_ASSIST"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 3625
+  },
+  "Check accrued cashback amount": {
+    "description": "Customers wanting to check accrued cashback amount, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check accrued cashback amount. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CASENQ_CACA",
+      "CASENQ_CACA_ASSIST"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 295
+  },
+  "Understand cashback categories": {
+    "description": "Customers wanting to understand cashback categories, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand cashback categories. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CASENQ_UCC",
+      "CASENQ_UCC_ASSIST"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 174
+  },
+  "Report missing cashback": {
+    "description": "Customers wanting to report missing cashback, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to report missing cashback. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CASENQ_RMC",
+      "CASENQ_RMC_ASSIST"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 382
+  },
+  "Check cashback caps and limits": {
+    "description": "Customers wanting to check cashback caps and limits, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check cashback caps and limits. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CASENQ_CCCAL",
+      "CASENQ_CCCAL_ASSIST"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 508
+  },
+  "Request cashback credit to statement": {
+    "description": "Customers wanting to request cashback credit to statement, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request cashback credit to statement. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CASENQ_RCCTS",
+      "CASENQ_RCCTS_ASSIST"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 3107
+  },
+  "Understand cashback exclusions": {
+    "description": "Customers wanting to understand cashback exclusions, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand cashback exclusions. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CASENQ_UCE",
+      "CASENQ_UCE_ASSIST"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 458
+  },
+  "Check rotating category enrollment": {
+    "description": "Customers wanting to check rotating category enrollment, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check rotating category enrollment. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CASENQ_CRCE",
+      "CASENQ_CRCE_ASSIST"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 1440
+  },
+  "Check cashback payout schedule": {
+    "description": "Customers wanting to check cashback payout schedule, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check cashback payout schedule. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CASENQ_CCPS",
+      "CASENQ_CCPS_ASSIST"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 570
+  },
+  "Register a travel plan": {
+    "description": "Customers wanting to register a travel plan, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to register a travel plan. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "TRANOT_RATP",
+      "TRANOT_RATP_ASSIST"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 3569
+  },
+  "Modify travel dates": {
+    "description": "Customers wanting to modify travel dates, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to modify travel dates. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "TRANOT_MTD",
+      "TRANOT_MTD_ASSIST"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 51144
+  },
+  "Cancel a travel notification": {
+    "description": "Customers wanting to cancel a travel notification, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to cancel a travel notification. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "TRANOT_CATN",
+      "TRANOT_CATN_ASSIST"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 6919
+  },
+  "Add countries to existing travel plan": {
+    "description": "Customers wanting to add countries to existing travel plan, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to add countries to existing travel plan. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "TRANOT_ACTETP",
+      "TRANOT_ACTETP_ASSIST"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 13882
+  },
+  "Confirm card works at destination": {
+    "description": "Customers wanting to confirm card works at destination, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to confirm card works at destination. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "TRANOT_CCWAD",
+      "TRANOT_CCWAD_ASSIST"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 6885
+  },
+  "Understand travel plan expiry": {
+    "description": "Customers wanting to understand travel plan expiry, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand travel plan expiry. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "TRANOT_UTPE",
+      "TRANOT_UTPE_ASSIST"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 5721
+  },
+  "Report card blocked while travelling": {
+    "description": "Customers wanting to report card blocked while travelling, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to report card blocked while travelling. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "TRANOT_RCBWT",
+      "TRANOT_RCBWT_ASSIST"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 103718
+  },
+  "Request travel emergency contact number": {
+    "description": "Customers wanting to request travel emergency contact number, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request travel emergency contact number. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "TRANOT_RTECN",
+      "TRANOT_RTECN_ASSIST"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 17039
+  },
+  "Check foreign transaction fee rate": {
+    "description": "Customers wanting to check foreign transaction fee rate, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check foreign transaction fee rate. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "FTF_CFTFR",
+      "FTF_CFTFR_ASSIST"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 17654
+  },
+  "Dispute an unexpected foreign fee": {
+    "description": "Customers wanting to dispute an unexpected foreign fee, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to dispute an unexpected foreign fee. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "FTF_DAUFF",
+      "FTF_DAUFF_ASSIST"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 5524
+  },
+  "Understand dynamic currency conversion": {
+    "description": "Customers wanting to understand dynamic currency conversion, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand dynamic currency conversion. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "FTF_UDCC",
+      "FTF_UDCC_ASSIST"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 14024
+  },
+  "Check exchange rate applied": {
+    "description": "Customers wanting to check exchange rate applied, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check exchange rate applied. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "FTF_CERA",
+      "FTF_CERA_ASSIST"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 5568
+  },
+  "Request fee waiver for a trip": {
+    "description": "Customers wanting to request fee waiver for a trip, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request fee waiver for a trip. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "FTF_RFWFAT",
+      "FTF_RFWFAT_ASSIST"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 6423
+  },
+  "Compare no-foreign-fee card options": {
+    "description": "Customers wanting to compare no-foreign-fee card options, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to compare no-foreign-fee card options. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "FTF_CNFFCO",
+      "FTF_CNFFCO_ASSIST"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 20971
+  },
+  "Understand fees on foreign online purchases": {
+    "description": "Customers wanting to understand fees on foreign online purchases, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand fees on foreign online purchases. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "FTF_UFOFOP",
+      "FTF_UFOFOP_ASSIST"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 29169
+  },
+  "Request refund of duplicate foreign fee": {
+    "description": "Customers wanting to request refund of duplicate foreign fee, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request refund of duplicate foreign fee. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "FTF_RRODFF",
+      "FTF_RRODFF_ASSIST"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 9266
+  },
+  "Check annual fee amount and due date": {
+    "description": "Customers wanting to check annual fee amount and due date, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check annual fee amount and due date. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AFE_CAFAADD",
+      "AFE_CAFAADD_ASSIST"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 3070
+  },
+  "Request annual fee waiver": {
+    "description": "Customers wanting to request annual fee waiver, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request annual fee waiver. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AFE_RAFW",
+      "AFE_RAFW_ASSIST"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 6240
+  },
+  "Understand fee waiver spend criteria": {
+    "description": "Customers wanting to understand fee waiver spend criteria, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand fee waiver spend criteria. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AFE_UFWSC",
+      "AFE_UFWSC_ASSIST"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 4525
+  },
+  "Dispute an annual fee charge": {
+    "description": "Customers wanting to dispute an annual fee charge, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to dispute an annual fee charge. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AFE_DAAFC",
+      "AFE_DAAFC_ASSIST"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 3957
+  },
+  "Request pro-rated fee refund on closure": {
+    "description": "Customers wanting to request pro-rated fee refund on closure, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request pro-rated fee refund on closure. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AFE_RPRFROC",
+      "AFE_RPRFROC_ASSIST"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 785
+  },
+  "Switch to a no-annual-fee card": {
+    "description": "Customers wanting to switch to a no-annual-fee card, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to switch to a no-annual-fee card. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AFE_STANAFC",
+      "AFE_STANAFC_ASSIST"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 13210
+  },
+  "Understand supplementary card fees": {
+    "description": "Customers wanting to understand supplementary card fees, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand supplementary card fees. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AFE_USCF",
+      "AFE_USCF_ASSIST"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 2453
+  },
+  "Track annual fee waiver request": {
+    "description": "Customers wanting to track annual fee waiver request, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to track annual fee waiver request. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AFE_TAFWR",
+      "AFE_TAFWR_ASSIST"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 4430
+  },
+  "Check upgrade eligibility": {
+    "description": "Customers wanting to check upgrade eligibility, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check upgrade eligibility. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARUPG_CUE",
+      "CARUPG_CUE_ASSIST"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 1942
+  },
+  "Compare higher-tier card benefits": {
+    "description": "Customers wanting to compare higher-tier card benefits, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to compare higher-tier card benefits. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARUPG_CHTCB",
+      "CARUPG_CHTCB_ASSIST"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 235
+  },
+  "Request upgrade to premium card": {
+    "description": "Customers wanting to request upgrade to premium card, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request upgrade to premium card. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARUPG_RUTPC",
+      "CARUPG_RUTPC_ASSIST"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 2979
+  },
+  "Understand upgrade fee and APR changes": {
+    "description": "Customers wanting to understand upgrade fee and APR changes, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand upgrade fee and APR changes. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARUPG_UUFAAC",
+      "CARUPG_UUFAAC_ASSIST"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 739
+  },
+  "Track upgrade application status": {
+    "description": "Customers wanting to track upgrade application status, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to track upgrade application status. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARUPG_TUAS",
+      "CARUPG_TUAS_ASSIST"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 191
+  },
+  "Retain benefits after upgrade": {
+    "description": "Customers wanting to retain benefits after upgrade, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to retain benefits after upgrade. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARUPG_RBAU",
+      "CARUPG_RBAU_ASSIST"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 302
+  },
+  "Understand impact on rewards balance": {
+    "description": "Customers wanting to understand impact on rewards balance, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand impact on rewards balance. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARUPG_UIORB",
+      "CARUPG_UIORB_ASSIST"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 1047
+  },
+  "Cancel a pending upgrade": {
+    "description": "Customers wanting to cancel a pending upgrade, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to cancel a pending upgrade. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARUPG_CAPU",
+      "CARUPG_CAPU_ASSIST"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 3905
+  },
+  "Check downgrade options": {
+    "description": "Customers wanting to check downgrade options, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check downgrade options. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARDOW_CDO",
+      "CARDOW_CDO_ASSIST"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 196
+  },
+  "Request downgrade to lower-fee card": {
+    "description": "Customers wanting to request downgrade to lower-fee card, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request downgrade to lower-fee card. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARDOW_RDTLFC",
+      "CARDOW_RDTLFC_ASSIST"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 271
+  },
+  "Understand benefits lost on downgrade": {
+    "description": "Customers wanting to understand benefits lost on downgrade, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand benefits lost on downgrade. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARDOW_UBLOD",
+      "CARDOW_UBLOD_ASSIST"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 221
+  },
+  "Understand impact on credit history": {
+    "description": "Customers wanting to understand impact on credit history, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand impact on credit history. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARDOW_UIOCH",
+      "CARDOW_UIOCH_ASSIST"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 104
+  },
+  "Track downgrade request status": {
+    "description": "Customers wanting to track downgrade request status, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to track downgrade request status. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARDOW_TDRS",
+      "CARDOW_TDRS_ASSIST"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 1340
+  },
+  "Retain points after downgrade": {
+    "description": "Customers wanting to retain points after downgrade, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to retain points after downgrade. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARDOW_RPAD",
+      "CARDOW_RPAD_ASSIST"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 199
+  },
+  "Reverse a recent downgrade": {
+    "description": "Customers wanting to reverse a recent downgrade, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to reverse a recent downgrade. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARDOW_RARD",
+      "CARDOW_RARD_ASSIST"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 156
+  },
+  "Downgrade instead of closing account": {
+    "description": "Customers wanting to downgrade instead of closing account, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to downgrade instead of closing account. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CARDOW_DIOCA",
+      "CARDOW_DIOCA_ASSIST"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 153
+  },
+  "Request card account closure": {
+    "description": "Customers wanting to request card account closure, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request card account closure. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CLOACC_RCAC",
+      "CLOACC_RCAC_ASSIST"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 56270
+  },
+  "Check outstanding balance before closure": {
+    "description": "Customers wanting to check outstanding balance before closure, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check outstanding balance before closure. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CLOACC_COBBC",
+      "CLOACC_COBBC_ASSIST"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 7492
+  },
+  "Redeem remaining rewards before closure": {
+    "description": "Customers wanting to redeem remaining rewards before closure, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to redeem remaining rewards before closure. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CLOACC_RRRBC",
+      "CLOACC_RRRBC_ASSIST"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 84977
+  },
+  "Cancel recurring payments on the card": {
+    "description": "Customers wanting to cancel recurring payments on the card, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to cancel recurring payments on the card. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CLOACC_CRPOTC",
+      "CLOACC_CRPOTC_ASSIST"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 170911
+  },
+  "Confirm closure completion": {
+    "description": "Customers wanting to confirm closure completion, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to confirm closure completion. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CLOACC_CCC",
+      "CLOACC_CCC_ASSIST"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 16927
+  },
+  "Understand how closing affects credit score": {
+    "description": "Customers wanting to understand how closing affects credit score, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand how closing affects credit score. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CLOACC_UHCACS",
+      "CLOACC_UHCACS_ASSIST"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 18066
+  },
+  "Close a supplementary card only": {
+    "description": "Customers wanting to close a supplementary card only, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to close a supplementary card only. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CLOACC_CASCO",
+      "CLOACC_CASCO_ASSIST"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 21412
+  },
+  "Reopen a recently closed account": {
+    "description": "Customers wanting to reopen a recently closed account, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to reopen a recently closed account. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CLOACC_RARCA",
+      "CLOACC_RARCA_ASSIST"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 23306
+  },
+  "Add a supplementary cardholder": {
+    "description": "Customers wanting to add a supplementary cardholder, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to add a supplementary cardholder. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AAU_AASC",
+      "AAU_AASC_ASSIST"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 299
+  },
+  "Remove an authorized user": {
+    "description": "Customers wanting to remove an authorized user, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to remove an authorized user. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AAU_RAAU",
+      "AAU_RAAU_ASSIST"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 661
+  },
+  "Set spending limit for authorized user": {
+    "description": "Customers wanting to set spending limit for authorized user, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to set spending limit for authorized user. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AAU_SSLFAU",
+      "AAU_SSLFAU_ASSIST"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 912
+  },
+  "Check supplementary card fee": {
+    "description": "Customers wanting to check supplementary card fee, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check supplementary card fee. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AAU_CSCF",
+      "AAU_CSCF_ASSIST"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 795
+  },
+  "Track supplementary card delivery": {
+    "description": "Customers wanting to track supplementary card delivery, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to track supplementary card delivery. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AAU_TSCD",
+      "AAU_TSCD_ASSIST"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 297
+  },
+  "Update authorized user details": {
+    "description": "Customers wanting to update authorized user details, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to update authorized user details. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AAU_UAUD",
+      "AAU_UAUD_ASSIST"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 222
+  },
+  "Review authorized user transactions": {
+    "description": "Customers wanting to review authorized user transactions, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to review authorized user transactions. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AAU_RAUT",
+      "AAU_RAUT_ASSIST"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 188
+  },
+  "Convert authorized user to primary": {
+    "description": "Customers wanting to convert authorized user to primary, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to convert authorized user to primary. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "AAU_CAUTP",
+      "AAU_CAUTP_ASSIST"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 999
+  },
+  "Update mailing address": {
+    "description": "Customers wanting to update mailing address, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to update mailing address. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "UPD_UMA",
+      "UPD_UMA_ASSIST"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 7885
+  },
+  "Update phone number": {
+    "description": "Customers wanting to update phone number, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to update phone number. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "UPD_UPN",
+      "UPD_UPN_ASSIST"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 5596
+  },
+  "Update email address": {
+    "description": "Customers wanting to update email address, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to update email address. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "UPD_UEA",
+      "UPD_UEA_ASSIST"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 20521
+  },
+  "Update name after legal change": {
+    "description": "Customers wanting to update name after legal change, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to update name after legal change. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "UPD_UNALC",
+      "UPD_UNALC_ASSIST"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 11342
+  },
+  "Update employment and income details": {
+    "description": "Customers wanting to update employment and income details, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to update employment and income details. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "UPD_UEAID",
+      "UPD_UEAID_ASSIST"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 23373
+  },
+  "Update marital status": {
+    "description": "Customers wanting to update marital status, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to update marital status. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "UPD_UMS",
+      "UPD_UMS_ASSIST"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 26352
+  },
+  "Update communication preferences": {
+    "description": "Customers wanting to update communication preferences, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to update communication preferences. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "UPD_UCP",
+      "UPD_UCP_ASSIST"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 2832
+  },
+  "Verify identity for a detail change": {
+    "description": "Customers wanting to verify identity for a detail change, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to verify identity for a detail change. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "UPD_VIFADC",
+      "UPD_VIFADC_ASSIST"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 3793
+  },
+  "Set a PIN for a new card": {
+    "description": "Customers wanting to set a PIN for a new card, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to set a PIN for a new card. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "PINMAN_SAPFANC",
+      "PINMAN_SAPFANC_ASSIST"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 17423
+  },
+  "Reset a forgotten PIN": {
+    "description": "Customers wanting to reset a forgotten PIN, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to reset a forgotten PIN. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "PINMAN_RAFP",
+      "PINMAN_RAFP_ASSIST"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 47273
+  },
+  "Change existing PIN": {
+    "description": "Customers wanting to change existing PIN, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to change existing PIN. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "PINMAN_CEP",
+      "PINMAN_CEP_ASSIST"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 121954
+  },
+  "Unblock PIN after failed attempts": {
+    "description": "Customers wanting to unblock PIN after failed attempts, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to unblock PIN after failed attempts. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "PINMAN_UPAFA",
+      "PINMAN_UPAFA_ASSIST"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 28506
+  },
+  "Retrieve PIN via secure channel": {
+    "description": "Customers wanting to retrieve PIN via secure channel, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to retrieve PIN via secure channel. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "PINMAN_RPVSC",
+      "PINMAN_RPVSC_ASSIST"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 25972
+  },
+  "Set PIN for international ATM use": {
+    "description": "Customers wanting to set PIN for international ATM use, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to set PIN for international ATM use. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "PINMAN_SPFIAU",
+      "PINMAN_SPFIAU_ASSIST"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 95814
+  },
+  "Understand PIN security policy": {
+    "description": "Customers wanting to understand PIN security policy, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand PIN security policy. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "PINMAN_UPSP",
+      "PINMAN_UPSP_ASSIST"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 37888
+  },
+  "Report PIN compromise": {
+    "description": "Customers wanting to report PIN compromise, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to report PIN compromise. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "PINMAN_RPC",
+      "PINMAN_RPC_ASSIST"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 41358
+  },
+  "Check balance transfer eligibility": {
+    "description": "Customers wanting to check balance transfer eligibility, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check balance transfer eligibility. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "BALTRA_CBTE",
+      "BALTRA_CBTE_ASSIST"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 806
+  },
+  "Initiate a balance transfer": {
+    "description": "Customers wanting to initiate a balance transfer, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to initiate a balance transfer. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "BALTRA_IABT",
+      "BALTRA_IABT_ASSIST"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 2106
+  },
+  "Check balance transfer fee": {
+    "description": "Customers wanting to check balance transfer fee, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check balance transfer fee. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "BALTRA_CBTF",
+      "BALTRA_CBTF_ASSIST"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 237
+  },
+  "Understand promotional transfer rate": {
+    "description": "Customers wanting to understand promotional transfer rate, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand promotional transfer rate. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "BALTRA_UPTR",
+      "BALTRA_UPTR_ASSIST"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 1891
+  },
+  "Track balance transfer status": {
+    "description": "Customers wanting to track balance transfer status, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to track balance transfer status. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "BALTRA_TBTS",
+      "BALTRA_TBTS_ASSIST"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 1592
+  },
+  "Cancel a pending balance transfer": {
+    "description": "Customers wanting to cancel a pending balance transfer, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to cancel a pending balance transfer. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "BALTRA_CAPBT",
+      "BALTRA_CAPBT_ASSIST"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 368
+  },
+  "Transfer balance from another bank card": {
+    "description": "Customers wanting to transfer balance from another bank card, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to transfer balance from another bank card. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "BALTRA_TBFABC",
+      "BALTRA_TBFABC_ASSIST"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 1001
+  },
+  "Understand repayment order after transfer": {
+    "description": "Customers wanting to understand repayment order after transfer, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand repayment order after transfer. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "BALTRA_UROAT",
+      "BALTRA_UROAT_ASSIST"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 228
+  },
+  "Check cash advance limit": {
+    "description": "Customers wanting to check cash advance limit, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check cash advance limit. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CASADV_CCAL",
+      "CASADV_CCAL_ASSIST"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 56352
+  },
+  "Withdraw cash advance at ATM": {
+    "description": "Customers wanting to withdraw cash advance at ATM, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to withdraw cash advance at ATM. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CASADV_WCAAA",
+      "CASADV_WCAAA_ASSIST"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 27827
+  },
+  "Understand cash advance fees": {
+    "description": "Customers wanting to understand cash advance fees, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand cash advance fees. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CASADV_UCAF",
+      "CASADV_UCAF_ASSIST"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 42047
+  },
+  "Understand cash advance interest accrual": {
+    "description": "Customers wanting to understand cash advance interest accrual, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand cash advance interest accrual. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CASADV_UCAIA",
+      "CASADV_UCAIA_ASSIST"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 172274
+  },
+  "Repay a cash advance early": {
+    "description": "Customers wanting to repay a cash advance early, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to repay a cash advance early. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CASADV_RACAE",
+      "CASADV_RACAE_ASSIST"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 45410
+  },
+  "Dispute a cash advance charge": {
+    "description": "Customers wanting to dispute a cash advance charge, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to dispute a cash advance charge. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CASADV_DACAC",
+      "CASADV_DACAC_ASSIST"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 21130
+  },
+  "Request emergency cash abroad": {
+    "description": "Customers wanting to request emergency cash abroad, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request emergency cash abroad. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CASADV_RECA",
+      "CASADV_RECA_ASSIST"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 65907
+  },
+  "Disable cash advance feature": {
+    "description": "Customers wanting to disable cash advance feature, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to disable cash advance feature. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CASADV_DCAF",
+      "CASADV_DCAF_ASSIST"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 164632
+  },
+  "Convert a purchase to installments": {
+    "description": "Customers wanting to convert a purchase to installments, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to convert a purchase to installments. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IPC_CAPTI",
+      "IPC_CAPTI_ASSIST"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 1185
+  },
+  "Convert full balance to installments": {
+    "description": "Customers wanting to convert full balance to installments, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to convert full balance to installments. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IPC_CFBTI",
+      "IPC_CFBTI_ASSIST"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 3789
+  },
+  "Check installment plan interest rate": {
+    "description": "Customers wanting to check installment plan interest rate, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check installment plan interest rate. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IPC_CIPIR",
+      "IPC_CIPIR_ASSIST"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 8652
+  },
+  "Check remaining installment tenure": {
+    "description": "Customers wanting to check remaining installment tenure, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check remaining installment tenure. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IPC_CRIT",
+      "IPC_CRIT_ASSIST"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 1820
+  },
+  "Foreclose an installment plan early": {
+    "description": "Customers wanting to foreclose an installment plan early, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to foreclose an installment plan early. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IPC_FAIPE",
+      "IPC_FAIPE_ASSIST"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 3508
+  },
+  "Check installment prepayment charges": {
+    "description": "Customers wanting to check installment prepayment charges, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check installment prepayment charges. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IPC_CIPC",
+      "IPC_CIPC_ASSIST"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 3843
+  },
+  "Cancel a newly created plan": {
+    "description": "Customers wanting to cancel a newly created plan, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to cancel a newly created plan. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IPC_CANCP",
+      "IPC_CANCP_ASSIST"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 314
+  },
+  "Change installment tenure": {
+    "description": "Customers wanting to change installment tenure, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to change installment tenure. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IPC_CIT",
+      "IPC_CIT_ASSIST"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 2056
+  },
+  "Check current credit score": {
+    "description": "Customers wanting to check current credit score, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check current credit score. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CSI_CCCS",
+      "CSI_CCCS_ASSIST"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 1242
+  },
+  "Understand factors affecting the score": {
+    "description": "Customers wanting to understand factors affecting the score, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand factors affecting the score. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CSI_UFATS",
+      "CSI_UFATS_ASSIST"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 1936
+  },
+  "Check score change since last month": {
+    "description": "Customers wanting to check score change since last month, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check score change since last month. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CSI_CSCSLM",
+      "CSI_CSCSLM_ASSIST"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 1299
+  },
+  "Dispute a credit bureau record": {
+    "description": "Customers wanting to dispute a credit bureau record, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to dispute a credit bureau record. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CSI_DACBR",
+      "CSI_DACBR_ASSIST"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 2758
+  },
+  "Understand hard vs soft inquiry": {
+    "description": "Customers wanting to understand hard vs soft inquiry, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand hard vs soft inquiry. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CSI_UHVSI",
+      "CSI_UHVSI_ASSIST"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 14714
+  },
+  "Get score improvement guidance": {
+    "description": "Customers wanting to get score improvement guidance, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to get score improvement guidance. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CSI_GSIG",
+      "CSI_GSIG_ASSIST"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 320
+  },
+  "Enroll in credit score monitoring": {
+    "description": "Customers wanting to enroll in credit score monitoring, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to enroll in credit score monitoring. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CSI_EICSM",
+      "CSI_EICSM_ASSIST"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 670
+  },
+  "Request a credit report copy": {
+    "description": "Customers wanting to request a credit report copy, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request a credit report copy. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CSI_RACRC",
+      "CSI_RACRC_ASSIST"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 473
+  },
+  "Track new card shipment": {
+    "description": "Customers wanting to track new card shipment, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to track new card shipment. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CDS_TNCS",
+      "CDS_TNCS_ASSIST"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 343
+  },
+  "Report card not received": {
+    "description": "Customers wanting to report card not received, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to report card not received. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CDS_RCNR",
+      "CDS_RCNR_ASSIST"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 472
+  },
+  "Change delivery address": {
+    "description": "Customers wanting to change delivery address, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to change delivery address. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CDS_CDA",
+      "CDS_CDA_ASSIST"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 1177
+  },
+  "Reschedule card delivery": {
+    "description": "Customers wanting to reschedule card delivery, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to reschedule card delivery. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CDS_RCD",
+      "CDS_RCD_ASSIST"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 895
+  },
+  "Collect card from branch": {
+    "description": "Customers wanting to collect card from branch, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to collect card from branch. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CDS_CCFB",
+      "CDS_CCFB_ASSIST"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 441
+  },
+  "Verify courier identity": {
+    "description": "Customers wanting to verify courier identity, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to verify courier identity. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CDS_VCI",
+      "CDS_VCI_ASSIST"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 1194
+  },
+  "Report card delivered to wrong address": {
+    "description": "Customers wanting to report card delivered to wrong address, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to report card delivered to wrong address. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CDS_RCDTWA",
+      "CDS_RCDTWA_ASSIST"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 755
+  },
+  "Request redelivery after failed attempt": {
+    "description": "Customers wanting to request redelivery after failed attempt, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request redelivery after failed attempt. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "CDS_RRAFA",
+      "CDS_RRAFA_ASSIST"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 220
+  },
+  "Check bundled travel insurance cover": {
+    "description": "Customers wanting to check bundled travel insurance cover, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check bundled travel insurance cover. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IAPP_CBTIC",
+      "IAPP_CBTIC_ASSIST"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 147
+  },
+  "Check purchase protection cover": {
+    "description": "Customers wanting to check purchase protection cover, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to check purchase protection cover. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IAPP_CPPC",
+      "IAPP_CPPC_ASSIST"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 210
+  },
+  "Enroll in payment protection plan": {
+    "description": "Customers wanting to enroll in payment protection plan, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to enroll in payment protection plan. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IAPP_EIPPP",
+      "IAPP_EIPPP_ASSIST"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 324
+  },
+  "File an insurance claim": {
+    "description": "Customers wanting to file an insurance claim, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to file an insurance claim. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IAPP_FAIC",
+      "IAPP_FAIC_ASSIST"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 196
+  },
+  "Track claim status": {
+    "description": "Customers wanting to track claim status, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to track claim status. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IAPP_TCS",
+      "IAPP_TCS_ASSIST"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 294
+  },
+  "Cancel a protection plan": {
+    "description": "Customers wanting to cancel a protection plan, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to cancel a protection plan. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IAPP_CAPP",
+      "IAPP_CAPP_ASSIST"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 164
+  },
+  "Understand exclusions and limits": {
+    "description": "Customers wanting to understand exclusions and limits, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to understand exclusions and limits. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IAPP_UEAL",
+      "IAPP_UEAL_ASSIST"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 386
+  },
+  "Request policy documents": {
+    "description": "Customers wanting to request policy documents, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "Customer verified. They want to request policy documents. Suggested next step surfaced to the agent."
+    },
+    "channelIntent": [
+      "IAPP_RPD",
+      "IAPP_RPD_ASSIST"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 271
+  }
+}

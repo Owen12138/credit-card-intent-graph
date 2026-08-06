@@ -375,15 +375,18 @@ sizing, tables) reads the list, so nothing is hard-coded to five.
 | `graph_builder.py` | Builds the NetworkX graph, plus filtering, layouts, and node sizing. |
 | `figure.py` | Plotly rendering. Streamlit-free, so it's testable and reusable. |
 | `app.py` | Streamlit UI. |
+| `channels.py` | Per-channel JSON: generation, files, loading, validation. **Run it to regenerate `data/`.** |
 | `interactive_html.py` | The canvas: timeline frames + click-to-focus JS. Shared by the app and the export. |
 | `export_static.py` | Writes `docs/index.html`, the page GitHub Pages serves. |
 | `smoke_test.py` | Structural checks (counts, parentage, layouts, sizing, timeline). |
 | `app_test.py` | End-to-end run of the app via `streamlit.testing.v1.AppTest`. |
+| `channels_test.py` | Validates the channel JSON schema and reconciles it with the graph. |
 | `export_test.py` | Verifies the export animates, hides labels and is self-contained. |
 | `js_test.js` | Runs the shipped canvas script against a stubbed Plotly/DOM. |
 
 ```bash
 python smoke_test.py
+python channels_test.py
 python app_test.py
 python export_test.py
 node js_test.js        # needs docs/index.html, so run export_static.py first
@@ -393,6 +396,58 @@ node js_test.js        # needs docs/index.html, so run export_static.py first
 pulls the script straight out of `docs/index.html`, stubs `Plotly` and the DOM,
 then drives real zoom, click and label-mode events and asserts on the resulting
 `restyle` calls.
+
+## Channel data and the Focus tab
+
+Three source channels each own two JSON files under `data/`:
+
+```
+virtual-assistant.json     virtual-assistant-sub.json
+agent-assistant.json       agent-assistant-sub.json
+ai-voice-assistant.json    ai-voice-assistant-sub.json
+```
+
+Each file holds only that channel's data, keyed by intent name. `channels.load()`
+reads all six and combines them — that's the backend step. Regenerate with
+`python channels.py`.
+
+A unified intent record carries `description`, `sampleConversation`,
+`channelIntent`, `parentIntent: null`, `subIntent` and `numberOfConversations`.
+A sub-intent record is identical except `parentIntent` names its unified intent
+and there is no `subIntent` list.
+
+The **Focus** tab picks a unified intent and, optionally, a sub-intent beneath
+it. The most specific selection wins: choose a sub-intent and its description,
+channel intents, counts and samples replace the parent's. Three channel cards
+always render — a channel that doesn't carry the intent shows an empty card
+rather than disappearing, since the gap is itself worth seeing.
+
+### How the numbers relate to the graph
+
+The channels **partition** the volumes in `volumes.py`. A sub-intent's three
+channel counts add up to the total the graph draws it at, and the grand total
+across all six files equals the graph's 9,258,204 exactly — so no number in the
+detail view contradicts the canvas. `channels_test.py` asserts this.
+
+`numberOfConversations` is an all-time total, since the schema has one integer
+per intent with no time dimension. The five-period timeline is a separate axis.
+
+### Two things the schema exposed
+
+- **Sub-intent names must be globally unique.** The graph namespaces them as
+  `"<parent> :: <name>"`, so `Understand impact on credit score` sitting under
+  both *Decrease Credit Limit* and *Close Account* was harmless there. Keyed by
+  name alone, one record silently overwrote the other — taking its conversations
+  and its parent link. Both are renamed, and `taxonomy.validate()` now rejects
+  any repeat.
+- **A channel intent must map to exactly one intent.** Shortened forms collide:
+  *Check minimum amount due* and *Pay minimum amount due* share a tail, and
+  *Balance Inquiry*/*Balance Transfer* share their first six letters. Generation
+  resolves collisions instead of letting an ambiguous mapping through.
+
+Not every channel carries every intent — voice handles 217 of 248 sub-intents,
+chat all of them. Volume splits only across the channels that carry an intent,
+so the totals still reconcile.
 
 ## Publishing
 

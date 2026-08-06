@@ -9,6 +9,7 @@ import networkx as nx
 import pandas as pd
 import streamlit as st
 
+import channels
 import graph_builder as gb
 import taxonomy
 import volumes
@@ -20,6 +21,13 @@ st.set_page_config(page_title="Credit Card Intent Graph", layout="wide")
 @st.cache_data(show_spinner=False)
 def load_graph() -> nx.Graph:
     return gb.build_graph()
+
+
+@st.cache_data(show_spinner=False)
+def load_channels() -> dict:
+    """All six channel files, combined. This is the backend step: the three
+    channels are loaded separately and merged only when a view asks for them."""
+    return channels.load()
 
 
 @st.cache_data(show_spinner=False)
@@ -188,7 +196,7 @@ cols[3].metric("Sub-intents", counts[gb.SUB_INTENT])
 cols[4].metric("Life events", counts[gb.LIFE_EVENT])
 cols[5].metric("Complaints", counts[gb.COMPLAINT])
 
-tab_graph, tab_tables = st.tabs(["Graph", "Data"])
+tab_graph, tab_focus, tab_tables = st.tabs(["Graph", "Focus", "Data"])
 
 with tab_graph:
     if view.number_of_nodes() == 0:
@@ -231,6 +239,107 @@ with tab_graph:
             "them survives and they never pile up. *Reset view* refits. "
             "All of it runs in the browser, so your zoom and the period you are "
             "on survive. Drag to pan, hover for volumes."
+        )
+
+with tab_focus:
+    UNIFIED_ONLY = "— none: show the unified intent —"
+
+    picked_ui = st.selectbox(
+        "Unified intent",
+        list(taxonomy.UNIFIED_INTENTS),
+        key="focus_unified",
+    )
+    picked_sub = st.selectbox(
+        "Sub-intent",
+        [UNIFIED_ONLY] + taxonomy.UNIFIED_INTENTS[picked_ui],
+        key="focus_sub",
+        help=(
+            "Optional second-level filter. Leave it unset to see the unified "
+            "intent's own data; pick one and its data takes precedence."
+        ),
+    )
+
+    # The most specific selection wins: a chosen sub-intent overrides its parent.
+    if picked_sub == UNIFIED_ONLY:
+        name, kind = picked_ui, "unified"
+    else:
+        name, kind = picked_sub, "sub"
+
+    channel_data = load_channels()
+    rows = channels.records(channel_data, name, kind)
+    carried = [rec for _, rec in rows if rec]
+
+    st.markdown(f"### {name}")
+    if kind == "sub":
+        st.caption(f"Sub-intent of **{picked_ui}**")
+    st.write(carried[0]["description"] if carried else "No description available.")
+
+    across = channels.total(channel_data, name, kind)
+    head = st.columns(3)
+    head[0].metric("Conversations, all channels", volumes.fmt(across))
+    head[1].metric("Channels carrying it", f"{len(carried)} of {len(rows)}")
+    if kind == "unified":
+        head[2].metric(
+            "Sub-intents in this service", len(taxonomy.UNIFIED_INTENTS[picked_ui])
+        )
+
+    st.markdown("#### By channel")
+    cols = st.columns(len(rows))
+    for col, (channel, rec) in zip(cols, rows):
+        with col, st.container(border=True):
+            st.markdown(f"**{channel.label}**")
+            st.caption(channel.blurb)
+
+            if rec is None:
+                # Always three cards, even for a channel that does not carry the
+                # intent - a missing card would read as a rendering fault, and
+                # the gap is itself worth seeing.
+                st.info("Not handled on this channel.")
+                continue
+
+            share = rec["numberOfConversations"] / across if across else 0
+            st.metric(
+                "Conversations",
+                volumes.fmt(rec["numberOfConversations"]),
+                delta=f"{share:.0%} of all channels",
+                delta_color="off",
+            )
+
+            st.caption("Channel intents")
+            for ci in rec["channelIntent"]:
+                st.code(ci, language=None)
+
+            text = rec.get("sampleConversation", {}).get("conversationText")
+            st.caption("Sample conversation")
+            if text:
+                st.markdown(f"> {text}")
+            else:
+                st.caption("None recorded.")
+
+    if kind == "unified":
+        st.markdown("#### Sub-intents of this unified intent")
+        sub_rows = []
+        for sub in taxonomy.UNIFIED_INTENTS[picked_ui]:
+            row = {"Sub-intent": sub}
+            for channel, rec in channels.records(channel_data, sub, "sub"):
+                row[channel.label] = rec["numberOfConversations"] if rec else None
+            row["All channels"] = channels.total(channel_data, sub, "sub")
+            sub_rows.append(row)
+        st.dataframe(
+            pd.DataFrame(sub_rows),
+            width="stretch",
+            hide_index=True,
+            column_config={
+                **{
+                    c.label: st.column_config.NumberColumn(format="%,d")
+                    for c in channels.CHANNELS
+                },
+                "All channels": st.column_config.NumberColumn(format="%,d"),
+            },
+        )
+        st.caption(
+            "Blank means that channel does not carry the sub-intent at all, "
+            "which is why a channel's unified total can be lower than another's."
         )
 
 with tab_tables:

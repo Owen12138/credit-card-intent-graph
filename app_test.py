@@ -34,7 +34,7 @@ assert m["Sub-intents"] == "248", m
 assert m["Life events"] == "10", m
 assert m["Complaints"] == "10", m
 assert m[CONV] == volumes.fmt(volumes.PRODUCT_TOTAL), m
-assert len(at.tabs) == 2
+assert len(at.tabs) == 3, len(at.tabs)
 assert at.dataframe, "data tab rendered no tables"
 
 # the timeline is no longer a Streamlit widget - that is the point, it lives in
@@ -100,5 +100,106 @@ a.run()
 assert not a.exception, [e.value for e in a.exception]
 assert a.warning, "empty view should warn, not crash"
 print("empty view warns cleanly")
+
+# =============================================================================
+# Focus tab: three channel cards, driven by a two-level selection
+# =============================================================================
+import channels
+import taxonomy
+
+at = fresh()
+assert len(at.tabs) == 3, len(at.tabs)
+
+data = channels.load()
+ui = at.selectbox(key="focus_unified").options[0]
+subs = taxonomy.UNIFIED_INTENTS[ui]
+
+# --- unified intent selected, no sub-intent ---------------------------------
+m = metrics(at)
+expected = channels.total(data, ui, "unified")
+assert m["Conversations, all channels"] == volumes.fmt(expected), m
+assert m["Sub-intents in this service"] == str(len(subs)), m
+
+body = " ".join(str(x.value) for x in at.markdown)
+assert ui in body, "the selected unified intent is not named"
+unified_desc = data["virtual-assistant"]["unified"][ui]["description"]
+prose = " ".join(
+    str(x.value) for x in list(at.markdown) + list(at.get("text")) + list(at.caption)
+)
+assert unified_desc in prose, "the unified intent description is not shown"
+
+# all three channels are named, whether or not they carry the intent
+for c in channels.CHANNELS:
+    assert c.label in body, f"{c.label} card missing"
+
+# the channel-specific intents for the UNIFIED intent are the ones displayed
+code_blocks = {str(c.value) for c in at.code}
+for c in channels.CHANNELS:
+    for ci in data[c.key]["unified"][ui]["channelIntent"]:
+        assert ci in code_blocks, f"{c.label}: channel intent {ci} not shown"
+print(f"unified '{ui}': 3 cards, {len(code_blocks)} channel intents, "
+      f"{volumes.fmt(expected)} conversations")
+
+# --- sub-intent selected: its data takes precedence --------------------------
+picked = subs[0]
+a = fresh()
+a.selectbox(key="focus_unified").select(ui).run()
+a.selectbox(key="focus_sub").select(picked).run()
+assert not a.exception, [e.value for e in a.exception]
+
+m = metrics(a)
+sub_expected = channels.total(data, picked, "sub")
+assert m["Conversations, all channels"] == volumes.fmt(sub_expected), m
+assert sub_expected != expected, "test is vacuous - sub and unified totals coincide"
+assert "Sub-intents in this service" not in m, "sub view still shows the parent's count"
+
+sub_body = " ".join(str(x.value) for x in a.markdown)
+assert picked in sub_body, "the selected sub-intent is not named"
+
+sub_codes = {str(c.value) for c in a.code}
+for c in channels.CHANNELS:
+    rec = data[c.key]["sub"].get(picked)
+    if rec is None:
+        continue
+    for ci in rec["channelIntent"]:
+        assert ci in sub_codes, f"{c.label}: sub-intent channel intent {ci} not shown"
+# ...and the parent's channel intents are gone, so the switch really happened
+for c in channels.CHANNELS:
+    for ci in data[c.key]["unified"][ui]["channelIntent"]:
+        assert ci not in sub_codes, f"{c.label}: still showing the parent's {ci}"
+print(f"sub-intent '{picked}': overrides the parent, {volumes.fmt(sub_expected)} conversations")
+
+# --- a sub-intent no channel-complete: the empty card still renders -----------
+gap = next(
+    (s for s in taxonomy.UNIFIED_INTENTS[ui] if s not in data["ai-voice-assistant"]["sub"]),
+    None,
+)
+if gap is None:
+    for other in taxonomy.UNIFIED_INTENTS:
+        gap = next(
+            (s for s in taxonomy.UNIFIED_INTENTS[other]
+             if s not in data["ai-voice-assistant"]["sub"]),
+            None,
+        )
+        if gap:
+            ui = other
+            break
+
+a = fresh()
+a.selectbox(key="focus_unified").select(ui).run()
+a.selectbox(key="focus_sub").select(gap).run()
+assert not a.exception, [e.value for e in a.exception]
+labels = " ".join(str(x.value) for x in a.markdown)
+for c in channels.CHANNELS:
+    assert c.label in labels, f"{c.label} card vanished for an uncarried sub-intent"
+assert any("Not handled" in str(i.value) for i in a.info), "no empty-card message"
+print(f"'{gap}' is absent from voice: three cards still shown, one marked unavailable")
+
+# every unified intent renders without error
+for name in list(taxonomy.UNIFIED_INTENTS)[:6]:
+    a = fresh()
+    a.selectbox(key="focus_unified").select(name).run()
+    assert not a.exception, (name, [e.value for e in a.exception])
+print("focus tab renders for every unified intent sampled")
 
 print("\nALL APP TESTS PASSED")

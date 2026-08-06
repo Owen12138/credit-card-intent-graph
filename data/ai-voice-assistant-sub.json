@@ -1,0 +1,2606 @@
+{
+  "Check limit increase eligibility": {
+    "description": "Customers wanting to check limit increase eligibility, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "I want to check limit increase eligibility, please."
+    },
+    "channelIntent": [
+      "utt_check_limit_increase_eligibility",
+      "utt_limit_increase_eligibility_confirm"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 1630
+  },
+  "Request temporary limit increase": {
+    "description": "Customers wanting to request temporary limit increase, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "I want to request temporary limit increase, please."
+    },
+    "channelIntent": [
+      "utt_request_temporary_limit_increase",
+      "utt_temporary_limit_increase_confirm"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 2987
+  },
+  "Upload income proof for limit review": {
+    "description": "Customers wanting to upload income proof for limit review, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "I want to upload income proof for limit review, please."
+    },
+    "channelIntent": [
+      "utt_upload_income_proof_for_limit_review",
+      "utt_proof_limit_review_confirm"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 11878
+  },
+  "Track limit increase application status": {
+    "description": "Customers wanting to track limit increase application status, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "I want to track limit increase application status, please."
+    },
+    "channelIntent": [
+      "utt_track_limit_increase_application_status",
+      "utt_increase_application_status_confirm"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 1506
+  },
+  "Understand limit increase decline reason": {
+    "description": "Customers wanting to understand limit increase decline reason, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "I want to understand limit increase decline reason, please."
+    },
+    "channelIntent": [
+      "utt_understand_limit_increase_decline_reason",
+      "utt_increase_decline_reason_confirm"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 4482
+  },
+  "Reapply after a declined limit request": {
+    "description": "Customers wanting to reapply after a declined limit request, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "I want to reapply after a declined limit request, please."
+    },
+    "channelIntent": [
+      "utt_reapply_after_a_declined_limit_request",
+      "utt_declined_limit_request_confirm"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 547
+  },
+  "Set limit increase reminder": {
+    "description": "Customers wanting to set limit increase reminder, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "I want to set limit increase reminder, please."
+    },
+    "channelIntent": [
+      "utt_set_limit_increase_reminder",
+      "utt_limit_increase_reminder_confirm"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 1281
+  },
+  "Request permanent limit reduction": {
+    "description": "Customers wanting to request permanent limit reduction, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "I want to request permanent limit reduction, please."
+    },
+    "channelIntent": [
+      "utt_request_permanent_limit_reduction",
+      "utt_permanent_limit_reduction_confirm"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 39452
+  },
+  "Set a self-imposed spending cap": {
+    "description": "Customers wanting to set a self-imposed spending cap, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "I want to set a self-imposed spending cap, please."
+    },
+    "channelIntent": [
+      "utt_set_a_self_imposed_spending_cap",
+      "utt_imposed_spending_cap_confirm"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 91555
+  },
+  "Reverse a previous limit reduction": {
+    "description": "Customers wanting to reverse a previous limit reduction, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "I want to reverse a previous limit reduction, please."
+    },
+    "channelIntent": [
+      "utt_reverse_a_previous_limit_reduction",
+      "utt_previous_limit_reduction_confirm"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 50062
+  },
+  "Understand how a lower limit affects credit score": {
+    "description": "Customers wanting to understand how a lower limit affects credit score, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "I want to understand how a lower limit affects credit score, please."
+    },
+    "channelIntent": [
+      "utt_understand_how_a_lower_limit_affects_credit_score",
+      "utt_affects_credit_score_confirm"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 23738
+  },
+  "Reduce limit on a supplementary card": {
+    "description": "Customers wanting to reduce limit on a supplementary card, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "I want to reduce limit on a supplementary card, please."
+    },
+    "channelIntent": [
+      "utt_reduce_limit_on_a_supplementary_card",
+      "utt_limit_supplementary_card_confirm"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 28667
+  },
+  "Confirm new limit effective date": {
+    "description": "Customers wanting to confirm new limit effective date, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "I want to confirm new limit effective date, please."
+    },
+    "channelIntent": [
+      "utt_confirm_new_limit_effective_date",
+      "utt_limit_effective_date_confirm"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 28319
+  },
+  "Cancel a pending reduction request": {
+    "description": "Customers wanting to cancel a pending reduction request, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "I want to cancel a pending reduction request, please."
+    },
+    "channelIntent": [
+      "utt_cancel_a_pending_reduction_request",
+      "utt_pending_reduction_request_confirm"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 20939
+  },
+  "Limit reduction for budgeting support": {
+    "description": "Customers wanting to limit reduction for budgeting support, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "I want to limit reduction for budgeting support, please."
+    },
+    "channelIntent": [
+      "utt_limit_reduction_for_budgeting_support",
+      "utt_reduction_budgeting_support_confirm"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 17305
+  },
+  "Activate a newly issued card": {
+    "description": "Customers wanting to activate a newly issued card, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "I want to activate a newly issued card, please."
+    },
+    "channelIntent": [
+      "utt_activate_a_newly_issued_card",
+      "utt_newly_issued_card_confirm"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 112
+  },
+  "Activate a replacement card": {
+    "description": "Customers wanting to activate a replacement card, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "I want to activate a replacement card, please."
+    },
+    "channelIntent": [
+      "utt_activate_a_replacement_card",
+      "utt_activate_replacement_card_confirm"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 643
+  },
+  "Activate via mobile app": {
+    "description": "Customers wanting to activate via mobile app, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "I want to activate via mobile app, please."
+    },
+    "channelIntent": [
+      "utt_activate_via_mobile_app",
+      "utt_via_mobile_app_confirm"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 199
+  },
+  "Activate via IVR or phone banking": {
+    "description": "Customers wanting to activate via IVR or phone banking, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "I want to activate via IVR or phone banking, please."
+    },
+    "channelIntent": [
+      "utt_activate_via_ivr_or_phone_banking",
+      "utt_ivr_phone_banking_confirm"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 244
+  },
+  "Troubleshoot failed activation": {
+    "description": "Customers wanting to troubleshoot failed activation, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "I want to troubleshoot failed activation, please."
+    },
+    "channelIntent": [
+      "utt_troubleshoot_failed_activation",
+      "utt_troubleshoot_failed_activation_confirm"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 109
+  },
+  "Confirm activation status": {
+    "description": "Customers wanting to confirm activation status, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "I want to confirm activation status, please."
+    },
+    "channelIntent": [
+      "utt_confirm_activation_status",
+      "utt_confirm_activation_status_confirm"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 221
+  },
+  "Activate contactless payments": {
+    "description": "Customers wanting to activate contactless payments, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "I want to activate contactless payments, please."
+    },
+    "channelIntent": [
+      "utt_activate_contactless_payments",
+      "utt_activate_contactless_payments_confirm"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 857
+  },
+  "Activate card for online transactions": {
+    "description": "Customers wanting to activate card for online transactions, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "I want to activate card for online transactions, please."
+    },
+    "channelIntent": [
+      "utt_activate_card_for_online_transactions",
+      "utt_card_online_transactions_confirm"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 216
+  },
+  "Request replacement for damaged card": {
+    "description": "Customers wanting to request replacement for damaged card, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "I want to request replacement for damaged card, please."
+    },
+    "channelIntent": [
+      "utt_request_replacement_for_damaged_card",
+      "utt_replacement_damaged_card_confirm"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 218
+  },
+  "Request replacement for expiring card": {
+    "description": "Customers wanting to request replacement for expiring card, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "I want to request replacement for expiring card, please."
+    },
+    "channelIntent": [
+      "utt_request_replacement_for_expiring_card",
+      "utt_replacement_expiring_card_confirm"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 149
+  },
+  "Request replacement for worn magnetic stripe": {
+    "description": "Customers wanting to request replacement for worn magnetic stripe, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "I want to request replacement for worn magnetic stripe, please."
+    },
+    "channelIntent": [
+      "utt_request_replacement_for_worn_magnetic_stripe",
+      "utt_worn_magnetic_stripe_confirm"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 180
+  },
+  "Request expedited replacement delivery": {
+    "description": "Customers wanting to request expedited replacement delivery, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "I want to request expedited replacement delivery, please."
+    },
+    "channelIntent": [
+      "utt_request_expedited_replacement_delivery",
+      "utt_expedited_replacement_delivery_confirm"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 199
+  },
+  "Update address before replacement": {
+    "description": "Customers wanting to update address before replacement, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "I want to update address before replacement, please."
+    },
+    "channelIntent": [
+      "utt_update_address_before_replacement",
+      "utt_address_before_replacement_confirm"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 175
+  },
+  "Track replacement card shipment": {
+    "description": "Customers wanting to track replacement card shipment, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "I want to track replacement card shipment, please."
+    },
+    "channelIntent": [
+      "utt_track_replacement_card_shipment",
+      "utt_replacement_card_shipment_confirm"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 305
+  },
+  "Cancel a replacement request": {
+    "description": "Customers wanting to cancel a replacement request, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "I want to cancel a replacement request, please."
+    },
+    "channelIntent": [
+      "utt_cancel_a_replacement_request",
+      "utt_cancel_replacement_request_confirm"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 189
+  },
+  "Unblock a card found again": {
+    "description": "Customers wanting to unblock a card found again, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "I want to unblock a card found again, please."
+    },
+    "channelIntent": [
+      "utt_unblock_a_card_found_again",
+      "utt_card_found_again_confirm"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 326
+  },
+  "Order emergency replacement card": {
+    "description": "Customers wanting to order emergency replacement card, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "I want to order emergency replacement card, please."
+    },
+    "channelIntent": [
+      "utt_order_emergency_replacement_card",
+      "utt_emergency_replacement_card_confirm"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 1499
+  },
+  "Review transactions after loss": {
+    "description": "Customers wanting to review transactions after loss, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "I want to review transactions after loss, please."
+    },
+    "channelIntent": [
+      "utt_review_transactions_after_loss",
+      "utt_transactions_after_loss_confirm"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 283
+  },
+  "File police report reference": {
+    "description": "Customers wanting to file police report reference, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "I want to file police report reference, please."
+    },
+    "channelIntent": [
+      "utt_file_police_report_reference",
+      "utt_police_report_reference_confirm"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 4363
+  },
+  "Request emergency cash advance abroad": {
+    "description": "Customers wanting to request emergency cash advance abroad, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "I want to request emergency cash advance abroad, please."
+    },
+    "channelIntent": [
+      "utt_request_emergency_cash_advance_abroad",
+      "utt_cash_advance_abroad_confirm"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 746
+  },
+  "Raise a new transaction dispute": {
+    "description": "Customers wanting to raise a new transaction dispute, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "I want to raise a new transaction dispute, please."
+    },
+    "channelIntent": [
+      "utt_raise_a_new_transaction_dispute",
+      "utt_new_transaction_dispute_confirm"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 52958
+  },
+  "Dispute a duplicate charge": {
+    "description": "Customers wanting to dispute a duplicate charge, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "I want to dispute a duplicate charge, please."
+    },
+    "channelIntent": [
+      "utt_dispute_a_duplicate_charge",
+      "utt_dispute_duplicate_charge_confirm"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 8299
+  },
+  "Dispute an incorrect amount": {
+    "description": "Customers wanting to dispute an incorrect amount, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "I want to dispute an incorrect amount, please."
+    },
+    "channelIntent": [
+      "utt_dispute_an_incorrect_amount",
+      "utt_dispute_incorrect_amount_confirm"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 22907
+  },
+  "Dispute a merchant refund not received": {
+    "description": "Customers wanting to dispute a merchant refund not received, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "I want to dispute a merchant refund not received, please."
+    },
+    "channelIntent": [
+      "utt_dispute_a_merchant_refund_not_received",
+      "utt_refund_not_received_confirm"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 56321
+  },
+  "Upload supporting dispute evidence": {
+    "description": "Customers wanting to upload supporting dispute evidence, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "I want to upload supporting dispute evidence, please."
+    },
+    "channelIntent": [
+      "utt_upload_supporting_dispute_evidence",
+      "utt_supporting_dispute_evidence_confirm"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 21476
+  },
+  "Understand provisional credit": {
+    "description": "Customers wanting to understand provisional credit, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "I want to understand provisional credit, please."
+    },
+    "channelIntent": [
+      "utt_understand_provisional_credit",
+      "utt_understand_provisional_credit_confirm"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 22099
+  },
+  "Withdraw an existing dispute": {
+    "description": "Customers wanting to withdraw an existing dispute, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "I want to withdraw an existing dispute, please."
+    },
+    "channelIntent": [
+      "utt_withdraw_an_existing_dispute",
+      "utt_withdraw_existing_dispute_confirm"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 8159
+  },
+  "Report unauthorized transaction": {
+    "description": "Customers wanting to report unauthorized transaction, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "I want to report unauthorized transaction, please."
+    },
+    "channelIntent": [
+      "utt_report_unauthorized_transaction",
+      "utt_report_unauthorized_transaction_confirm"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 4055
+  },
+  "Report suspected card skimming": {
+    "description": "Customers wanting to report suspected card skimming, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "I want to report suspected card skimming, please."
+    },
+    "channelIntent": [
+      "utt_report_suspected_card_skimming",
+      "utt_suspected_card_skimming_confirm"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 1695
+  },
+  "Report phishing or scam contact": {
+    "description": "Customers wanting to report phishing or scam contact, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "I want to report phishing or scam contact, please."
+    },
+    "channelIntent": [
+      "utt_report_phishing_or_scam_contact",
+      "utt_phishing_scam_contact_confirm"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 1978
+  },
+  "Request fraud loss reimbursement": {
+    "description": "Customers wanting to request fraud loss reimbursement, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "I want to request fraud loss reimbursement, please."
+    },
+    "channelIntent": [
+      "utt_request_fraud_loss_reimbursement",
+      "utt_fraud_loss_reimbursement_confirm"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 2201
+  },
+  "Report identity theft": {
+    "description": "Customers wanting to report identity theft, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "I want to report identity theft, please."
+    },
+    "channelIntent": [
+      "utt_report_identity_theft",
+      "utt_report_identity_theft_confirm"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 3040
+  },
+  "Check current outstanding balance": {
+    "description": "Customers wanting to check current outstanding balance, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to check current outstanding balance, please."
+    },
+    "channelIntent": [
+      "utt_check_current_outstanding_balance",
+      "utt_current_outstanding_balance_confirm"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 168
+  },
+  "Check available credit": {
+    "description": "Customers wanting to check available credit, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to check available credit, please."
+    },
+    "channelIntent": [
+      "utt_check_available_credit",
+      "utt_check_available_credit_confirm"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 194
+  },
+  "Check last statement balance": {
+    "description": "Customers wanting to check last statement balance, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to check last statement balance, please."
+    },
+    "channelIntent": [
+      "utt_check_last_statement_balance",
+      "utt_last_statement_balance_confirm"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 196
+  },
+  "Check minimum amount due": {
+    "description": "Customers wanting to check minimum amount due, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to check minimum amount due, please."
+    },
+    "channelIntent": [
+      "utt_check_minimum_amount_due",
+      "utt_minimum_amount_due_confirm"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 134
+  },
+  "Check balance across multiple cards": {
+    "description": "Customers wanting to check balance across multiple cards, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to check balance across multiple cards, please."
+    },
+    "channelIntent": [
+      "utt_check_balance_across_multiple_cards",
+      "utt_across_multiple_cards_confirm"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 166
+  },
+  "Explain balance discrepancy": {
+    "description": "Customers wanting to explain balance discrepancy, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to explain balance discrepancy, please."
+    },
+    "channelIntent": [
+      "utt_explain_balance_discrepancy",
+      "utt_explain_balance_discrepancy_confirm"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 152
+  },
+  "Download latest e-statement": {
+    "description": "Customers wanting to download latest e-statement, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "I want to download latest e-statement, please."
+    },
+    "channelIntent": [
+      "utt_download_latest_e_statement",
+      "utt_latest_e_statement_confirm"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 132
+  },
+  "Request historical statements": {
+    "description": "Customers wanting to request historical statements, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "I want to request historical statements, please."
+    },
+    "channelIntent": [
+      "utt_request_historical_statements",
+      "utt_request_historical_statements_confirm"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 275
+  },
+  "Request physical statement copy": {
+    "description": "Customers wanting to request physical statement copy, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "I want to request physical statement copy, please."
+    },
+    "channelIntent": [
+      "utt_request_physical_statement_copy",
+      "utt_physical_statement_copy_confirm"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 307
+  },
+  "Change statement cycle date": {
+    "description": "Customers wanting to change statement cycle date, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "I want to change statement cycle date, please."
+    },
+    "channelIntent": [
+      "utt_change_statement_cycle_date",
+      "utt_statement_cycle_date_confirm"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 214
+  },
+  "Explain a statement line item": {
+    "description": "Customers wanting to explain a statement line item, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "I want to explain a statement line item, please."
+    },
+    "channelIntent": [
+      "utt_explain_a_statement_line_item",
+      "utt_statement_line_item_confirm"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 175
+  },
+  "Request consolidated annual statement": {
+    "description": "Customers wanting to request consolidated annual statement, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "I want to request consolidated annual statement, please."
+    },
+    "channelIntent": [
+      "utt_request_consolidated_annual_statement",
+      "utt_consolidated_annual_statement_confirm"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 162
+  },
+  "Resend statement to email": {
+    "description": "Customers wanting to resend statement to email, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "I want to resend statement to email, please."
+    },
+    "channelIntent": [
+      "utt_resend_statement_to_email",
+      "utt_resend_statement_email_confirm"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 127
+  },
+  "Make a one-time card payment": {
+    "description": "Customers wanting to make a one-time card payment, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "I want to make a one-time card payment, please."
+    },
+    "channelIntent": [
+      "utt_make_a_one_time_card_payment",
+      "utt_time_card_payment_confirm"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 284
+  },
+  "Pay minimum amount due": {
+    "description": "Customers wanting to pay minimum amount due, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "I want to pay minimum amount due, please."
+    },
+    "channelIntent": [
+      "utt_pay_minimum_amount_due",
+      "utt_minimum_amount_due_confirm_pmad"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 462
+  },
+  "Pay full outstanding balance": {
+    "description": "Customers wanting to pay full outstanding balance, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "I want to pay full outstanding balance, please."
+    },
+    "channelIntent": [
+      "utt_pay_full_outstanding_balance",
+      "utt_full_outstanding_balance_confirm"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 148
+  },
+  "Check payment posting status": {
+    "description": "Customers wanting to check payment posting status, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "I want to check payment posting status, please."
+    },
+    "channelIntent": [
+      "utt_check_payment_posting_status",
+      "utt_payment_posting_status_confirm"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 651
+  },
+  "Report payment not credited": {
+    "description": "Customers wanting to report payment not credited, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "I want to report payment not credited, please."
+    },
+    "channelIntent": [
+      "utt_report_payment_not_credited",
+      "utt_payment_not_credited_confirm"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 294
+  },
+  "Reverse a duplicate payment": {
+    "description": "Customers wanting to reverse a duplicate payment, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "I want to reverse a duplicate payment, please."
+    },
+    "channelIntent": [
+      "utt_reverse_a_duplicate_payment",
+      "utt_reverse_duplicate_payment_confirm"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 166
+  },
+  "Change payment source account": {
+    "description": "Customers wanting to change payment source account, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "I want to change payment source account, please."
+    },
+    "channelIntent": [
+      "utt_change_payment_source_account",
+      "utt_payment_source_account_confirm"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 206
+  },
+  "Enroll in autopay": {
+    "description": "Customers wanting to enroll in autopay, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "I want to enroll in autopay, please."
+    },
+    "channelIntent": [
+      "utt_enroll_in_autopay",
+      "utt_enroll_autopay_confirm"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 1118
+  },
+  "Modify autopay amount option": {
+    "description": "Customers wanting to modify autopay amount option, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "I want to modify autopay amount option, please."
+    },
+    "channelIntent": [
+      "utt_modify_autopay_amount_option",
+      "utt_autopay_amount_option_confirm"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 874
+  },
+  "Change autopay debit account": {
+    "description": "Customers wanting to change autopay debit account, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "I want to change autopay debit account, please."
+    },
+    "channelIntent": [
+      "utt_change_autopay_debit_account",
+      "utt_autopay_debit_account_confirm"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 2677
+  },
+  "Change autopay debit date": {
+    "description": "Customers wanting to change autopay debit date, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "I want to change autopay debit date, please."
+    },
+    "channelIntent": [
+      "utt_change_autopay_debit_date",
+      "utt_autopay_debit_date_confirm"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 2321
+  },
+  "Cancel autopay enrollment": {
+    "description": "Customers wanting to cancel autopay enrollment, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "I want to cancel autopay enrollment, please."
+    },
+    "channelIntent": [
+      "utt_cancel_autopay_enrollment",
+      "utt_cancel_autopay_enrollment_confirm"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 2184
+  },
+  "Investigate failed autopay run": {
+    "description": "Customers wanting to investigate failed autopay run, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "I want to investigate failed autopay run, please."
+    },
+    "channelIntent": [
+      "utt_investigate_failed_autopay_run",
+      "utt_failed_autopay_run_confirm"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 904
+  },
+  "Pause autopay temporarily": {
+    "description": "Customers wanting to pause autopay temporarily, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "I want to pause autopay temporarily, please."
+    },
+    "channelIntent": [
+      "utt_pause_autopay_temporarily",
+      "utt_pause_autopay_temporarily_confirm"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 1370
+  },
+  "Confirm autopay enrollment status": {
+    "description": "Customers wanting to confirm autopay enrollment status, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "I want to confirm autopay enrollment status, please."
+    },
+    "channelIntent": [
+      "utt_confirm_autopay_enrollment_status",
+      "utt_autopay_enrollment_status_confirm"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 1116
+  },
+  "Request one-time late fee waiver": {
+    "description": "Customers wanting to request one-time late fee waiver, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "I want to request one-time late fee waiver, please."
+    },
+    "channelIntent": [
+      "utt_request_one_time_late_fee_waiver",
+      "utt_late_fee_waiver_confirm"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 49628
+  },
+  "Check late fee waiver eligibility": {
+    "description": "Customers wanting to check late fee waiver eligibility, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "I want to check late fee waiver eligibility, please."
+    },
+    "channelIntent": [
+      "utt_check_late_fee_waiver_eligibility",
+      "utt_fee_waiver_eligibility_confirm"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 18186
+  },
+  "Dispute an incorrectly charged late fee": {
+    "description": "Customers wanting to dispute an incorrectly charged late fee, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "I want to dispute an incorrectly charged late fee, please."
+    },
+    "channelIntent": [
+      "utt_dispute_an_incorrectly_charged_late_fee",
+      "utt_charged_late_fee_confirm"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 15775
+  },
+  "Request waiver due to hardship": {
+    "description": "Customers wanting to request waiver due to hardship, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "I want to request waiver due to hardship, please."
+    },
+    "channelIntent": [
+      "utt_request_waiver_due_to_hardship",
+      "utt_waiver_due_hardship_confirm"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 68488
+  },
+  "Track waiver request status": {
+    "description": "Customers wanting to track waiver request status, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "I want to track waiver request status, please."
+    },
+    "channelIntent": [
+      "utt_track_waiver_request_status",
+      "utt_waiver_request_status_confirm"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 113087
+  },
+  "Request reversal of related interest": {
+    "description": "Customers wanting to request reversal of related interest, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "I want to request reversal of related interest, please."
+    },
+    "channelIntent": [
+      "utt_request_reversal_of_related_interest",
+      "utt_reversal_related_interest_confirm"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 210345
+  },
+  "Escalate a declined waiver": {
+    "description": "Customers wanting to escalate a declined waiver, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "I want to escalate a declined waiver, please."
+    },
+    "channelIntent": [
+      "utt_escalate_a_declined_waiver",
+      "utt_escalate_declined_waiver_confirm"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 44472
+  },
+  "Check current purchase APR": {
+    "description": "Customers wanting to check current purchase APR, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to check current purchase APR, please."
+    },
+    "channelIntent": [
+      "utt_check_current_purchase_apr",
+      "utt_current_purchase_apr_confirm"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 380
+  },
+  "Check cash advance APR": {
+    "description": "Customers wanting to check cash advance APR, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to check cash advance APR, please."
+    },
+    "channelIntent": [
+      "utt_check_cash_advance_apr",
+      "utt_cash_advance_apr_confirm"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 289
+  },
+  "Request an APR reduction": {
+    "description": "Customers wanting to request an APR reduction, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to request an APR reduction, please."
+    },
+    "channelIntent": [
+      "utt_request_an_apr_reduction",
+      "utt_request_apr_reduction_confirm"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 351
+  },
+  "Understand promotional 0% APR period": {
+    "description": "Customers wanting to understand promotional 0% APR period, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to understand promotional 0% APR period, please."
+    },
+    "channelIntent": [
+      "utt_understand_promotional_0_apr_period",
+      "utt_0_apr_period_confirm"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 262
+  },
+  "Understand penalty APR trigger": {
+    "description": "Customers wanting to understand penalty APR trigger, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to understand penalty APR trigger, please."
+    },
+    "channelIntent": [
+      "utt_understand_penalty_apr_trigger",
+      "utt_penalty_apr_trigger_confirm"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 359
+  },
+  "Explain interest charged on statement": {
+    "description": "Customers wanting to explain interest charged on statement, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to explain interest charged on statement, please."
+    },
+    "channelIntent": [
+      "utt_explain_interest_charged_on_statement",
+      "utt_interest_charged_statement_confirm"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 169
+  },
+  "Compare APR across products": {
+    "description": "Customers wanting to compare APR across products, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to compare APR across products, please."
+    },
+    "channelIntent": [
+      "utt_compare_apr_across_products",
+      "utt_apr_across_products_confirm"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 95
+  },
+  "Check variable rate change notice": {
+    "description": "Customers wanting to check variable rate change notice, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to check variable rate change notice, please."
+    },
+    "channelIntent": [
+      "utt_check_variable_rate_change_notice",
+      "utt_rate_change_notice_confirm"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 239
+  },
+  "Redeem points for cashback": {
+    "description": "Customers wanting to redeem points for cashback, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "I want to redeem points for cashback, please."
+    },
+    "channelIntent": [
+      "utt_redeem_points_for_cashback",
+      "utt_redeem_points_cashback_confirm"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 314
+  },
+  "Redeem points for travel booking": {
+    "description": "Customers wanting to redeem points for travel booking, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "I want to redeem points for travel booking, please."
+    },
+    "channelIntent": [
+      "utt_redeem_points_for_travel_booking",
+      "utt_points_travel_booking_confirm"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 7687
+  },
+  "Redeem points for merchandise": {
+    "description": "Customers wanting to redeem points for merchandise, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "I want to redeem points for merchandise, please."
+    },
+    "channelIntent": [
+      "utt_redeem_points_for_merchandise",
+      "utt_redeem_points_merchandise_confirm"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 1664
+  },
+  "Redeem points for gift vouchers": {
+    "description": "Customers wanting to redeem points for gift vouchers, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "I want to redeem points for gift vouchers, please."
+    },
+    "channelIntent": [
+      "utt_redeem_points_for_gift_vouchers",
+      "utt_points_gift_vouchers_confirm"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 47058
+  },
+  "Transfer points to partner program": {
+    "description": "Customers wanting to transfer points to partner program, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "I want to transfer points to partner program, please."
+    },
+    "channelIntent": [
+      "utt_transfer_points_to_partner_program",
+      "utt_points_partner_program_confirm"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 2449
+  },
+  "Cancel or reverse a redemption": {
+    "description": "Customers wanting to cancel or reverse a redemption, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "I want to cancel or reverse a redemption, please."
+    },
+    "channelIntent": [
+      "utt_cancel_or_reverse_a_redemption",
+      "utt_cancel_reverse_redemption_confirm"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 1397
+  },
+  "Check redemption processing status": {
+    "description": "Customers wanting to check redemption processing status, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "I want to check redemption processing status, please."
+    },
+    "channelIntent": [
+      "utt_check_redemption_processing_status",
+      "utt_redemption_processing_status_confirm"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 1317
+  },
+  "Understand redemption rates": {
+    "description": "Customers wanting to understand redemption rates, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "I want to understand redemption rates, please."
+    },
+    "channelIntent": [
+      "utt_understand_redemption_rates",
+      "utt_understand_redemption_rates_confirm"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 7068
+  },
+  "Check current points balance": {
+    "description": "Customers wanting to check current points balance, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "I want to check current points balance, please."
+    },
+    "channelIntent": [
+      "utt_check_current_points_balance",
+      "utt_current_points_balance_confirm"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 5615
+  },
+  "Check points earned this cycle": {
+    "description": "Customers wanting to check points earned this cycle, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "I want to check points earned this cycle, please."
+    },
+    "channelIntent": [
+      "utt_check_points_earned_this_cycle",
+      "utt_points_earned_cycle_confirm"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 2592
+  },
+  "Check points expiry schedule": {
+    "description": "Customers wanting to check points expiry schedule, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "I want to check points expiry schedule, please."
+    },
+    "channelIntent": [
+      "utt_check_points_expiry_schedule",
+      "utt_points_expiry_schedule_confirm"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 1972
+  },
+  "Report missing points from a purchase": {
+    "description": "Customers wanting to report missing points from a purchase, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "I want to report missing points from a purchase, please."
+    },
+    "channelIntent": [
+      "utt_report_missing_points_from_a_purchase",
+      "utt_missing_points_purchase_confirm"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 5217
+  },
+  "Understand points earning rules": {
+    "description": "Customers wanting to understand points earning rules, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "I want to understand points earning rules, please."
+    },
+    "channelIntent": [
+      "utt_understand_points_earning_rules",
+      "utt_points_earning_rules_confirm"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 6519
+  },
+  "Combine points across cards": {
+    "description": "Customers wanting to combine points across cards, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "I want to combine points across cards, please."
+    },
+    "channelIntent": [
+      "utt_combine_points_across_cards",
+      "utt_points_across_cards_confirm"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 40043
+  },
+  "Set points expiry reminder": {
+    "description": "Customers wanting to set points expiry reminder, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "I want to set points expiry reminder, please."
+    },
+    "channelIntent": [
+      "utt_set_points_expiry_reminder",
+      "utt_points_expiry_reminder_confirm"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 4777
+  },
+  "Check accrued cashback amount": {
+    "description": "Customers wanting to check accrued cashback amount, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to check accrued cashback amount, please."
+    },
+    "channelIntent": [
+      "utt_check_accrued_cashback_amount",
+      "utt_accrued_cashback_amount_confirm"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 157
+  },
+  "Understand cashback categories": {
+    "description": "Customers wanting to understand cashback categories, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to understand cashback categories, please."
+    },
+    "channelIntent": [
+      "utt_understand_cashback_categories",
+      "utt_understand_cashback_categories_confirm"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 152
+  },
+  "Report missing cashback": {
+    "description": "Customers wanting to report missing cashback, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to report missing cashback, please."
+    },
+    "channelIntent": [
+      "utt_report_missing_cashback",
+      "utt_report_missing_cashback_confirm"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 469
+  },
+  "Check cashback caps and limits": {
+    "description": "Customers wanting to check cashback caps and limits, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to check cashback caps and limits, please."
+    },
+    "channelIntent": [
+      "utt_check_cashback_caps_and_limits",
+      "utt_cashback_caps_limits_confirm"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 516
+  },
+  "Understand cashback exclusions": {
+    "description": "Customers wanting to understand cashback exclusions, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to understand cashback exclusions, please."
+    },
+    "channelIntent": [
+      "utt_understand_cashback_exclusions",
+      "utt_understand_cashback_exclusions_confirm"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 805
+  },
+  "Check rotating category enrollment": {
+    "description": "Customers wanting to check rotating category enrollment, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to check rotating category enrollment, please."
+    },
+    "channelIntent": [
+      "utt_check_rotating_category_enrollment",
+      "utt_rotating_category_enrollment_confirm"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 684
+  },
+  "Check cashback payout schedule": {
+    "description": "Customers wanting to check cashback payout schedule, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to check cashback payout schedule, please."
+    },
+    "channelIntent": [
+      "utt_check_cashback_payout_schedule",
+      "utt_cashback_payout_schedule_confirm"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 275
+  },
+  "Register a travel plan": {
+    "description": "Customers wanting to register a travel plan, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "I want to register a travel plan, please."
+    },
+    "channelIntent": [
+      "utt_register_a_travel_plan",
+      "utt_register_travel_plan_confirm"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 5836
+  },
+  "Modify travel dates": {
+    "description": "Customers wanting to modify travel dates, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "I want to modify travel dates, please."
+    },
+    "channelIntent": [
+      "utt_modify_travel_dates",
+      "utt_modify_travel_dates_confirm"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 44812
+  },
+  "Cancel a travel notification": {
+    "description": "Customers wanting to cancel a travel notification, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "I want to cancel a travel notification, please."
+    },
+    "channelIntent": [
+      "utt_cancel_a_travel_notification",
+      "utt_cancel_travel_notification_confirm"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 5476
+  },
+  "Add countries to existing travel plan": {
+    "description": "Customers wanting to add countries to existing travel plan, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "I want to add countries to existing travel plan, please."
+    },
+    "channelIntent": [
+      "utt_add_countries_to_existing_travel_plan",
+      "utt_existing_travel_plan_confirm"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 19182
+  },
+  "Confirm card works at destination": {
+    "description": "Customers wanting to confirm card works at destination, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "I want to confirm card works at destination, please."
+    },
+    "channelIntent": [
+      "utt_confirm_card_works_at_destination",
+      "utt_card_works_destination_confirm"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 8647
+  },
+  "Understand travel plan expiry": {
+    "description": "Customers wanting to understand travel plan expiry, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "I want to understand travel plan expiry, please."
+    },
+    "channelIntent": [
+      "utt_understand_travel_plan_expiry",
+      "utt_travel_plan_expiry_confirm"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 10679
+  },
+  "Report card blocked while travelling": {
+    "description": "Customers wanting to report card blocked while travelling, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "I want to report card blocked while travelling, please."
+    },
+    "channelIntent": [
+      "utt_report_card_blocked_while_travelling",
+      "utt_blocked_while_travelling_confirm"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 74659
+  },
+  "Request travel emergency contact number": {
+    "description": "Customers wanting to request travel emergency contact number, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "I want to request travel emergency contact number, please."
+    },
+    "channelIntent": [
+      "utt_request_travel_emergency_contact_number",
+      "utt_emergency_contact_number_confirm"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 7388
+  },
+  "Check foreign transaction fee rate": {
+    "description": "Customers wanting to check foreign transaction fee rate, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "I want to check foreign transaction fee rate, please."
+    },
+    "channelIntent": [
+      "utt_check_foreign_transaction_fee_rate",
+      "utt_transaction_fee_rate_confirm"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 18157
+  },
+  "Dispute an unexpected foreign fee": {
+    "description": "Customers wanting to dispute an unexpected foreign fee, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "I want to dispute an unexpected foreign fee, please."
+    },
+    "channelIntent": [
+      "utt_dispute_an_unexpected_foreign_fee",
+      "utt_unexpected_foreign_fee_confirm"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 9244
+  },
+  "Understand dynamic currency conversion": {
+    "description": "Customers wanting to understand dynamic currency conversion, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "I want to understand dynamic currency conversion, please."
+    },
+    "channelIntent": [
+      "utt_understand_dynamic_currency_conversion",
+      "utt_dynamic_currency_conversion_confirm"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 22753
+  },
+  "Check exchange rate applied": {
+    "description": "Customers wanting to check exchange rate applied, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "I want to check exchange rate applied, please."
+    },
+    "channelIntent": [
+      "utt_check_exchange_rate_applied",
+      "utt_exchange_rate_applied_confirm"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 8316
+  },
+  "Compare no-foreign-fee card options": {
+    "description": "Customers wanting to compare no-foreign-fee card options, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "I want to compare no-foreign-fee card options, please."
+    },
+    "channelIntent": [
+      "utt_compare_no_foreign_fee_card_options",
+      "utt_fee_card_options_confirm"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 14770
+  },
+  "Understand fees on foreign online purchases": {
+    "description": "Customers wanting to understand fees on foreign online purchases, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "I want to understand fees on foreign online purchases, please."
+    },
+    "channelIntent": [
+      "utt_understand_fees_on_foreign_online_purchases",
+      "utt_foreign_online_purchases_confirm"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 12802
+  },
+  "Check annual fee amount and due date": {
+    "description": "Customers wanting to check annual fee amount and due date, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to check annual fee amount and due date, please."
+    },
+    "channelIntent": [
+      "utt_check_annual_fee_amount_and_due_date",
+      "utt_amount_due_date_confirm"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 6429
+  },
+  "Request annual fee waiver": {
+    "description": "Customers wanting to request annual fee waiver, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to request annual fee waiver, please."
+    },
+    "channelIntent": [
+      "utt_request_annual_fee_waiver",
+      "utt_annual_fee_waiver_confirm"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 8156
+  },
+  "Understand fee waiver spend criteria": {
+    "description": "Customers wanting to understand fee waiver spend criteria, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to understand fee waiver spend criteria, please."
+    },
+    "channelIntent": [
+      "utt_understand_fee_waiver_spend_criteria",
+      "utt_waiver_spend_criteria_confirm"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 2943
+  },
+  "Dispute an annual fee charge": {
+    "description": "Customers wanting to dispute an annual fee charge, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to dispute an annual fee charge, please."
+    },
+    "channelIntent": [
+      "utt_dispute_an_annual_fee_charge",
+      "utt_annual_fee_charge_confirm"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 6239
+  },
+  "Request pro-rated fee refund on closure": {
+    "description": "Customers wanting to request pro-rated fee refund on closure, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to request pro-rated fee refund on closure, please."
+    },
+    "channelIntent": [
+      "utt_request_pro_rated_fee_refund_on_closure",
+      "utt_fee_refund_closure_confirm"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 985
+  },
+  "Switch to a no-annual-fee card": {
+    "description": "Customers wanting to switch to a no-annual-fee card, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to switch to a no-annual-fee card, please."
+    },
+    "channelIntent": [
+      "utt_switch_to_a_no_annual_fee_card",
+      "utt_annual_fee_card_confirm"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 12681
+  },
+  "Understand supplementary card fees": {
+    "description": "Customers wanting to understand supplementary card fees, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to understand supplementary card fees, please."
+    },
+    "channelIntent": [
+      "utt_understand_supplementary_card_fees",
+      "utt_supplementary_card_fees_confirm"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 5244
+  },
+  "Track annual fee waiver request": {
+    "description": "Customers wanting to track annual fee waiver request, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to track annual fee waiver request, please."
+    },
+    "channelIntent": [
+      "utt_track_annual_fee_waiver_request",
+      "utt_fee_waiver_request_confirm"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 3620
+  },
+  "Check upgrade eligibility": {
+    "description": "Customers wanting to check upgrade eligibility, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "I want to check upgrade eligibility, please."
+    },
+    "channelIntent": [
+      "utt_check_upgrade_eligibility",
+      "utt_check_upgrade_eligibility_confirm"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 1766
+  },
+  "Compare higher-tier card benefits": {
+    "description": "Customers wanting to compare higher-tier card benefits, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "I want to compare higher-tier card benefits, please."
+    },
+    "channelIntent": [
+      "utt_compare_higher_tier_card_benefits",
+      "utt_tier_card_benefits_confirm"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 228
+  },
+  "Understand upgrade fee and APR changes": {
+    "description": "Customers wanting to understand upgrade fee and APR changes, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "I want to understand upgrade fee and APR changes, please."
+    },
+    "channelIntent": [
+      "utt_understand_upgrade_fee_and_apr_changes",
+      "utt_fee_apr_changes_confirm"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 937
+  },
+  "Track upgrade application status": {
+    "description": "Customers wanting to track upgrade application status, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "I want to track upgrade application status, please."
+    },
+    "channelIntent": [
+      "utt_track_upgrade_application_status",
+      "utt_upgrade_application_status_confirm"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 292
+  },
+  "Retain benefits after upgrade": {
+    "description": "Customers wanting to retain benefits after upgrade, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "I want to retain benefits after upgrade, please."
+    },
+    "channelIntent": [
+      "utt_retain_benefits_after_upgrade",
+      "utt_benefits_after_upgrade_confirm"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 347
+  },
+  "Understand impact on rewards balance": {
+    "description": "Customers wanting to understand impact on rewards balance, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "I want to understand impact on rewards balance, please."
+    },
+    "channelIntent": [
+      "utt_understand_impact_on_rewards_balance",
+      "utt_impact_rewards_balance_confirm"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 1279
+  },
+  "Cancel a pending upgrade": {
+    "description": "Customers wanting to cancel a pending upgrade, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "I want to cancel a pending upgrade, please."
+    },
+    "channelIntent": [
+      "utt_cancel_a_pending_upgrade",
+      "utt_cancel_pending_upgrade_confirm"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 2754
+  },
+  "Check downgrade options": {
+    "description": "Customers wanting to check downgrade options, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "I want to check downgrade options, please."
+    },
+    "channelIntent": [
+      "utt_check_downgrade_options",
+      "utt_check_downgrade_options_confirm"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 147
+  },
+  "Understand benefits lost on downgrade": {
+    "description": "Customers wanting to understand benefits lost on downgrade, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "I want to understand benefits lost on downgrade, please."
+    },
+    "channelIntent": [
+      "utt_understand_benefits_lost_on_downgrade",
+      "utt_benefits_lost_downgrade_confirm"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 118
+  },
+  "Understand impact on credit history": {
+    "description": "Customers wanting to understand impact on credit history, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "I want to understand impact on credit history, please."
+    },
+    "channelIntent": [
+      "utt_understand_impact_on_credit_history",
+      "utt_impact_credit_history_confirm"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 237
+  },
+  "Track downgrade request status": {
+    "description": "Customers wanting to track downgrade request status, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "I want to track downgrade request status, please."
+    },
+    "channelIntent": [
+      "utt_track_downgrade_request_status",
+      "utt_downgrade_request_status_confirm"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 1116
+  },
+  "Retain points after downgrade": {
+    "description": "Customers wanting to retain points after downgrade, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "I want to retain points after downgrade, please."
+    },
+    "channelIntent": [
+      "utt_retain_points_after_downgrade",
+      "utt_points_after_downgrade_confirm"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 106
+  },
+  "Reverse a recent downgrade": {
+    "description": "Customers wanting to reverse a recent downgrade, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "I want to reverse a recent downgrade, please."
+    },
+    "channelIntent": [
+      "utt_reverse_a_recent_downgrade",
+      "utt_reverse_recent_downgrade_confirm"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 254
+  },
+  "Downgrade instead of closing account": {
+    "description": "Customers wanting to downgrade instead of closing account, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "I want to downgrade instead of closing account, please."
+    },
+    "channelIntent": [
+      "utt_downgrade_instead_of_closing_account",
+      "utt_instead_closing_account_confirm"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 209
+  },
+  "Check outstanding balance before closure": {
+    "description": "Customers wanting to check outstanding balance before closure, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "I want to check outstanding balance before closure, please."
+    },
+    "channelIntent": [
+      "utt_check_outstanding_balance_before_closure",
+      "utt_balance_before_closure_confirm"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 9006
+  },
+  "Redeem remaining rewards before closure": {
+    "description": "Customers wanting to redeem remaining rewards before closure, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "I want to redeem remaining rewards before closure, please."
+    },
+    "channelIntent": [
+      "utt_redeem_remaining_rewards_before_closure",
+      "utt_rewards_before_closure_confirm"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 78431
+  },
+  "Cancel recurring payments on the card": {
+    "description": "Customers wanting to cancel recurring payments on the card, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "I want to cancel recurring payments on the card, please."
+    },
+    "channelIntent": [
+      "utt_cancel_recurring_payments_on_the_card",
+      "utt_recurring_payments_card_confirm"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 96017
+  },
+  "Understand how closing affects credit score": {
+    "description": "Customers wanting to understand how closing affects credit score, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "I want to understand how closing affects credit score, please."
+    },
+    "channelIntent": [
+      "utt_understand_how_closing_affects_credit_score",
+      "utt_affects_credit_score_confirm_uhcacs"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 16921
+  },
+  "Close a supplementary card only": {
+    "description": "Customers wanting to close a supplementary card only, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "I want to close a supplementary card only, please."
+    },
+    "channelIntent": [
+      "utt_close_a_supplementary_card_only",
+      "utt_supplementary_card_only_confirm"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 46890
+  },
+  "Reopen a recently closed account": {
+    "description": "Customers wanting to reopen a recently closed account, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "I want to reopen a recently closed account, please."
+    },
+    "channelIntent": [
+      "utt_reopen_a_recently_closed_account",
+      "utt_recently_closed_account_confirm"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 12489
+  },
+  "Remove an authorized user": {
+    "description": "Customers wanting to remove an authorized user, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "I want to remove an authorized user, please."
+    },
+    "channelIntent": [
+      "utt_remove_an_authorized_user",
+      "utt_remove_authorized_user_confirm"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 413
+  },
+  "Set spending limit for authorized user": {
+    "description": "Customers wanting to set spending limit for authorized user, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "I want to set spending limit for authorized user, please."
+    },
+    "channelIntent": [
+      "utt_set_spending_limit_for_authorized_user",
+      "utt_limit_authorized_user_confirm"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 505
+  },
+  "Check supplementary card fee": {
+    "description": "Customers wanting to check supplementary card fee, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "I want to check supplementary card fee, please."
+    },
+    "channelIntent": [
+      "utt_check_supplementary_card_fee",
+      "utt_supplementary_card_fee_confirm"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 423
+  },
+  "Track supplementary card delivery": {
+    "description": "Customers wanting to track supplementary card delivery, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "I want to track supplementary card delivery, please."
+    },
+    "channelIntent": [
+      "utt_track_supplementary_card_delivery",
+      "utt_supplementary_card_delivery_confirm"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 340
+  },
+  "Update authorized user details": {
+    "description": "Customers wanting to update authorized user details, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "I want to update authorized user details, please."
+    },
+    "channelIntent": [
+      "utt_update_authorized_user_details",
+      "utt_authorized_user_details_confirm"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 133
+  },
+  "Review authorized user transactions": {
+    "description": "Customers wanting to review authorized user transactions, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "I want to review authorized user transactions, please."
+    },
+    "channelIntent": [
+      "utt_review_authorized_user_transactions",
+      "utt_authorized_user_transactions_confirm"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 319
+  },
+  "Convert authorized user to primary": {
+    "description": "Customers wanting to convert authorized user to primary, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "I want to convert authorized user to primary, please."
+    },
+    "channelIntent": [
+      "utt_convert_authorized_user_to_primary",
+      "utt_authorized_user_primary_confirm"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 412
+  },
+  "Update mailing address": {
+    "description": "Customers wanting to update mailing address, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "I want to update mailing address, please."
+    },
+    "channelIntent": [
+      "utt_update_mailing_address",
+      "utt_update_mailing_address_confirm"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 5611
+  },
+  "Update phone number": {
+    "description": "Customers wanting to update phone number, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "I want to update phone number, please."
+    },
+    "channelIntent": [
+      "utt_update_phone_number",
+      "utt_update_phone_number_confirm"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 8121
+  },
+  "Update name after legal change": {
+    "description": "Customers wanting to update name after legal change, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "I want to update name after legal change, please."
+    },
+    "channelIntent": [
+      "utt_update_name_after_legal_change",
+      "utt_after_legal_change_confirm"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 7741
+  },
+  "Update employment and income details": {
+    "description": "Customers wanting to update employment and income details, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "I want to update employment and income details, please."
+    },
+    "channelIntent": [
+      "utt_update_employment_and_income_details",
+      "utt_employment_income_details_confirm"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 25659
+  },
+  "Update marital status": {
+    "description": "Customers wanting to update marital status, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "I want to update marital status, please."
+    },
+    "channelIntent": [
+      "utt_update_marital_status",
+      "utt_update_marital_status_confirm"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 18581
+  },
+  "Update communication preferences": {
+    "description": "Customers wanting to update communication preferences, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "I want to update communication preferences, please."
+    },
+    "channelIntent": [
+      "utt_update_communication_preferences",
+      "utt_update_communication_preferences_confirm"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 2912
+  },
+  "Verify identity for a detail change": {
+    "description": "Customers wanting to verify identity for a detail change, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "I want to verify identity for a detail change, please."
+    },
+    "channelIntent": [
+      "utt_verify_identity_for_a_detail_change",
+      "utt_identity_detail_change_confirm"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 2930
+  },
+  "Set a PIN for a new card": {
+    "description": "Customers wanting to set a PIN for a new card, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "I want to set a PIN for a new card, please."
+    },
+    "channelIntent": [
+      "utt_set_a_pin_for_a_new_card",
+      "utt_pin_new_card_confirm"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 13621
+  },
+  "Reset a forgotten PIN": {
+    "description": "Customers wanting to reset a forgotten PIN, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "I want to reset a forgotten PIN, please."
+    },
+    "channelIntent": [
+      "utt_reset_a_forgotten_pin",
+      "utt_reset_forgotten_pin_confirm"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 77668
+  },
+  "Change existing PIN": {
+    "description": "Customers wanting to change existing PIN, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "I want to change existing PIN, please."
+    },
+    "channelIntent": [
+      "utt_change_existing_pin",
+      "utt_change_existing_pin_confirm"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 92576
+  },
+  "Unblock PIN after failed attempts": {
+    "description": "Customers wanting to unblock PIN after failed attempts, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "I want to unblock PIN after failed attempts, please."
+    },
+    "channelIntent": [
+      "utt_unblock_pin_after_failed_attempts",
+      "utt_after_failed_attempts_confirm"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 42113
+  },
+  "Retrieve PIN via secure channel": {
+    "description": "Customers wanting to retrieve PIN via secure channel, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "I want to retrieve PIN via secure channel, please."
+    },
+    "channelIntent": [
+      "utt_retrieve_pin_via_secure_channel",
+      "utt_via_secure_channel_confirm"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 19834
+  },
+  "Set PIN for international ATM use": {
+    "description": "Customers wanting to set PIN for international ATM use, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "I want to set PIN for international ATM use, please."
+    },
+    "channelIntent": [
+      "utt_set_pin_for_international_atm_use",
+      "utt_international_atm_use_confirm"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 78758
+  },
+  "Understand PIN security policy": {
+    "description": "Customers wanting to understand PIN security policy, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "I want to understand PIN security policy, please."
+    },
+    "channelIntent": [
+      "utt_understand_pin_security_policy",
+      "utt_pin_security_policy_confirm"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 14727
+  },
+  "Check balance transfer eligibility": {
+    "description": "Customers wanting to check balance transfer eligibility, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "I want to check balance transfer eligibility, please."
+    },
+    "channelIntent": [
+      "utt_check_balance_transfer_eligibility",
+      "utt_balance_transfer_eligibility_confirm"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 766
+  },
+  "Initiate a balance transfer": {
+    "description": "Customers wanting to initiate a balance transfer, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "I want to initiate a balance transfer, please."
+    },
+    "channelIntent": [
+      "utt_initiate_a_balance_transfer",
+      "utt_initiate_balance_transfer_confirm"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 2340
+  },
+  "Check balance transfer fee": {
+    "description": "Customers wanting to check balance transfer fee, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "I want to check balance transfer fee, please."
+    },
+    "channelIntent": [
+      "utt_check_balance_transfer_fee",
+      "utt_balance_transfer_fee_confirm"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 269
+  },
+  "Understand promotional transfer rate": {
+    "description": "Customers wanting to understand promotional transfer rate, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "I want to understand promotional transfer rate, please."
+    },
+    "channelIntent": [
+      "utt_understand_promotional_transfer_rate",
+      "utt_promotional_transfer_rate_confirm"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 4153
+  },
+  "Cancel a pending balance transfer": {
+    "description": "Customers wanting to cancel a pending balance transfer, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "I want to cancel a pending balance transfer, please."
+    },
+    "channelIntent": [
+      "utt_cancel_a_pending_balance_transfer",
+      "utt_pending_balance_transfer_confirm"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 183
+  },
+  "Transfer balance from another bank card": {
+    "description": "Customers wanting to transfer balance from another bank card, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "I want to transfer balance from another bank card, please."
+    },
+    "channelIntent": [
+      "utt_transfer_balance_from_another_bank_card",
+      "utt_another_bank_card_confirm"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 1234
+  },
+  "Understand repayment order after transfer": {
+    "description": "Customers wanting to understand repayment order after transfer, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "I want to understand repayment order after transfer, please."
+    },
+    "channelIntent": [
+      "utt_understand_repayment_order_after_transfer",
+      "utt_order_after_transfer_confirm"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 208
+  },
+  "Check cash advance limit": {
+    "description": "Customers wanting to check cash advance limit, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "I want to check cash advance limit, please."
+    },
+    "channelIntent": [
+      "utt_check_cash_advance_limit",
+      "utt_cash_advance_limit_confirm"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 93010
+  },
+  "Withdraw cash advance at ATM": {
+    "description": "Customers wanting to withdraw cash advance at ATM, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "I want to withdraw cash advance at ATM, please."
+    },
+    "channelIntent": [
+      "utt_withdraw_cash_advance_at_atm",
+      "utt_cash_advance_atm_confirm"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 30561
+  },
+  "Repay a cash advance early": {
+    "description": "Customers wanting to repay a cash advance early, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "I want to repay a cash advance early, please."
+    },
+    "channelIntent": [
+      "utt_repay_a_cash_advance_early",
+      "utt_cash_advance_early_confirm"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 97827
+  },
+  "Dispute a cash advance charge": {
+    "description": "Customers wanting to dispute a cash advance charge, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "I want to dispute a cash advance charge, please."
+    },
+    "channelIntent": [
+      "utt_dispute_a_cash_advance_charge",
+      "utt_cash_advance_charge_confirm"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 22829
+  },
+  "Request emergency cash abroad": {
+    "description": "Customers wanting to request emergency cash abroad, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "I want to request emergency cash abroad, please."
+    },
+    "channelIntent": [
+      "utt_request_emergency_cash_abroad",
+      "utt_emergency_cash_abroad_confirm"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 45547
+  },
+  "Disable cash advance feature": {
+    "description": "Customers wanting to disable cash advance feature, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "I want to disable cash advance feature, please."
+    },
+    "channelIntent": [
+      "utt_disable_cash_advance_feature",
+      "utt_cash_advance_feature_confirm"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 143255
+  },
+  "Convert a purchase to installments": {
+    "description": "Customers wanting to convert a purchase to installments, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "I want to convert a purchase to installments, please."
+    },
+    "channelIntent": [
+      "utt_convert_a_purchase_to_installments",
+      "utt_convert_purchase_installments_confirm"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 812
+  },
+  "Convert full balance to installments": {
+    "description": "Customers wanting to convert full balance to installments, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "I want to convert full balance to installments, please."
+    },
+    "channelIntent": [
+      "utt_convert_full_balance_to_installments",
+      "utt_full_balance_installments_confirm"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 3463
+  },
+  "Check installment plan interest rate": {
+    "description": "Customers wanting to check installment plan interest rate, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "I want to check installment plan interest rate, please."
+    },
+    "channelIntent": [
+      "utt_check_installment_plan_interest_rate",
+      "utt_plan_interest_rate_confirm"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 8661
+  },
+  "Check remaining installment tenure": {
+    "description": "Customers wanting to check remaining installment tenure, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "I want to check remaining installment tenure, please."
+    },
+    "channelIntent": [
+      "utt_check_remaining_installment_tenure",
+      "utt_remaining_installment_tenure_confirm"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 2454
+  },
+  "Foreclose an installment plan early": {
+    "description": "Customers wanting to foreclose an installment plan early, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "I want to foreclose an installment plan early, please."
+    },
+    "channelIntent": [
+      "utt_foreclose_an_installment_plan_early",
+      "utt_installment_plan_early_confirm"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 3231
+  },
+  "Check installment prepayment charges": {
+    "description": "Customers wanting to check installment prepayment charges, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "I want to check installment prepayment charges, please."
+    },
+    "channelIntent": [
+      "utt_check_installment_prepayment_charges",
+      "utt_installment_prepayment_charges_confirm"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 4892
+  },
+  "Cancel a newly created plan": {
+    "description": "Customers wanting to cancel a newly created plan, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "I want to cancel a newly created plan, please."
+    },
+    "channelIntent": [
+      "utt_cancel_a_newly_created_plan",
+      "utt_newly_created_plan_confirm"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 619
+  },
+  "Change installment tenure": {
+    "description": "Customers wanting to change installment tenure, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "I want to change installment tenure, please."
+    },
+    "channelIntent": [
+      "utt_change_installment_tenure",
+      "utt_change_installment_tenure_confirm"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 1634
+  },
+  "Check current credit score": {
+    "description": "Customers wanting to check current credit score, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to check current credit score, please."
+    },
+    "channelIntent": [
+      "utt_check_current_credit_score",
+      "utt_current_credit_score_confirm"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 1022
+  },
+  "Check score change since last month": {
+    "description": "Customers wanting to check score change since last month, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to check score change since last month, please."
+    },
+    "channelIntent": [
+      "utt_check_score_change_since_last_month",
+      "utt_since_last_month_confirm"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 2714
+  },
+  "Dispute a credit bureau record": {
+    "description": "Customers wanting to dispute a credit bureau record, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to dispute a credit bureau record, please."
+    },
+    "channelIntent": [
+      "utt_dispute_a_credit_bureau_record",
+      "utt_credit_bureau_record_confirm"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 2186
+  },
+  "Understand hard vs soft inquiry": {
+    "description": "Customers wanting to understand hard vs soft inquiry, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to understand hard vs soft inquiry, please."
+    },
+    "channelIntent": [
+      "utt_understand_hard_vs_soft_inquiry",
+      "utt_vs_soft_inquiry_confirm"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 14629
+  },
+  "Get score improvement guidance": {
+    "description": "Customers wanting to get score improvement guidance, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to get score improvement guidance, please."
+    },
+    "channelIntent": [
+      "utt_get_score_improvement_guidance",
+      "utt_score_improvement_guidance_confirm"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 279
+  },
+  "Enroll in credit score monitoring": {
+    "description": "Customers wanting to enroll in credit score monitoring, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "I want to enroll in credit score monitoring, please."
+    },
+    "channelIntent": [
+      "utt_enroll_in_credit_score_monitoring",
+      "utt_credit_score_monitoring_confirm"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 1049
+  },
+  "Track new card shipment": {
+    "description": "Customers wanting to track new card shipment, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "I want to track new card shipment, please."
+    },
+    "channelIntent": [
+      "utt_track_new_card_shipment",
+      "utt_new_card_shipment_confirm"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 481
+  },
+  "Report card not received": {
+    "description": "Customers wanting to report card not received, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "I want to report card not received, please."
+    },
+    "channelIntent": [
+      "utt_report_card_not_received",
+      "utt_card_not_received_confirm"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 543
+  },
+  "Change delivery address": {
+    "description": "Customers wanting to change delivery address, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "I want to change delivery address, please."
+    },
+    "channelIntent": [
+      "utt_change_delivery_address",
+      "utt_change_delivery_address_confirm"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 1171
+  },
+  "Reschedule card delivery": {
+    "description": "Customers wanting to reschedule card delivery, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "I want to reschedule card delivery, please."
+    },
+    "channelIntent": [
+      "utt_reschedule_card_delivery",
+      "utt_reschedule_card_delivery_confirm"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 431
+  },
+  "Collect card from branch": {
+    "description": "Customers wanting to collect card from branch, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "I want to collect card from branch, please."
+    },
+    "channelIntent": [
+      "utt_collect_card_from_branch",
+      "utt_collect_card_branch_confirm"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 228
+  },
+  "Verify courier identity": {
+    "description": "Customers wanting to verify courier identity, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "I want to verify courier identity, please."
+    },
+    "channelIntent": [
+      "utt_verify_courier_identity",
+      "utt_verify_courier_identity_confirm"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 1004
+  },
+  "Report card delivered to wrong address": {
+    "description": "Customers wanting to report card delivered to wrong address, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "I want to report card delivered to wrong address, please."
+    },
+    "channelIntent": [
+      "utt_report_card_delivered_to_wrong_address",
+      "utt_delivered_wrong_address_confirm"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 1095
+  },
+  "Request redelivery after failed attempt": {
+    "description": "Customers wanting to request redelivery after failed attempt, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "I want to request redelivery after failed attempt, please."
+    },
+    "channelIntent": [
+      "utt_request_redelivery_after_failed_attempt",
+      "utt_after_failed_attempt_confirm"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 235
+  },
+  "Check bundled travel insurance cover": {
+    "description": "Customers wanting to check bundled travel insurance cover, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "I want to check bundled travel insurance cover, please."
+    },
+    "channelIntent": [
+      "utt_check_bundled_travel_insurance_cover",
+      "utt_travel_insurance_cover_confirm"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 187
+  },
+  "Check purchase protection cover": {
+    "description": "Customers wanting to check purchase protection cover, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "I want to check purchase protection cover, please."
+    },
+    "channelIntent": [
+      "utt_check_purchase_protection_cover",
+      "utt_purchase_protection_cover_confirm"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 163
+  },
+  "File an insurance claim": {
+    "description": "Customers wanting to file an insurance claim, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "I want to file an insurance claim, please."
+    },
+    "channelIntent": [
+      "utt_file_an_insurance_claim",
+      "utt_file_insurance_claim_confirm"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 194
+  },
+  "Track claim status": {
+    "description": "Customers wanting to track claim status, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "I want to track claim status, please."
+    },
+    "channelIntent": [
+      "utt_track_claim_status",
+      "utt_track_claim_status_confirm"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 154
+  },
+  "Cancel a protection plan": {
+    "description": "Customers wanting to cancel a protection plan, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "I want to cancel a protection plan, please."
+    },
+    "channelIntent": [
+      "utt_cancel_a_protection_plan",
+      "utt_cancel_protection_plan_confirm"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 138
+  },
+  "Understand exclusions and limits": {
+    "description": "Customers wanting to understand exclusions and limits, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "I want to understand exclusions and limits, please."
+    },
+    "channelIntent": [
+      "utt_understand_exclusions_and_limits",
+      "utt_understand_exclusions_limits_confirm"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 238
+  },
+  "Request policy documents": {
+    "description": "Customers wanting to request policy documents, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "I want to request policy documents, please."
+    },
+    "channelIntent": [
+      "utt_request_policy_documents",
+      "utt_request_policy_documents_confirm"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 276
+  }
+}

@@ -1,0 +1,2978 @@
+{
+  "Check limit increase eligibility": {
+    "description": "Customers wanting to check limit increase eligibility, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check limit increase eligibility - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_limit_increase_eligibility",
+      "limit_increase_eligibility_request"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 1642
+  },
+  "Request permanent limit increase": {
+    "description": "Customers wanting to request permanent limit increase, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request permanent limit increase - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_permanent_limit_increase",
+      "permanent_limit_increase_request"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 21368
+  },
+  "Request temporary limit increase": {
+    "description": "Customers wanting to request temporary limit increase, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request temporary limit increase - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_temporary_limit_increase",
+      "temporary_limit_increase_request"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 2263
+  },
+  "Upload income proof for limit review": {
+    "description": "Customers wanting to upload income proof for limit review, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to upload income proof for limit review - can you help me with that?"
+    },
+    "channelIntent": [
+      "upload_income_proof_for_limit_review",
+      "proof_limit_review_request"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 13750
+  },
+  "Track limit increase application status": {
+    "description": "Customers wanting to track limit increase application status, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to track limit increase application status - can you help me with that?"
+    },
+    "channelIntent": [
+      "track_limit_increase_application_status",
+      "increase_application_status_request"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 1736
+  },
+  "Understand limit increase decline reason": {
+    "description": "Customers wanting to understand limit increase decline reason, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand limit increase decline reason - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_limit_increase_decline_reason",
+      "increase_decline_reason_request"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 2848
+  },
+  "Reapply after a declined limit request": {
+    "description": "Customers wanting to reapply after a declined limit request, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to reapply after a declined limit request - can you help me with that?"
+    },
+    "channelIntent": [
+      "reapply_after_a_declined_limit_request",
+      "declined_limit_request_request"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 846
+  },
+  "Set limit increase reminder": {
+    "description": "Customers wanting to set limit increase reminder, handled under Increase Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to set limit increase reminder - can you help me with that?"
+    },
+    "channelIntent": [
+      "set_limit_increase_reminder",
+      "limit_increase_reminder_request"
+    ],
+    "parentIntent": "Increase Credit Limit",
+    "numberOfConversations": 2172
+  },
+  "Request permanent limit reduction": {
+    "description": "Customers wanting to request permanent limit reduction, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request permanent limit reduction - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_permanent_limit_reduction",
+      "permanent_limit_reduction_request"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 97945
+  },
+  "Set a self-imposed spending cap": {
+    "description": "Customers wanting to set a self-imposed spending cap, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to set a self-imposed spending cap - can you help me with that?"
+    },
+    "channelIntent": [
+      "set_a_self_imposed_spending_cap",
+      "imposed_spending_cap_request"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 83909
+  },
+  "Reverse a previous limit reduction": {
+    "description": "Customers wanting to reverse a previous limit reduction, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to reverse a previous limit reduction - can you help me with that?"
+    },
+    "channelIntent": [
+      "reverse_a_previous_limit_reduction",
+      "previous_limit_reduction_request"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 44242
+  },
+  "Understand how a lower limit affects credit score": {
+    "description": "Customers wanting to understand how a lower limit affects credit score, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand how a lower limit affects credit score - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_how_a_lower_limit_affects_credit_score",
+      "affects_credit_score_request"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 21954
+  },
+  "Reduce limit on a supplementary card": {
+    "description": "Customers wanting to reduce limit on a supplementary card, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to reduce limit on a supplementary card - can you help me with that?"
+    },
+    "channelIntent": [
+      "reduce_limit_on_a_supplementary_card",
+      "limit_supplementary_card_request"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 22466
+  },
+  "Confirm new limit effective date": {
+    "description": "Customers wanting to confirm new limit effective date, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to confirm new limit effective date - can you help me with that?"
+    },
+    "channelIntent": [
+      "confirm_new_limit_effective_date",
+      "limit_effective_date_request"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 32118
+  },
+  "Cancel a pending reduction request": {
+    "description": "Customers wanting to cancel a pending reduction request, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to cancel a pending reduction request - can you help me with that?"
+    },
+    "channelIntent": [
+      "cancel_a_pending_reduction_request",
+      "pending_reduction_request_request"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 24543
+  },
+  "Limit reduction for budgeting support": {
+    "description": "Customers wanting to limit reduction for budgeting support, handled under Decrease Credit Limit.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to limit reduction for budgeting support - can you help me with that?"
+    },
+    "channelIntent": [
+      "limit_reduction_for_budgeting_support",
+      "reduction_budgeting_support_request"
+    ],
+    "parentIntent": "Decrease Credit Limit",
+    "numberOfConversations": 12830
+  },
+  "Activate a newly issued card": {
+    "description": "Customers wanting to activate a newly issued card, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to activate a newly issued card - can you help me with that?"
+    },
+    "channelIntent": [
+      "activate_a_newly_issued_card",
+      "newly_issued_card_request"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 206
+  },
+  "Activate a replacement card": {
+    "description": "Customers wanting to activate a replacement card, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to activate a replacement card - can you help me with that?"
+    },
+    "channelIntent": [
+      "activate_a_replacement_card",
+      "activate_replacement_card_request"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 453
+  },
+  "Activate via mobile app": {
+    "description": "Customers wanting to activate via mobile app, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to activate via mobile app - can you help me with that?"
+    },
+    "channelIntent": [
+      "activate_via_mobile_app",
+      "via_mobile_app_request"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 195
+  },
+  "Activate via IVR or phone banking": {
+    "description": "Customers wanting to activate via IVR or phone banking, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to activate via IVR or phone banking - can you help me with that?"
+    },
+    "channelIntent": [
+      "activate_via_ivr_or_phone_banking",
+      "ivr_phone_banking_request"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 170
+  },
+  "Troubleshoot failed activation": {
+    "description": "Customers wanting to troubleshoot failed activation, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to troubleshoot failed activation - can you help me with that?"
+    },
+    "channelIntent": [
+      "troubleshoot_failed_activation",
+      "troubleshoot_failed_activation_request"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 114
+  },
+  "Confirm activation status": {
+    "description": "Customers wanting to confirm activation status, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to confirm activation status - can you help me with that?"
+    },
+    "channelIntent": [
+      "confirm_activation_status",
+      "confirm_activation_status_request"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 224
+  },
+  "Activate contactless payments": {
+    "description": "Customers wanting to activate contactless payments, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to activate contactless payments - can you help me with that?"
+    },
+    "channelIntent": [
+      "activate_contactless_payments",
+      "activate_contactless_payments_request"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 586
+  },
+  "Activate card for online transactions": {
+    "description": "Customers wanting to activate card for online transactions, handled under Card Activation.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to activate card for online transactions - can you help me with that?"
+    },
+    "channelIntent": [
+      "activate_card_for_online_transactions",
+      "card_online_transactions_request"
+    ],
+    "parentIntent": "Card Activation",
+    "numberOfConversations": 136
+  },
+  "Request replacement for damaged card": {
+    "description": "Customers wanting to request replacement for damaged card, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request replacement for damaged card - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_replacement_for_damaged_card",
+      "replacement_damaged_card_request"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 274
+  },
+  "Request replacement for expiring card": {
+    "description": "Customers wanting to request replacement for expiring card, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request replacement for expiring card - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_replacement_for_expiring_card",
+      "replacement_expiring_card_request"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 171
+  },
+  "Request replacement for worn magnetic stripe": {
+    "description": "Customers wanting to request replacement for worn magnetic stripe, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request replacement for worn magnetic stripe - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_replacement_for_worn_magnetic_stripe",
+      "worn_magnetic_stripe_request"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 186
+  },
+  "Request expedited replacement delivery": {
+    "description": "Customers wanting to request expedited replacement delivery, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request expedited replacement delivery - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_expedited_replacement_delivery",
+      "expedited_replacement_delivery_request"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 179
+  },
+  "Check replacement card fee": {
+    "description": "Customers wanting to check replacement card fee, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check replacement card fee - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_replacement_card_fee",
+      "replacement_card_fee_request"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 873
+  },
+  "Update address before replacement": {
+    "description": "Customers wanting to update address before replacement, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to update address before replacement - can you help me with that?"
+    },
+    "channelIntent": [
+      "update_address_before_replacement",
+      "address_before_replacement_request"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 201
+  },
+  "Track replacement card shipment": {
+    "description": "Customers wanting to track replacement card shipment, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to track replacement card shipment - can you help me with that?"
+    },
+    "channelIntent": [
+      "track_replacement_card_shipment",
+      "replacement_card_shipment_request"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 135
+  },
+  "Cancel a replacement request": {
+    "description": "Customers wanting to cancel a replacement request, handled under Card Replacement.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to cancel a replacement request - can you help me with that?"
+    },
+    "channelIntent": [
+      "cancel_a_replacement_request",
+      "cancel_replacement_request_request"
+    ],
+    "parentIntent": "Card Replacement",
+    "numberOfConversations": 160
+  },
+  "Report card lost": {
+    "description": "Customers wanting to report card lost, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to report card lost - can you help me with that?"
+    },
+    "channelIntent": [
+      "report_card_lost",
+      "report_card_lost_request"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 2322
+  },
+  "Report card stolen": {
+    "description": "Customers wanting to report card stolen, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to report card stolen - can you help me with that?"
+    },
+    "channelIntent": [
+      "report_card_stolen",
+      "report_card_stolen_request"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 1357
+  },
+  "Block card immediately": {
+    "description": "Customers wanting to block card immediately, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to block card immediately - can you help me with that?"
+    },
+    "channelIntent": [
+      "block_card_immediately",
+      "block_card_immediately_request"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 3994
+  },
+  "Unblock a card found again": {
+    "description": "Customers wanting to unblock a card found again, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to unblock a card found again - can you help me with that?"
+    },
+    "channelIntent": [
+      "unblock_a_card_found_again",
+      "card_found_again_request"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 320
+  },
+  "Order emergency replacement card": {
+    "description": "Customers wanting to order emergency replacement card, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to order emergency replacement card - can you help me with that?"
+    },
+    "channelIntent": [
+      "order_emergency_replacement_card",
+      "emergency_replacement_card_request"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 656
+  },
+  "Review transactions after loss": {
+    "description": "Customers wanting to review transactions after loss, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to review transactions after loss - can you help me with that?"
+    },
+    "channelIntent": [
+      "review_transactions_after_loss",
+      "transactions_after_loss_request"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 178
+  },
+  "File police report reference": {
+    "description": "Customers wanting to file police report reference, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to file police report reference - can you help me with that?"
+    },
+    "channelIntent": [
+      "file_police_report_reference",
+      "police_report_reference_request"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 2722
+  },
+  "Request emergency cash advance abroad": {
+    "description": "Customers wanting to request emergency cash advance abroad, handled under Report Lost or Stolen Card.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request emergency cash advance abroad - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_emergency_cash_advance_abroad",
+      "cash_advance_abroad_request"
+    ],
+    "parentIntent": "Report Lost or Stolen Card",
+    "numberOfConversations": 372
+  },
+  "Raise a new transaction dispute": {
+    "description": "Customers wanting to raise a new transaction dispute, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to raise a new transaction dispute - can you help me with that?"
+    },
+    "channelIntent": [
+      "raise_a_new_transaction_dispute",
+      "new_transaction_dispute_request"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 41113
+  },
+  "Dispute a duplicate charge": {
+    "description": "Customers wanting to dispute a duplicate charge, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to dispute a duplicate charge - can you help me with that?"
+    },
+    "channelIntent": [
+      "dispute_a_duplicate_charge",
+      "dispute_duplicate_charge_request"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 4960
+  },
+  "Dispute an incorrect amount": {
+    "description": "Customers wanting to dispute an incorrect amount, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to dispute an incorrect amount - can you help me with that?"
+    },
+    "channelIntent": [
+      "dispute_an_incorrect_amount",
+      "dispute_incorrect_amount_request"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 17205
+  },
+  "Dispute a merchant refund not received": {
+    "description": "Customers wanting to dispute a merchant refund not received, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to dispute a merchant refund not received - can you help me with that?"
+    },
+    "channelIntent": [
+      "dispute_a_merchant_refund_not_received",
+      "refund_not_received_request"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 37273
+  },
+  "Upload supporting dispute evidence": {
+    "description": "Customers wanting to upload supporting dispute evidence, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to upload supporting dispute evidence - can you help me with that?"
+    },
+    "channelIntent": [
+      "upload_supporting_dispute_evidence",
+      "supporting_dispute_evidence_request"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 40023
+  },
+  "Track dispute case status": {
+    "description": "Customers wanting to track dispute case status, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to track dispute case status - can you help me with that?"
+    },
+    "channelIntent": [
+      "track_dispute_case_status",
+      "dispute_case_status_request"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 30944
+  },
+  "Understand provisional credit": {
+    "description": "Customers wanting to understand provisional credit, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand provisional credit - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_provisional_credit",
+      "understand_provisional_credit_request"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 21391
+  },
+  "Withdraw an existing dispute": {
+    "description": "Customers wanting to withdraw an existing dispute, handled under Dispute a Transaction.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to withdraw an existing dispute - can you help me with that?"
+    },
+    "channelIntent": [
+      "withdraw_an_existing_dispute",
+      "withdraw_existing_dispute_request"
+    ],
+    "parentIntent": "Dispute a Transaction",
+    "numberOfConversations": 16385
+  },
+  "Report unauthorized transaction": {
+    "description": "Customers wanting to report unauthorized transaction, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to report unauthorized transaction - can you help me with that?"
+    },
+    "channelIntent": [
+      "report_unauthorized_transaction",
+      "report_unauthorized_transaction_request"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 4009
+  },
+  "Report suspected card skimming": {
+    "description": "Customers wanting to report suspected card skimming, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to report suspected card skimming - can you help me with that?"
+    },
+    "channelIntent": [
+      "report_suspected_card_skimming",
+      "suspected_card_skimming_request"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 3484
+  },
+  "Report phishing or scam contact": {
+    "description": "Customers wanting to report phishing or scam contact, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to report phishing or scam contact - can you help me with that?"
+    },
+    "channelIntent": [
+      "report_phishing_or_scam_contact",
+      "phishing_scam_contact_request"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 4299
+  },
+  "Request card reissue after fraud": {
+    "description": "Customers wanting to request card reissue after fraud, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request card reissue after fraud - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_card_reissue_after_fraud",
+      "reissue_after_fraud_request"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 17448
+  },
+  "Track fraud investigation status": {
+    "description": "Customers wanting to track fraud investigation status, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to track fraud investigation status - can you help me with that?"
+    },
+    "channelIntent": [
+      "track_fraud_investigation_status",
+      "fraud_investigation_status_request"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 8271
+  },
+  "Request fraud loss reimbursement": {
+    "description": "Customers wanting to request fraud loss reimbursement, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request fraud loss reimbursement - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_fraud_loss_reimbursement",
+      "fraud_loss_reimbursement_request"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 1210
+  },
+  "Add extra verification on account": {
+    "description": "Customers wanting to add extra verification on account, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to add extra verification on account - can you help me with that?"
+    },
+    "channelIntent": [
+      "add_extra_verification_on_account",
+      "extra_verification_account_request"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 10140
+  },
+  "Report identity theft": {
+    "description": "Customers wanting to report identity theft, handled under Fraud Report.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to report identity theft - can you help me with that?"
+    },
+    "channelIntent": [
+      "report_identity_theft",
+      "report_identity_theft_request"
+    ],
+    "parentIntent": "Fraud Report",
+    "numberOfConversations": 3925
+  },
+  "Check current outstanding balance": {
+    "description": "Customers wanting to check current outstanding balance, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check current outstanding balance - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_current_outstanding_balance",
+      "current_outstanding_balance_request"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 214
+  },
+  "Check available credit": {
+    "description": "Customers wanting to check available credit, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check available credit - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_available_credit",
+      "check_available_credit_request"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 206
+  },
+  "Check pending transactions": {
+    "description": "Customers wanting to check pending transactions, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check pending transactions - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_pending_transactions",
+      "check_pending_transactions_request"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 277
+  },
+  "Check last statement balance": {
+    "description": "Customers wanting to check last statement balance, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check last statement balance - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_last_statement_balance",
+      "last_statement_balance_request"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 354
+  },
+  "Check minimum amount due": {
+    "description": "Customers wanting to check minimum amount due, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check minimum amount due - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_minimum_amount_due",
+      "minimum_amount_due_request"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 237
+  },
+  "Check balance across multiple cards": {
+    "description": "Customers wanting to check balance across multiple cards, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check balance across multiple cards - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_balance_across_multiple_cards",
+      "across_multiple_cards_request"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 260
+  },
+  "Set low available credit alert": {
+    "description": "Customers wanting to set low available credit alert, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to set low available credit alert - can you help me with that?"
+    },
+    "channelIntent": [
+      "set_low_available_credit_alert",
+      "available_credit_alert_request"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 537
+  },
+  "Explain balance discrepancy": {
+    "description": "Customers wanting to explain balance discrepancy, handled under Balance Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to explain balance discrepancy - can you help me with that?"
+    },
+    "channelIntent": [
+      "explain_balance_discrepancy",
+      "explain_balance_discrepancy_request"
+    ],
+    "parentIntent": "Balance Inquiry",
+    "numberOfConversations": 249
+  },
+  "Download latest e-statement": {
+    "description": "Customers wanting to download latest e-statement, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to download latest e-statement - can you help me with that?"
+    },
+    "channelIntent": [
+      "download_latest_e_statement",
+      "latest_e_statement_request"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 185
+  },
+  "Request historical statements": {
+    "description": "Customers wanting to request historical statements, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request historical statements - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_historical_statements",
+      "request_historical_statements_request"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 161
+  },
+  "Request physical statement copy": {
+    "description": "Customers wanting to request physical statement copy, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request physical statement copy - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_physical_statement_copy",
+      "physical_statement_copy_request"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 375
+  },
+  "Change statement delivery preference": {
+    "description": "Customers wanting to change statement delivery preference, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to change statement delivery preference - can you help me with that?"
+    },
+    "channelIntent": [
+      "change_statement_delivery_preference",
+      "statement_delivery_preference_request"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 609
+  },
+  "Change statement cycle date": {
+    "description": "Customers wanting to change statement cycle date, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to change statement cycle date - can you help me with that?"
+    },
+    "channelIntent": [
+      "change_statement_cycle_date",
+      "statement_cycle_date_request"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 206
+  },
+  "Explain a statement line item": {
+    "description": "Customers wanting to explain a statement line item, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to explain a statement line item - can you help me with that?"
+    },
+    "channelIntent": [
+      "explain_a_statement_line_item",
+      "statement_line_item_request"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 193
+  },
+  "Request consolidated annual statement": {
+    "description": "Customers wanting to request consolidated annual statement, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request consolidated annual statement - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_consolidated_annual_statement",
+      "consolidated_annual_statement_request"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 186
+  },
+  "Resend statement to email": {
+    "description": "Customers wanting to resend statement to email, handled under Statement Request.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to resend statement to email - can you help me with that?"
+    },
+    "channelIntent": [
+      "resend_statement_to_email",
+      "resend_statement_email_request"
+    ],
+    "parentIntent": "Statement Request",
+    "numberOfConversations": 161
+  },
+  "Make a one-time card payment": {
+    "description": "Customers wanting to make a one-time card payment, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to make a one-time card payment - can you help me with that?"
+    },
+    "channelIntent": [
+      "make_a_one_time_card_payment",
+      "time_card_payment_request"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 364
+  },
+  "Pay minimum amount due": {
+    "description": "Customers wanting to pay minimum amount due, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to pay minimum amount due - can you help me with that?"
+    },
+    "channelIntent": [
+      "pay_minimum_amount_due",
+      "minimum_amount_due_request_pmad"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 751
+  },
+  "Pay full outstanding balance": {
+    "description": "Customers wanting to pay full outstanding balance, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to pay full outstanding balance - can you help me with that?"
+    },
+    "channelIntent": [
+      "pay_full_outstanding_balance",
+      "full_outstanding_balance_request"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 314
+  },
+  "Check payment posting status": {
+    "description": "Customers wanting to check payment posting status, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check payment posting status - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_payment_posting_status",
+      "payment_posting_status_request"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 723
+  },
+  "Report payment not credited": {
+    "description": "Customers wanting to report payment not credited, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to report payment not credited - can you help me with that?"
+    },
+    "channelIntent": [
+      "report_payment_not_credited",
+      "payment_not_credited_request"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 274
+  },
+  "Reverse a duplicate payment": {
+    "description": "Customers wanting to reverse a duplicate payment, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to reverse a duplicate payment - can you help me with that?"
+    },
+    "channelIntent": [
+      "reverse_a_duplicate_payment",
+      "reverse_duplicate_payment_request"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 178
+  },
+  "Change payment source account": {
+    "description": "Customers wanting to change payment source account, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to change payment source account - can you help me with that?"
+    },
+    "channelIntent": [
+      "change_payment_source_account",
+      "payment_source_account_request"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 271
+  },
+  "Request payment receipt": {
+    "description": "Customers wanting to request payment receipt, handled under Payment Processing.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request payment receipt - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_payment_receipt",
+      "request_payment_receipt_request"
+    ],
+    "parentIntent": "Payment Processing",
+    "numberOfConversations": 1575
+  },
+  "Enroll in autopay": {
+    "description": "Customers wanting to enroll in autopay, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to enroll in autopay - can you help me with that?"
+    },
+    "channelIntent": [
+      "enroll_in_autopay",
+      "enroll_autopay_request"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 1501
+  },
+  "Modify autopay amount option": {
+    "description": "Customers wanting to modify autopay amount option, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to modify autopay amount option - can you help me with that?"
+    },
+    "channelIntent": [
+      "modify_autopay_amount_option",
+      "autopay_amount_option_request"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 1455
+  },
+  "Change autopay debit account": {
+    "description": "Customers wanting to change autopay debit account, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to change autopay debit account - can you help me with that?"
+    },
+    "channelIntent": [
+      "change_autopay_debit_account",
+      "autopay_debit_account_request"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 2634
+  },
+  "Change autopay debit date": {
+    "description": "Customers wanting to change autopay debit date, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to change autopay debit date - can you help me with that?"
+    },
+    "channelIntent": [
+      "change_autopay_debit_date",
+      "autopay_debit_date_request"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 1149
+  },
+  "Cancel autopay enrollment": {
+    "description": "Customers wanting to cancel autopay enrollment, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to cancel autopay enrollment - can you help me with that?"
+    },
+    "channelIntent": [
+      "cancel_autopay_enrollment",
+      "cancel_autopay_enrollment_request"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 2103
+  },
+  "Investigate failed autopay run": {
+    "description": "Customers wanting to investigate failed autopay run, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to investigate failed autopay run - can you help me with that?"
+    },
+    "channelIntent": [
+      "investigate_failed_autopay_run",
+      "failed_autopay_run_request"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 2097
+  },
+  "Pause autopay temporarily": {
+    "description": "Customers wanting to pause autopay temporarily, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to pause autopay temporarily - can you help me with that?"
+    },
+    "channelIntent": [
+      "pause_autopay_temporarily",
+      "pause_autopay_temporarily_request"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 1013
+  },
+  "Confirm autopay enrollment status": {
+    "description": "Customers wanting to confirm autopay enrollment status, handled under Autopay Setup.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to confirm autopay enrollment status - can you help me with that?"
+    },
+    "channelIntent": [
+      "confirm_autopay_enrollment_status",
+      "autopay_enrollment_status_request"
+    ],
+    "parentIntent": "Autopay Setup",
+    "numberOfConversations": 1189
+  },
+  "Request one-time late fee waiver": {
+    "description": "Customers wanting to request one-time late fee waiver, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request one-time late fee waiver - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_one_time_late_fee_waiver",
+      "late_fee_waiver_request"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 26672
+  },
+  "Check late fee waiver eligibility": {
+    "description": "Customers wanting to check late fee waiver eligibility, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check late fee waiver eligibility - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_late_fee_waiver_eligibility",
+      "fee_waiver_eligibility_request"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 8552
+  },
+  "Dispute an incorrectly charged late fee": {
+    "description": "Customers wanting to dispute an incorrectly charged late fee, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to dispute an incorrectly charged late fee - can you help me with that?"
+    },
+    "channelIntent": [
+      "dispute_an_incorrectly_charged_late_fee",
+      "charged_late_fee_request"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 11959
+  },
+  "Request waiver due to hardship": {
+    "description": "Customers wanting to request waiver due to hardship, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request waiver due to hardship - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_waiver_due_to_hardship",
+      "waiver_due_hardship_request"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 84004
+  },
+  "Track waiver request status": {
+    "description": "Customers wanting to track waiver request status, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to track waiver request status - can you help me with that?"
+    },
+    "channelIntent": [
+      "track_waiver_request_status",
+      "waiver_request_status_request"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 123702
+  },
+  "Understand late fee policy": {
+    "description": "Customers wanting to understand late fee policy, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand late fee policy - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_late_fee_policy",
+      "late_fee_policy_request"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 202626
+  },
+  "Request reversal of related interest": {
+    "description": "Customers wanting to request reversal of related interest, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request reversal of related interest - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_reversal_of_related_interest",
+      "reversal_related_interest_request"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 215522
+  },
+  "Escalate a declined waiver": {
+    "description": "Customers wanting to escalate a declined waiver, handled under Late Fee Waiver.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to escalate a declined waiver - can you help me with that?"
+    },
+    "channelIntent": [
+      "escalate_a_declined_waiver",
+      "escalate_declined_waiver_request"
+    ],
+    "parentIntent": "Late Fee Waiver",
+    "numberOfConversations": 41490
+  },
+  "Check current purchase APR": {
+    "description": "Customers wanting to check current purchase APR, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check current purchase APR - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_current_purchase_apr",
+      "current_purchase_apr_request"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 434
+  },
+  "Check cash advance APR": {
+    "description": "Customers wanting to check cash advance APR, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check cash advance APR - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_cash_advance_apr",
+      "cash_advance_apr_request"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 757
+  },
+  "Request an APR reduction": {
+    "description": "Customers wanting to request an APR reduction, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request an APR reduction - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_an_apr_reduction",
+      "request_apr_reduction_request"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 615
+  },
+  "Understand promotional 0% APR period": {
+    "description": "Customers wanting to understand promotional 0% APR period, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand promotional 0% APR period - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_promotional_0_apr_period",
+      "0_apr_period_request"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 297
+  },
+  "Understand penalty APR trigger": {
+    "description": "Customers wanting to understand penalty APR trigger, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand penalty APR trigger - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_penalty_apr_trigger",
+      "penalty_apr_trigger_request"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 415
+  },
+  "Explain interest charged on statement": {
+    "description": "Customers wanting to explain interest charged on statement, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to explain interest charged on statement - can you help me with that?"
+    },
+    "channelIntent": [
+      "explain_interest_charged_on_statement",
+      "interest_charged_statement_request"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 215
+  },
+  "Compare APR across products": {
+    "description": "Customers wanting to compare APR across products, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to compare APR across products - can you help me with that?"
+    },
+    "channelIntent": [
+      "compare_apr_across_products",
+      "apr_across_products_request"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 282
+  },
+  "Check variable rate change notice": {
+    "description": "Customers wanting to check variable rate change notice, handled under Interest Rate Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check variable rate change notice - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_variable_rate_change_notice",
+      "rate_change_notice_request"
+    ],
+    "parentIntent": "Interest Rate Inquiry",
+    "numberOfConversations": 142
+  },
+  "Redeem points for cashback": {
+    "description": "Customers wanting to redeem points for cashback, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to redeem points for cashback - can you help me with that?"
+    },
+    "channelIntent": [
+      "redeem_points_for_cashback",
+      "redeem_points_cashback_request"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 646
+  },
+  "Redeem points for travel booking": {
+    "description": "Customers wanting to redeem points for travel booking, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to redeem points for travel booking - can you help me with that?"
+    },
+    "channelIntent": [
+      "redeem_points_for_travel_booking",
+      "points_travel_booking_request"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 4990
+  },
+  "Redeem points for merchandise": {
+    "description": "Customers wanting to redeem points for merchandise, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to redeem points for merchandise - can you help me with that?"
+    },
+    "channelIntent": [
+      "redeem_points_for_merchandise",
+      "redeem_points_merchandise_request"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 2022
+  },
+  "Redeem points for gift vouchers": {
+    "description": "Customers wanting to redeem points for gift vouchers, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to redeem points for gift vouchers - can you help me with that?"
+    },
+    "channelIntent": [
+      "redeem_points_for_gift_vouchers",
+      "points_gift_vouchers_request"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 29561
+  },
+  "Transfer points to partner program": {
+    "description": "Customers wanting to transfer points to partner program, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to transfer points to partner program - can you help me with that?"
+    },
+    "channelIntent": [
+      "transfer_points_to_partner_program",
+      "points_partner_program_request"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 1877
+  },
+  "Cancel or reverse a redemption": {
+    "description": "Customers wanting to cancel or reverse a redemption, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to cancel or reverse a redemption - can you help me with that?"
+    },
+    "channelIntent": [
+      "cancel_or_reverse_a_redemption",
+      "cancel_reverse_redemption_request"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 1720
+  },
+  "Check redemption processing status": {
+    "description": "Customers wanting to check redemption processing status, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check redemption processing status - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_redemption_processing_status",
+      "redemption_processing_status_request"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 955
+  },
+  "Understand redemption rates": {
+    "description": "Customers wanting to understand redemption rates, handled under Rewards Redemption.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand redemption rates - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_redemption_rates",
+      "understand_redemption_rates_request"
+    ],
+    "parentIntent": "Rewards Redemption",
+    "numberOfConversations": 7423
+  },
+  "Check current points balance": {
+    "description": "Customers wanting to check current points balance, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check current points balance - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_current_points_balance",
+      "current_points_balance_request"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 8020
+  },
+  "Check points earned this cycle": {
+    "description": "Customers wanting to check points earned this cycle, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check points earned this cycle - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_points_earned_this_cycle",
+      "points_earned_cycle_request"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 1537
+  },
+  "Check points expiry schedule": {
+    "description": "Customers wanting to check points expiry schedule, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check points expiry schedule - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_points_expiry_schedule",
+      "points_expiry_schedule_request"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 2511
+  },
+  "Report missing points from a purchase": {
+    "description": "Customers wanting to report missing points from a purchase, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to report missing points from a purchase - can you help me with that?"
+    },
+    "channelIntent": [
+      "report_missing_points_from_a_purchase",
+      "missing_points_purchase_request"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 4632
+  },
+  "Understand points earning rules": {
+    "description": "Customers wanting to understand points earning rules, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand points earning rules - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_points_earning_rules",
+      "points_earning_rules_request"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 6324
+  },
+  "Request retroactive points credit": {
+    "description": "Customers wanting to request retroactive points credit, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request retroactive points credit - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_retroactive_points_credit",
+      "retroactive_points_credit_request"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 2657
+  },
+  "Combine points across cards": {
+    "description": "Customers wanting to combine points across cards, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to combine points across cards - can you help me with that?"
+    },
+    "channelIntent": [
+      "combine_points_across_cards",
+      "points_across_cards_request"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 31197
+  },
+  "Set points expiry reminder": {
+    "description": "Customers wanting to set points expiry reminder, handled under Points Balance.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to set points expiry reminder - can you help me with that?"
+    },
+    "channelIntent": [
+      "set_points_expiry_reminder",
+      "points_expiry_reminder_request"
+    ],
+    "parentIntent": "Points Balance",
+    "numberOfConversations": 5594
+  },
+  "Check accrued cashback amount": {
+    "description": "Customers wanting to check accrued cashback amount, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check accrued cashback amount - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_accrued_cashback_amount",
+      "accrued_cashback_amount_request"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 131
+  },
+  "Understand cashback categories": {
+    "description": "Customers wanting to understand cashback categories, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand cashback categories - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_cashback_categories",
+      "understand_cashback_categories_request"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 234
+  },
+  "Report missing cashback": {
+    "description": "Customers wanting to report missing cashback, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to report missing cashback - can you help me with that?"
+    },
+    "channelIntent": [
+      "report_missing_cashback",
+      "report_missing_cashback_request"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 333
+  },
+  "Check cashback caps and limits": {
+    "description": "Customers wanting to check cashback caps and limits, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check cashback caps and limits - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_cashback_caps_and_limits",
+      "cashback_caps_limits_request"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 470
+  },
+  "Request cashback credit to statement": {
+    "description": "Customers wanting to request cashback credit to statement, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request cashback credit to statement - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_cashback_credit_to_statement",
+      "cashback_credit_statement_request"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 4085
+  },
+  "Understand cashback exclusions": {
+    "description": "Customers wanting to understand cashback exclusions, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand cashback exclusions - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_cashback_exclusions",
+      "understand_cashback_exclusions_request"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 1049
+  },
+  "Check rotating category enrollment": {
+    "description": "Customers wanting to check rotating category enrollment, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check rotating category enrollment - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_rotating_category_enrollment",
+      "rotating_category_enrollment_request"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 1119
+  },
+  "Check cashback payout schedule": {
+    "description": "Customers wanting to check cashback payout schedule, handled under Cashback Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check cashback payout schedule - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_cashback_payout_schedule",
+      "cashback_payout_schedule_request"
+    ],
+    "parentIntent": "Cashback Enquiry",
+    "numberOfConversations": 682
+  },
+  "Register a travel plan": {
+    "description": "Customers wanting to register a travel plan, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to register a travel plan - can you help me with that?"
+    },
+    "channelIntent": [
+      "register_a_travel_plan",
+      "register_travel_plan_request"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 3245
+  },
+  "Modify travel dates": {
+    "description": "Customers wanting to modify travel dates, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to modify travel dates - can you help me with that?"
+    },
+    "channelIntent": [
+      "modify_travel_dates",
+      "modify_travel_dates_request"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 78136
+  },
+  "Cancel a travel notification": {
+    "description": "Customers wanting to cancel a travel notification, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to cancel a travel notification - can you help me with that?"
+    },
+    "channelIntent": [
+      "cancel_a_travel_notification",
+      "cancel_travel_notification_request"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 5561
+  },
+  "Add countries to existing travel plan": {
+    "description": "Customers wanting to add countries to existing travel plan, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to add countries to existing travel plan - can you help me with that?"
+    },
+    "channelIntent": [
+      "add_countries_to_existing_travel_plan",
+      "existing_travel_plan_request"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 11683
+  },
+  "Confirm card works at destination": {
+    "description": "Customers wanting to confirm card works at destination, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to confirm card works at destination - can you help me with that?"
+    },
+    "channelIntent": [
+      "confirm_card_works_at_destination",
+      "card_works_destination_request"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 7757
+  },
+  "Understand travel plan expiry": {
+    "description": "Customers wanting to understand travel plan expiry, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand travel plan expiry - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_travel_plan_expiry",
+      "travel_plan_expiry_request"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 4353
+  },
+  "Report card blocked while travelling": {
+    "description": "Customers wanting to report card blocked while travelling, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to report card blocked while travelling - can you help me with that?"
+    },
+    "channelIntent": [
+      "report_card_blocked_while_travelling",
+      "blocked_while_travelling_request"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 57184
+  },
+  "Request travel emergency contact number": {
+    "description": "Customers wanting to request travel emergency contact number, handled under Travel Notification.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request travel emergency contact number - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_travel_emergency_contact_number",
+      "emergency_contact_number_request"
+    ],
+    "parentIntent": "Travel Notification",
+    "numberOfConversations": 14422
+  },
+  "Check foreign transaction fee rate": {
+    "description": "Customers wanting to check foreign transaction fee rate, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check foreign transaction fee rate - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_foreign_transaction_fee_rate",
+      "transaction_fee_rate_request"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 7588
+  },
+  "Dispute an unexpected foreign fee": {
+    "description": "Customers wanting to dispute an unexpected foreign fee, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to dispute an unexpected foreign fee - can you help me with that?"
+    },
+    "channelIntent": [
+      "dispute_an_unexpected_foreign_fee",
+      "unexpected_foreign_fee_request"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 13575
+  },
+  "Understand dynamic currency conversion": {
+    "description": "Customers wanting to understand dynamic currency conversion, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand dynamic currency conversion - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_dynamic_currency_conversion",
+      "dynamic_currency_conversion_request"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 11515
+  },
+  "Check exchange rate applied": {
+    "description": "Customers wanting to check exchange rate applied, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check exchange rate applied - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_exchange_rate_applied",
+      "exchange_rate_applied_request"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 4530
+  },
+  "Request fee waiver for a trip": {
+    "description": "Customers wanting to request fee waiver for a trip, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request fee waiver for a trip - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_fee_waiver_for_a_trip",
+      "fee_waiver_trip_request"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 4025
+  },
+  "Compare no-foreign-fee card options": {
+    "description": "Customers wanting to compare no-foreign-fee card options, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to compare no-foreign-fee card options - can you help me with that?"
+    },
+    "channelIntent": [
+      "compare_no_foreign_fee_card_options",
+      "fee_card_options_request"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 14237
+  },
+  "Understand fees on foreign online purchases": {
+    "description": "Customers wanting to understand fees on foreign online purchases, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand fees on foreign online purchases - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_fees_on_foreign_online_purchases",
+      "foreign_online_purchases_request"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 14273
+  },
+  "Request refund of duplicate foreign fee": {
+    "description": "Customers wanting to request refund of duplicate foreign fee, handled under Foreign Transaction Fees.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request refund of duplicate foreign fee - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_refund_of_duplicate_foreign_fee",
+      "duplicate_foreign_fee_request"
+    ],
+    "parentIntent": "Foreign Transaction Fees",
+    "numberOfConversations": 9360
+  },
+  "Check annual fee amount and due date": {
+    "description": "Customers wanting to check annual fee amount and due date, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check annual fee amount and due date - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_annual_fee_amount_and_due_date",
+      "amount_due_date_request"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 7049
+  },
+  "Request annual fee waiver": {
+    "description": "Customers wanting to request annual fee waiver, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request annual fee waiver - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_annual_fee_waiver",
+      "annual_fee_waiver_request"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 5682
+  },
+  "Understand fee waiver spend criteria": {
+    "description": "Customers wanting to understand fee waiver spend criteria, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand fee waiver spend criteria - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_fee_waiver_spend_criteria",
+      "waiver_spend_criteria_request"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 2693
+  },
+  "Dispute an annual fee charge": {
+    "description": "Customers wanting to dispute an annual fee charge, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to dispute an annual fee charge - can you help me with that?"
+    },
+    "channelIntent": [
+      "dispute_an_annual_fee_charge",
+      "annual_fee_charge_request"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 6949
+  },
+  "Request pro-rated fee refund on closure": {
+    "description": "Customers wanting to request pro-rated fee refund on closure, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request pro-rated fee refund on closure - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_pro_rated_fee_refund_on_closure",
+      "fee_refund_closure_request"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 966
+  },
+  "Switch to a no-annual-fee card": {
+    "description": "Customers wanting to switch to a no-annual-fee card, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to switch to a no-annual-fee card - can you help me with that?"
+    },
+    "channelIntent": [
+      "switch_to_a_no_annual_fee_card",
+      "annual_fee_card_request"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 12284
+  },
+  "Understand supplementary card fees": {
+    "description": "Customers wanting to understand supplementary card fees, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand supplementary card fees - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_supplementary_card_fees",
+      "supplementary_card_fees_request"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 4713
+  },
+  "Track annual fee waiver request": {
+    "description": "Customers wanting to track annual fee waiver request, handled under Annual Fee Enquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to track annual fee waiver request - can you help me with that?"
+    },
+    "channelIntent": [
+      "track_annual_fee_waiver_request",
+      "fee_waiver_request_request"
+    ],
+    "parentIntent": "Annual Fee Enquiry",
+    "numberOfConversations": 3665
+  },
+  "Check upgrade eligibility": {
+    "description": "Customers wanting to check upgrade eligibility, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check upgrade eligibility - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_upgrade_eligibility",
+      "check_upgrade_eligibility_request"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 1920
+  },
+  "Compare higher-tier card benefits": {
+    "description": "Customers wanting to compare higher-tier card benefits, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to compare higher-tier card benefits - can you help me with that?"
+    },
+    "channelIntent": [
+      "compare_higher_tier_card_benefits",
+      "tier_card_benefits_request"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 242
+  },
+  "Request upgrade to premium card": {
+    "description": "Customers wanting to request upgrade to premium card, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request upgrade to premium card - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_upgrade_to_premium_card",
+      "upgrade_premium_card_request"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 2592
+  },
+  "Understand upgrade fee and APR changes": {
+    "description": "Customers wanting to understand upgrade fee and APR changes, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand upgrade fee and APR changes - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_upgrade_fee_and_apr_changes",
+      "fee_apr_changes_request"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 568
+  },
+  "Track upgrade application status": {
+    "description": "Customers wanting to track upgrade application status, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to track upgrade application status - can you help me with that?"
+    },
+    "channelIntent": [
+      "track_upgrade_application_status",
+      "upgrade_application_status_request"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 354
+  },
+  "Retain benefits after upgrade": {
+    "description": "Customers wanting to retain benefits after upgrade, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to retain benefits after upgrade - can you help me with that?"
+    },
+    "channelIntent": [
+      "retain_benefits_after_upgrade",
+      "benefits_after_upgrade_request"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 337
+  },
+  "Understand impact on rewards balance": {
+    "description": "Customers wanting to understand impact on rewards balance, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand impact on rewards balance - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_impact_on_rewards_balance",
+      "impact_rewards_balance_request"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 1766
+  },
+  "Cancel a pending upgrade": {
+    "description": "Customers wanting to cancel a pending upgrade, handled under Card Upgrade.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to cancel a pending upgrade - can you help me with that?"
+    },
+    "channelIntent": [
+      "cancel_a_pending_upgrade",
+      "cancel_pending_upgrade_request"
+    ],
+    "parentIntent": "Card Upgrade",
+    "numberOfConversations": 3878
+  },
+  "Check downgrade options": {
+    "description": "Customers wanting to check downgrade options, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check downgrade options - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_downgrade_options",
+      "check_downgrade_options_request"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 180
+  },
+  "Request downgrade to lower-fee card": {
+    "description": "Customers wanting to request downgrade to lower-fee card, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request downgrade to lower-fee card - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_downgrade_to_lower_fee_card",
+      "lower_fee_card_request"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 229
+  },
+  "Understand benefits lost on downgrade": {
+    "description": "Customers wanting to understand benefits lost on downgrade, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand benefits lost on downgrade - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_benefits_lost_on_downgrade",
+      "benefits_lost_downgrade_request"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 192
+  },
+  "Understand impact on credit history": {
+    "description": "Customers wanting to understand impact on credit history, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand impact on credit history - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_impact_on_credit_history",
+      "impact_credit_history_request"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 159
+  },
+  "Track downgrade request status": {
+    "description": "Customers wanting to track downgrade request status, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to track downgrade request status - can you help me with that?"
+    },
+    "channelIntent": [
+      "track_downgrade_request_status",
+      "downgrade_request_status_request"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 772
+  },
+  "Retain points after downgrade": {
+    "description": "Customers wanting to retain points after downgrade, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to retain points after downgrade - can you help me with that?"
+    },
+    "channelIntent": [
+      "retain_points_after_downgrade",
+      "points_after_downgrade_request"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 195
+  },
+  "Reverse a recent downgrade": {
+    "description": "Customers wanting to reverse a recent downgrade, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to reverse a recent downgrade - can you help me with that?"
+    },
+    "channelIntent": [
+      "reverse_a_recent_downgrade",
+      "reverse_recent_downgrade_request"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 201
+  },
+  "Downgrade instead of closing account": {
+    "description": "Customers wanting to downgrade instead of closing account, handled under Card Downgrade.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to downgrade instead of closing account - can you help me with that?"
+    },
+    "channelIntent": [
+      "downgrade_instead_of_closing_account",
+      "instead_closing_account_request"
+    ],
+    "parentIntent": "Card Downgrade",
+    "numberOfConversations": 209
+  },
+  "Request card account closure": {
+    "description": "Customers wanting to request card account closure, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request card account closure - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_card_account_closure",
+      "card_account_closure_request"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 39283
+  },
+  "Check outstanding balance before closure": {
+    "description": "Customers wanting to check outstanding balance before closure, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check outstanding balance before closure - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_outstanding_balance_before_closure",
+      "balance_before_closure_request"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 7236
+  },
+  "Redeem remaining rewards before closure": {
+    "description": "Customers wanting to redeem remaining rewards before closure, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to redeem remaining rewards before closure - can you help me with that?"
+    },
+    "channelIntent": [
+      "redeem_remaining_rewards_before_closure",
+      "rewards_before_closure_request"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 116691
+  },
+  "Cancel recurring payments on the card": {
+    "description": "Customers wanting to cancel recurring payments on the card, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to cancel recurring payments on the card - can you help me with that?"
+    },
+    "channelIntent": [
+      "cancel_recurring_payments_on_the_card",
+      "recurring_payments_card_request"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 78129
+  },
+  "Confirm closure completion": {
+    "description": "Customers wanting to confirm closure completion, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to confirm closure completion - can you help me with that?"
+    },
+    "channelIntent": [
+      "confirm_closure_completion",
+      "confirm_closure_completion_request"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 23682
+  },
+  "Understand how closing affects credit score": {
+    "description": "Customers wanting to understand how closing affects credit score, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand how closing affects credit score - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_how_closing_affects_credit_score",
+      "affects_credit_score_request_uhcacs"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 37115
+  },
+  "Close a supplementary card only": {
+    "description": "Customers wanting to close a supplementary card only, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to close a supplementary card only - can you help me with that?"
+    },
+    "channelIntent": [
+      "close_a_supplementary_card_only",
+      "supplementary_card_only_request"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 39731
+  },
+  "Reopen a recently closed account": {
+    "description": "Customers wanting to reopen a recently closed account, handled under Close Account.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to reopen a recently closed account - can you help me with that?"
+    },
+    "channelIntent": [
+      "reopen_a_recently_closed_account",
+      "recently_closed_account_request"
+    ],
+    "parentIntent": "Close Account",
+    "numberOfConversations": 23192
+  },
+  "Add a supplementary cardholder": {
+    "description": "Customers wanting to add a supplementary cardholder, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to add a supplementary cardholder - can you help me with that?"
+    },
+    "channelIntent": [
+      "add_a_supplementary_cardholder",
+      "add_supplementary_cardholder_request"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 377
+  },
+  "Remove an authorized user": {
+    "description": "Customers wanting to remove an authorized user, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to remove an authorized user - can you help me with that?"
+    },
+    "channelIntent": [
+      "remove_an_authorized_user",
+      "remove_authorized_user_request"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 680
+  },
+  "Set spending limit for authorized user": {
+    "description": "Customers wanting to set spending limit for authorized user, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to set spending limit for authorized user - can you help me with that?"
+    },
+    "channelIntent": [
+      "set_spending_limit_for_authorized_user",
+      "limit_authorized_user_request"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 940
+  },
+  "Check supplementary card fee": {
+    "description": "Customers wanting to check supplementary card fee, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check supplementary card fee - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_supplementary_card_fee",
+      "supplementary_card_fee_request"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 563
+  },
+  "Track supplementary card delivery": {
+    "description": "Customers wanting to track supplementary card delivery, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to track supplementary card delivery - can you help me with that?"
+    },
+    "channelIntent": [
+      "track_supplementary_card_delivery",
+      "supplementary_card_delivery_request"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 362
+  },
+  "Update authorized user details": {
+    "description": "Customers wanting to update authorized user details, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to update authorized user details - can you help me with that?"
+    },
+    "channelIntent": [
+      "update_authorized_user_details",
+      "authorized_user_details_request"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 145
+  },
+  "Review authorized user transactions": {
+    "description": "Customers wanting to review authorized user transactions, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to review authorized user transactions - can you help me with that?"
+    },
+    "channelIntent": [
+      "review_authorized_user_transactions",
+      "authorized_user_transactions_request"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 465
+  },
+  "Convert authorized user to primary": {
+    "description": "Customers wanting to convert authorized user to primary, handled under Add Authorized User.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to convert authorized user to primary - can you help me with that?"
+    },
+    "channelIntent": [
+      "convert_authorized_user_to_primary",
+      "authorized_user_primary_request"
+    ],
+    "parentIntent": "Add Authorized User",
+    "numberOfConversations": 948
+  },
+  "Update mailing address": {
+    "description": "Customers wanting to update mailing address, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to update mailing address - can you help me with that?"
+    },
+    "channelIntent": [
+      "update_mailing_address",
+      "update_mailing_address_request"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 5137
+  },
+  "Update phone number": {
+    "description": "Customers wanting to update phone number, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to update phone number - can you help me with that?"
+    },
+    "channelIntent": [
+      "update_phone_number",
+      "update_phone_number_request"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 8481
+  },
+  "Update email address": {
+    "description": "Customers wanting to update email address, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to update email address - can you help me with that?"
+    },
+    "channelIntent": [
+      "update_email_address",
+      "update_email_address_request"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 14142
+  },
+  "Update name after legal change": {
+    "description": "Customers wanting to update name after legal change, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to update name after legal change - can you help me with that?"
+    },
+    "channelIntent": [
+      "update_name_after_legal_change",
+      "after_legal_change_request"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 7931
+  },
+  "Update employment and income details": {
+    "description": "Customers wanting to update employment and income details, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to update employment and income details - can you help me with that?"
+    },
+    "channelIntent": [
+      "update_employment_and_income_details",
+      "employment_income_details_request"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 38335
+  },
+  "Update marital status": {
+    "description": "Customers wanting to update marital status, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to update marital status - can you help me with that?"
+    },
+    "channelIntent": [
+      "update_marital_status",
+      "update_marital_status_request"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 11067
+  },
+  "Update communication preferences": {
+    "description": "Customers wanting to update communication preferences, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to update communication preferences - can you help me with that?"
+    },
+    "channelIntent": [
+      "update_communication_preferences",
+      "update_communication_preferences_request"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 1401
+  },
+  "Verify identity for a detail change": {
+    "description": "Customers wanting to verify identity for a detail change, handled under Update Personal Details.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to verify identity for a detail change - can you help me with that?"
+    },
+    "channelIntent": [
+      "verify_identity_for_a_detail_change",
+      "identity_detail_change_request"
+    ],
+    "parentIntent": "Update Personal Details",
+    "numberOfConversations": 6439
+  },
+  "Set a PIN for a new card": {
+    "description": "Customers wanting to set a PIN for a new card, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to set a PIN for a new card - can you help me with that?"
+    },
+    "channelIntent": [
+      "set_a_pin_for_a_new_card",
+      "pin_new_card_request"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 16964
+  },
+  "Reset a forgotten PIN": {
+    "description": "Customers wanting to reset a forgotten PIN, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to reset a forgotten PIN - can you help me with that?"
+    },
+    "channelIntent": [
+      "reset_a_forgotten_pin",
+      "reset_forgotten_pin_request"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 57123
+  },
+  "Change existing PIN": {
+    "description": "Customers wanting to change existing PIN, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to change existing PIN - can you help me with that?"
+    },
+    "channelIntent": [
+      "change_existing_pin",
+      "change_existing_pin_request"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 123171
+  },
+  "Unblock PIN after failed attempts": {
+    "description": "Customers wanting to unblock PIN after failed attempts, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to unblock PIN after failed attempts - can you help me with that?"
+    },
+    "channelIntent": [
+      "unblock_pin_after_failed_attempts",
+      "after_failed_attempts_request"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 55398
+  },
+  "Retrieve PIN via secure channel": {
+    "description": "Customers wanting to retrieve PIN via secure channel, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to retrieve PIN via secure channel - can you help me with that?"
+    },
+    "channelIntent": [
+      "retrieve_pin_via_secure_channel",
+      "via_secure_channel_request"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 17575
+  },
+  "Set PIN for international ATM use": {
+    "description": "Customers wanting to set PIN for international ATM use, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to set PIN for international ATM use - can you help me with that?"
+    },
+    "channelIntent": [
+      "set_pin_for_international_atm_use",
+      "international_atm_use_request"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 36642
+  },
+  "Understand PIN security policy": {
+    "description": "Customers wanting to understand PIN security policy, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand PIN security policy - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_pin_security_policy",
+      "pin_security_policy_request"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 25346
+  },
+  "Report PIN compromise": {
+    "description": "Customers wanting to report PIN compromise, handled under PIN Management.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to report PIN compromise - can you help me with that?"
+    },
+    "channelIntent": [
+      "report_pin_compromise",
+      "report_pin_compromise_request"
+    ],
+    "parentIntent": "PIN Management",
+    "numberOfConversations": 43236
+  },
+  "Check balance transfer eligibility": {
+    "description": "Customers wanting to check balance transfer eligibility, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check balance transfer eligibility - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_balance_transfer_eligibility",
+      "balance_transfer_eligibility_request"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 621
+  },
+  "Initiate a balance transfer": {
+    "description": "Customers wanting to initiate a balance transfer, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to initiate a balance transfer - can you help me with that?"
+    },
+    "channelIntent": [
+      "initiate_a_balance_transfer",
+      "initiate_balance_transfer_request"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 2696
+  },
+  "Check balance transfer fee": {
+    "description": "Customers wanting to check balance transfer fee, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check balance transfer fee - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_balance_transfer_fee",
+      "balance_transfer_fee_request"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 519
+  },
+  "Understand promotional transfer rate": {
+    "description": "Customers wanting to understand promotional transfer rate, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand promotional transfer rate - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_promotional_transfer_rate",
+      "promotional_transfer_rate_request"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 2445
+  },
+  "Track balance transfer status": {
+    "description": "Customers wanting to track balance transfer status, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to track balance transfer status - can you help me with that?"
+    },
+    "channelIntent": [
+      "track_balance_transfer_status",
+      "balance_transfer_status_request"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 641
+  },
+  "Cancel a pending balance transfer": {
+    "description": "Customers wanting to cancel a pending balance transfer, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to cancel a pending balance transfer - can you help me with that?"
+    },
+    "channelIntent": [
+      "cancel_a_pending_balance_transfer",
+      "pending_balance_transfer_request"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 299
+  },
+  "Transfer balance from another bank card": {
+    "description": "Customers wanting to transfer balance from another bank card, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to transfer balance from another bank card - can you help me with that?"
+    },
+    "channelIntent": [
+      "transfer_balance_from_another_bank_card",
+      "another_bank_card_request"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 649
+  },
+  "Understand repayment order after transfer": {
+    "description": "Customers wanting to understand repayment order after transfer, handled under Balance Transfer.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand repayment order after transfer - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_repayment_order_after_transfer",
+      "order_after_transfer_request"
+    ],
+    "parentIntent": "Balance Transfer",
+    "numberOfConversations": 202
+  },
+  "Check cash advance limit": {
+    "description": "Customers wanting to check cash advance limit, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check cash advance limit - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_cash_advance_limit",
+      "cash_advance_limit_request"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 41329
+  },
+  "Withdraw cash advance at ATM": {
+    "description": "Customers wanting to withdraw cash advance at ATM, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to withdraw cash advance at ATM - can you help me with that?"
+    },
+    "channelIntent": [
+      "withdraw_cash_advance_at_atm",
+      "cash_advance_atm_request"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 55499
+  },
+  "Understand cash advance fees": {
+    "description": "Customers wanting to understand cash advance fees, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand cash advance fees - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_cash_advance_fees",
+      "cash_advance_fees_request"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 57259
+  },
+  "Understand cash advance interest accrual": {
+    "description": "Customers wanting to understand cash advance interest accrual, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand cash advance interest accrual - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_cash_advance_interest_accrual",
+      "advance_interest_accrual_request"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 191678
+  },
+  "Repay a cash advance early": {
+    "description": "Customers wanting to repay a cash advance early, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to repay a cash advance early - can you help me with that?"
+    },
+    "channelIntent": [
+      "repay_a_cash_advance_early",
+      "cash_advance_early_request"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 78968
+  },
+  "Dispute a cash advance charge": {
+    "description": "Customers wanting to dispute a cash advance charge, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to dispute a cash advance charge - can you help me with that?"
+    },
+    "channelIntent": [
+      "dispute_a_cash_advance_charge",
+      "cash_advance_charge_request"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 20566
+  },
+  "Request emergency cash abroad": {
+    "description": "Customers wanting to request emergency cash abroad, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request emergency cash abroad - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_emergency_cash_abroad",
+      "emergency_cash_abroad_request"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 33505
+  },
+  "Disable cash advance feature": {
+    "description": "Customers wanting to disable cash advance feature, handled under Cash Advance.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to disable cash advance feature - can you help me with that?"
+    },
+    "channelIntent": [
+      "disable_cash_advance_feature",
+      "cash_advance_feature_request"
+    ],
+    "parentIntent": "Cash Advance",
+    "numberOfConversations": 100082
+  },
+  "Convert a purchase to installments": {
+    "description": "Customers wanting to convert a purchase to installments, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to convert a purchase to installments - can you help me with that?"
+    },
+    "channelIntent": [
+      "convert_a_purchase_to_installments",
+      "convert_purchase_installments_request"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 1169
+  },
+  "Convert full balance to installments": {
+    "description": "Customers wanting to convert full balance to installments, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to convert full balance to installments - can you help me with that?"
+    },
+    "channelIntent": [
+      "convert_full_balance_to_installments",
+      "full_balance_installments_request"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 3343
+  },
+  "Check installment plan interest rate": {
+    "description": "Customers wanting to check installment plan interest rate, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check installment plan interest rate - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_installment_plan_interest_rate",
+      "plan_interest_rate_request"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 8894
+  },
+  "Check remaining installment tenure": {
+    "description": "Customers wanting to check remaining installment tenure, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check remaining installment tenure - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_remaining_installment_tenure",
+      "remaining_installment_tenure_request"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 1558
+  },
+  "Foreclose an installment plan early": {
+    "description": "Customers wanting to foreclose an installment plan early, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to foreclose an installment plan early - can you help me with that?"
+    },
+    "channelIntent": [
+      "foreclose_an_installment_plan_early",
+      "installment_plan_early_request"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 3161
+  },
+  "Check installment prepayment charges": {
+    "description": "Customers wanting to check installment prepayment charges, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check installment prepayment charges - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_installment_prepayment_charges",
+      "installment_prepayment_charges_request"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 3382
+  },
+  "Cancel a newly created plan": {
+    "description": "Customers wanting to cancel a newly created plan, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to cancel a newly created plan - can you help me with that?"
+    },
+    "channelIntent": [
+      "cancel_a_newly_created_plan",
+      "newly_created_plan_request"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 838
+  },
+  "Change installment tenure": {
+    "description": "Customers wanting to change installment tenure, handled under Installment Plan Conversion.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to change installment tenure - can you help me with that?"
+    },
+    "channelIntent": [
+      "change_installment_tenure",
+      "change_installment_tenure_request"
+    ],
+    "parentIntent": "Installment Plan Conversion",
+    "numberOfConversations": 1253
+  },
+  "Check current credit score": {
+    "description": "Customers wanting to check current credit score, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check current credit score - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_current_credit_score",
+      "current_credit_score_request"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 708
+  },
+  "Understand factors affecting the score": {
+    "description": "Customers wanting to understand factors affecting the score, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand factors affecting the score - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_factors_affecting_the_score",
+      "factors_affecting_score_request"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 1203
+  },
+  "Check score change since last month": {
+    "description": "Customers wanting to check score change since last month, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check score change since last month - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_score_change_since_last_month",
+      "since_last_month_request"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 1141
+  },
+  "Dispute a credit bureau record": {
+    "description": "Customers wanting to dispute a credit bureau record, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to dispute a credit bureau record - can you help me with that?"
+    },
+    "channelIntent": [
+      "dispute_a_credit_bureau_record",
+      "credit_bureau_record_request"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 1677
+  },
+  "Understand hard vs soft inquiry": {
+    "description": "Customers wanting to understand hard vs soft inquiry, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand hard vs soft inquiry - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_hard_vs_soft_inquiry",
+      "vs_soft_inquiry_request"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 18293
+  },
+  "Get score improvement guidance": {
+    "description": "Customers wanting to get score improvement guidance, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to get score improvement guidance - can you help me with that?"
+    },
+    "channelIntent": [
+      "get_score_improvement_guidance",
+      "score_improvement_guidance_request"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 206
+  },
+  "Enroll in credit score monitoring": {
+    "description": "Customers wanting to enroll in credit score monitoring, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to enroll in credit score monitoring - can you help me with that?"
+    },
+    "channelIntent": [
+      "enroll_in_credit_score_monitoring",
+      "credit_score_monitoring_request"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 939
+  },
+  "Request a credit report copy": {
+    "description": "Customers wanting to request a credit report copy, handled under Credit Score Inquiry.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request a credit report copy - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_a_credit_report_copy",
+      "credit_report_copy_request"
+    ],
+    "parentIntent": "Credit Score Inquiry",
+    "numberOfConversations": 213
+  },
+  "Track new card shipment": {
+    "description": "Customers wanting to track new card shipment, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to track new card shipment - can you help me with that?"
+    },
+    "channelIntent": [
+      "track_new_card_shipment",
+      "new_card_shipment_request"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 329
+  },
+  "Report card not received": {
+    "description": "Customers wanting to report card not received, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to report card not received - can you help me with that?"
+    },
+    "channelIntent": [
+      "report_card_not_received",
+      "card_not_received_request"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 378
+  },
+  "Change delivery address": {
+    "description": "Customers wanting to change delivery address, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to change delivery address - can you help me with that?"
+    },
+    "channelIntent": [
+      "change_delivery_address",
+      "change_delivery_address_request"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 1064
+  },
+  "Reschedule card delivery": {
+    "description": "Customers wanting to reschedule card delivery, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to reschedule card delivery - can you help me with that?"
+    },
+    "channelIntent": [
+      "reschedule_card_delivery",
+      "reschedule_card_delivery_request"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 890
+  },
+  "Collect card from branch": {
+    "description": "Customers wanting to collect card from branch, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to collect card from branch - can you help me with that?"
+    },
+    "channelIntent": [
+      "collect_card_from_branch",
+      "collect_card_branch_request"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 277
+  },
+  "Verify courier identity": {
+    "description": "Customers wanting to verify courier identity, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to verify courier identity - can you help me with that?"
+    },
+    "channelIntent": [
+      "verify_courier_identity",
+      "verify_courier_identity_request"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 1256
+  },
+  "Report card delivered to wrong address": {
+    "description": "Customers wanting to report card delivered to wrong address, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to report card delivered to wrong address - can you help me with that?"
+    },
+    "channelIntent": [
+      "report_card_delivered_to_wrong_address",
+      "delivered_wrong_address_request"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 993
+  },
+  "Request redelivery after failed attempt": {
+    "description": "Customers wanting to request redelivery after failed attempt, handled under Card Delivery Status.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request redelivery after failed attempt - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_redelivery_after_failed_attempt",
+      "after_failed_attempt_request"
+    ],
+    "parentIntent": "Card Delivery Status",
+    "numberOfConversations": 208
+  },
+  "Check bundled travel insurance cover": {
+    "description": "Customers wanting to check bundled travel insurance cover, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check bundled travel insurance cover - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_bundled_travel_insurance_cover",
+      "travel_insurance_cover_request"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 195
+  },
+  "Check purchase protection cover": {
+    "description": "Customers wanting to check purchase protection cover, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to check purchase protection cover - can you help me with that?"
+    },
+    "channelIntent": [
+      "check_purchase_protection_cover",
+      "purchase_protection_cover_request"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 127
+  },
+  "Enroll in payment protection plan": {
+    "description": "Customers wanting to enroll in payment protection plan, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to enroll in payment protection plan - can you help me with that?"
+    },
+    "channelIntent": [
+      "enroll_in_payment_protection_plan",
+      "payment_protection_plan_request"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 176
+  },
+  "File an insurance claim": {
+    "description": "Customers wanting to file an insurance claim, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to file an insurance claim - can you help me with that?"
+    },
+    "channelIntent": [
+      "file_an_insurance_claim",
+      "file_insurance_claim_request"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 110
+  },
+  "Track claim status": {
+    "description": "Customers wanting to track claim status, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to track claim status - can you help me with that?"
+    },
+    "channelIntent": [
+      "track_claim_status",
+      "track_claim_status_request"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 114
+  },
+  "Cancel a protection plan": {
+    "description": "Customers wanting to cancel a protection plan, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to cancel a protection plan - can you help me with that?"
+    },
+    "channelIntent": [
+      "cancel_a_protection_plan",
+      "cancel_protection_plan_request"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 198
+  },
+  "Understand exclusions and limits": {
+    "description": "Customers wanting to understand exclusions and limits, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to understand exclusions and limits - can you help me with that?"
+    },
+    "channelIntent": [
+      "understand_exclusions_and_limits",
+      "understand_exclusions_limits_request"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 480
+  },
+  "Request policy documents": {
+    "description": "Customers wanting to request policy documents, handled under Insurance and Protection Plans.",
+    "sampleConversation": {
+      "conversationText": "Hi, I need to request policy documents - can you help me with that?"
+    },
+    "channelIntent": [
+      "request_policy_documents",
+      "request_policy_documents_request"
+    ],
+    "parentIntent": "Insurance and Protection Plans",
+    "numberOfConversations": 157
+  }
+}

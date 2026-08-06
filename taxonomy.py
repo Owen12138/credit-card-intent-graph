@@ -31,7 +31,7 @@ UNIFIED_INTENTS: dict[str, list[str]] = {
         "Request permanent limit reduction",
         "Set a self-imposed spending cap",
         "Reverse a previous limit reduction",
-        "Understand impact on credit score",
+        "Understand how a lower limit affects credit score",
         "Reduce limit on a supplementary card",
         "Confirm new limit effective date",
         "Cancel a pending reduction request",
@@ -233,7 +233,7 @@ UNIFIED_INTENTS: dict[str, list[str]] = {
         "Redeem remaining rewards before closure",
         "Cancel recurring payments on the card",
         "Confirm closure completion",
-        "Understand impact on credit score",
+        "Understand how closing affects credit score",
         "Close a supplementary card only",
         "Reopen a recently closed account",
     ],
@@ -387,10 +387,10 @@ LIFE_EVENTS: dict[str, list[tuple[str, str]]] = {
     "Buying a Home": [
         ("Credit Score Inquiry", "Get score improvement guidance"),
         ("Credit Score Inquiry", "Understand hard vs soft inquiry"),
-        ("Decrease Credit Limit", "Understand impact on credit score"),
+        ("Decrease Credit Limit", "Understand how a lower limit affects credit score"),
         ("Balance Transfer", "Initiate a balance transfer"),
         ("Payment Processing", "Pay full outstanding balance"),
-        ("Close Account", "Understand impact on credit score"),
+        ("Close Account", "Understand how closing affects credit score"),
     ],
     "Starting University": [
         ("Card Activation", "Activate a newly issued card"),
@@ -489,6 +489,26 @@ def validate() -> None:
             raise ValueError(f"'{ui}' has {len(subs)} sub-intents, expected 8")
         if len(set(subs)) != 8:
             raise ValueError(f"'{ui}' has duplicate sub-intent names")
+
+    # Sub-intent names must be unique across the WHOLE taxonomy, not merely
+    # within a parent. The graph namespaces them as "<parent> :: <name>" so a
+    # collision is invisible there, but the channel JSON keys a sub-intent by its
+    # name alone - a repeat silently overwrites the other record, taking its
+    # conversations and its parent link with it.
+    seen: dict[str, str] = {}
+    for ui, subs in UNIFIED_INTENTS.items():
+        for sub in subs:
+            if sub in seen:
+                raise ValueError(
+                    f"sub-intent name '{sub}' is used by both '{seen[sub]}' and "
+                    f"'{ui}'; names must be unique across the taxonomy because "
+                    "the channel files key on them"
+                )
+            seen[sub] = ui
+
+    names = set(UNIFIED_INTENTS) | set(seen)
+    if len(names) != len(UNIFIED_INTENTS) + len(seen):
+        raise ValueError("a sub-intent shares a name with a unified intent")
 
     if len(LIFE_EVENTS) != 10:
         raise ValueError(f"expected 10 life events, got {len(LIFE_EVENTS)}")

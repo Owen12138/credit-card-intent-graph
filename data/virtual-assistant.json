@@ -1,0 +1,684 @@
+{
+  "Increase Credit Limit": {
+    "description": "Customer conversations handled under Increase Credit Limit. Covers 8 sub-intents, such as check limit increase eligibility.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about increase credit limit."
+    },
+    "channelIntent": [
+      "increase_credit_limit",
+      "ask_about_increase_credit_limit"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Check limit increase eligibility",
+      "Request permanent limit increase",
+      "Request temporary limit increase",
+      "Upload income proof for limit review",
+      "Track limit increase application status",
+      "Understand limit increase decline reason",
+      "Reapply after a declined limit request",
+      "Set limit increase reminder"
+    ],
+    "numberOfConversations": 46625
+  },
+  "Decrease Credit Limit": {
+    "description": "Customer conversations handled under Decrease Credit Limit. Covers 8 sub-intents, such as request permanent limit reduction.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about decrease credit limit."
+    },
+    "channelIntent": [
+      "decrease_credit_limit",
+      "ask_about_decrease_credit_limit"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Request permanent limit reduction",
+      "Set a self-imposed spending cap",
+      "Reverse a previous limit reduction",
+      "Understand how a lower limit affects credit score",
+      "Reduce limit on a supplementary card",
+      "Confirm new limit effective date",
+      "Cancel a pending reduction request",
+      "Limit reduction for budgeting support"
+    ],
+    "numberOfConversations": 340007
+  },
+  "Card Activation": {
+    "description": "Customer conversations handled under Card Activation. Covers 8 sub-intents, such as activate a newly issued card.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about card activation."
+    },
+    "channelIntent": [
+      "card_activation",
+      "ask_about_card_activation"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Activate a newly issued card",
+      "Activate a replacement card",
+      "Activate via mobile app",
+      "Activate via IVR or phone banking",
+      "Troubleshoot failed activation",
+      "Confirm activation status",
+      "Activate contactless payments",
+      "Activate card for online transactions"
+    ],
+    "numberOfConversations": 2084
+  },
+  "Card Replacement": {
+    "description": "Customer conversations handled under Card Replacement. Covers 8 sub-intents, such as request replacement for damaged card.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about card replacement."
+    },
+    "channelIntent": [
+      "card_replacement",
+      "ask_about_card_replacement"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Request replacement for damaged card",
+      "Request replacement for expiring card",
+      "Request replacement for worn magnetic stripe",
+      "Request expedited replacement delivery",
+      "Check replacement card fee",
+      "Update address before replacement",
+      "Track replacement card shipment",
+      "Cancel a replacement request"
+    ],
+    "numberOfConversations": 2179
+  },
+  "Report Lost or Stolen Card": {
+    "description": "Customer conversations handled under Report Lost or Stolen Card. Covers 8 sub-intents, such as report card lost.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about report lost or stolen card."
+    },
+    "channelIntent": [
+      "report_lost_or_stolen_card",
+      "ask_about_lost_stolen_card"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Report card lost",
+      "Report card stolen",
+      "Block card immediately",
+      "Unblock a card found again",
+      "Order emergency replacement card",
+      "Review transactions after loss",
+      "File police report reference",
+      "Request emergency cash advance abroad"
+    ],
+    "numberOfConversations": 11921
+  },
+  "Dispute a Transaction": {
+    "description": "Customer conversations handled under Dispute a Transaction. Covers 8 sub-intents, such as raise a new transaction dispute.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about dispute a transaction."
+    },
+    "channelIntent": [
+      "dispute_a_transaction",
+      "ask_about_dispute_transaction"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Raise a new transaction dispute",
+      "Dispute a duplicate charge",
+      "Dispute an incorrect amount",
+      "Dispute a merchant refund not received",
+      "Upload supporting dispute evidence",
+      "Track dispute case status",
+      "Understand provisional credit",
+      "Withdraw an existing dispute"
+    ],
+    "numberOfConversations": 209294
+  },
+  "Fraud Report": {
+    "description": "Customer conversations handled under Fraud Report. Covers 8 sub-intents, such as report unauthorized transaction.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about fraud report."
+    },
+    "channelIntent": [
+      "fraud_report",
+      "ask_about_fraud_report"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Report unauthorized transaction",
+      "Report suspected card skimming",
+      "Report phishing or scam contact",
+      "Request card reissue after fraud",
+      "Track fraud investigation status",
+      "Request fraud loss reimbursement",
+      "Add extra verification on account",
+      "Report identity theft"
+    ],
+    "numberOfConversations": 52786
+  },
+  "Balance Inquiry": {
+    "description": "Customer conversations handled under Balance Inquiry. Covers 8 sub-intents, such as check current outstanding balance.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about balance inquiry."
+    },
+    "channelIntent": [
+      "balance_inquiry",
+      "ask_about_balance_inquiry"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Check current outstanding balance",
+      "Check available credit",
+      "Check pending transactions",
+      "Check last statement balance",
+      "Check minimum amount due",
+      "Check balance across multiple cards",
+      "Set low available credit alert",
+      "Explain balance discrepancy"
+    ],
+    "numberOfConversations": 2334
+  },
+  "Statement Request": {
+    "description": "Customer conversations handled under Statement Request. Covers 8 sub-intents, such as download latest e-statement.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about statement request."
+    },
+    "channelIntent": [
+      "statement_request",
+      "ask_about_statement_request"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Download latest e-statement",
+      "Request historical statements",
+      "Request physical statement copy",
+      "Change statement delivery preference",
+      "Change statement cycle date",
+      "Explain a statement line item",
+      "Request consolidated annual statement",
+      "Resend statement to email"
+    ],
+    "numberOfConversations": 2076
+  },
+  "Payment Processing": {
+    "description": "Customer conversations handled under Payment Processing. Covers 8 sub-intents, such as make a one-time card payment.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about payment processing."
+    },
+    "channelIntent": [
+      "payment_processing",
+      "ask_about_payment_processing"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Make a one-time card payment",
+      "Pay minimum amount due",
+      "Pay full outstanding balance",
+      "Check payment posting status",
+      "Report payment not credited",
+      "Reverse a duplicate payment",
+      "Change payment source account",
+      "Request payment receipt"
+    ],
+    "numberOfConversations": 4450
+  },
+  "Autopay Setup": {
+    "description": "Customer conversations handled under Autopay Setup. Covers 8 sub-intents, such as enroll in autopay.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about autopay setup."
+    },
+    "channelIntent": [
+      "autopay_setup",
+      "ask_about_autopay_setup"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Enroll in autopay",
+      "Modify autopay amount option",
+      "Change autopay debit account",
+      "Change autopay debit date",
+      "Cancel autopay enrollment",
+      "Investigate failed autopay run",
+      "Pause autopay temporarily",
+      "Confirm autopay enrollment status"
+    ],
+    "numberOfConversations": 13141
+  },
+  "Late Fee Waiver": {
+    "description": "Customer conversations handled under Late Fee Waiver. Covers 8 sub-intents, such as request one-time late fee waiver.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about late fee waiver."
+    },
+    "channelIntent": [
+      "late_fee_waiver",
+      "ask_about_late_fee_waiver"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Request one-time late fee waiver",
+      "Check late fee waiver eligibility",
+      "Dispute an incorrectly charged late fee",
+      "Request waiver due to hardship",
+      "Track waiver request status",
+      "Understand late fee policy",
+      "Request reversal of related interest",
+      "Escalate a declined waiver"
+    ],
+    "numberOfConversations": 714527
+  },
+  "Interest Rate Inquiry": {
+    "description": "Customer conversations handled under Interest Rate Inquiry. Covers 8 sub-intents, such as check current purchase apr.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about interest rate inquiry."
+    },
+    "channelIntent": [
+      "interest_rate_inquiry",
+      "ask_about_interest_rate_inquiry"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Check current purchase APR",
+      "Check cash advance APR",
+      "Request an APR reduction",
+      "Understand promotional 0% APR period",
+      "Understand penalty APR trigger",
+      "Explain interest charged on statement",
+      "Compare APR across products",
+      "Check variable rate change notice"
+    ],
+    "numberOfConversations": 3157
+  },
+  "Rewards Redemption": {
+    "description": "Customer conversations handled under Rewards Redemption. Covers 8 sub-intents, such as redeem points for cashback.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about rewards redemption."
+    },
+    "channelIntent": [
+      "rewards_redemption",
+      "ask_about_rewards_redemption"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Redeem points for cashback",
+      "Redeem points for travel booking",
+      "Redeem points for merchandise",
+      "Redeem points for gift vouchers",
+      "Transfer points to partner program",
+      "Cancel or reverse a redemption",
+      "Check redemption processing status",
+      "Understand redemption rates"
+    ],
+    "numberOfConversations": 49194
+  },
+  "Points Balance": {
+    "description": "Customer conversations handled under Points Balance. Covers 8 sub-intents, such as check current points balance.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about points balance."
+    },
+    "channelIntent": [
+      "points_balance",
+      "ask_about_points_balance"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Check current points balance",
+      "Check points earned this cycle",
+      "Check points expiry schedule",
+      "Report missing points from a purchase",
+      "Understand points earning rules",
+      "Request retroactive points credit",
+      "Combine points across cards",
+      "Set points expiry reminder"
+    ],
+    "numberOfConversations": 62472
+  },
+  "Cashback Enquiry": {
+    "description": "Customer conversations handled under Cashback Enquiry. Covers 8 sub-intents, such as check accrued cashback amount.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about cashback enquiry."
+    },
+    "channelIntent": [
+      "cashback_enquiry",
+      "ask_about_cashback_enquiry"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Check accrued cashback amount",
+      "Understand cashback categories",
+      "Report missing cashback",
+      "Check cashback caps and limits",
+      "Request cashback credit to statement",
+      "Understand cashback exclusions",
+      "Check rotating category enrollment",
+      "Check cashback payout schedule"
+    ],
+    "numberOfConversations": 8103
+  },
+  "Travel Notification": {
+    "description": "Customer conversations handled under Travel Notification. Covers 8 sub-intents, such as register a travel plan.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about travel notification."
+    },
+    "channelIntent": [
+      "travel_notification",
+      "ask_about_travel_notification"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Register a travel plan",
+      "Modify travel dates",
+      "Cancel a travel notification",
+      "Add countries to existing travel plan",
+      "Confirm card works at destination",
+      "Understand travel plan expiry",
+      "Report card blocked while travelling",
+      "Request travel emergency contact number"
+    ],
+    "numberOfConversations": 182341
+  },
+  "Foreign Transaction Fees": {
+    "description": "Customer conversations handled under Foreign Transaction Fees. Covers 8 sub-intents, such as check foreign transaction fee rate.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about foreign transaction fees."
+    },
+    "channelIntent": [
+      "foreign_transaction_fees",
+      "ask_about_foreign_transaction_fees"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Check foreign transaction fee rate",
+      "Dispute an unexpected foreign fee",
+      "Understand dynamic currency conversion",
+      "Check exchange rate applied",
+      "Request fee waiver for a trip",
+      "Compare no-foreign-fee card options",
+      "Understand fees on foreign online purchases",
+      "Request refund of duplicate foreign fee"
+    ],
+    "numberOfConversations": 79103
+  },
+  "Annual Fee Enquiry": {
+    "description": "Customer conversations handled under Annual Fee Enquiry. Covers 8 sub-intents, such as check annual fee amount and due date.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about annual fee enquiry."
+    },
+    "channelIntent": [
+      "annual_fee_enquiry",
+      "ask_about_annual_fee_enquiry"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Check annual fee amount and due date",
+      "Request annual fee waiver",
+      "Understand fee waiver spend criteria",
+      "Dispute an annual fee charge",
+      "Request pro-rated fee refund on closure",
+      "Switch to a no-annual-fee card",
+      "Understand supplementary card fees",
+      "Track annual fee waiver request"
+    ],
+    "numberOfConversations": 44001
+  },
+  "Card Upgrade": {
+    "description": "Customer conversations handled under Card Upgrade. Covers 8 sub-intents, such as check upgrade eligibility.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about card upgrade."
+    },
+    "channelIntent": [
+      "card_upgrade",
+      "ask_about_card_upgrade"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Check upgrade eligibility",
+      "Compare higher-tier card benefits",
+      "Request upgrade to premium card",
+      "Understand upgrade fee and APR changes",
+      "Track upgrade application status",
+      "Retain benefits after upgrade",
+      "Understand impact on rewards balance",
+      "Cancel a pending upgrade"
+    ],
+    "numberOfConversations": 11657
+  },
+  "Card Downgrade": {
+    "description": "Customer conversations handled under Card Downgrade. Covers 8 sub-intents, such as check downgrade options.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about card downgrade."
+    },
+    "channelIntent": [
+      "card_downgrade",
+      "ask_about_card_downgrade"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Check downgrade options",
+      "Request downgrade to lower-fee card",
+      "Understand benefits lost on downgrade",
+      "Understand impact on credit history",
+      "Track downgrade request status",
+      "Retain points after downgrade",
+      "Reverse a recent downgrade",
+      "Downgrade instead of closing account"
+    ],
+    "numberOfConversations": 2137
+  },
+  "Close Account": {
+    "description": "Customer conversations handled under Close Account. Covers 8 sub-intents, such as request card account closure.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about close account."
+    },
+    "channelIntent": [
+      "close_account",
+      "ask_about_close_account"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Request card account closure",
+      "Check outstanding balance before closure",
+      "Redeem remaining rewards before closure",
+      "Cancel recurring payments on the card",
+      "Confirm closure completion",
+      "Understand how closing affects credit score",
+      "Close a supplementary card only",
+      "Reopen a recently closed account"
+    ],
+    "numberOfConversations": 365059
+  },
+  "Add Authorized User": {
+    "description": "Customer conversations handled under Add Authorized User. Covers 8 sub-intents, such as add a supplementary cardholder.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about add authorized user."
+    },
+    "channelIntent": [
+      "add_authorized_user",
+      "ask_about_add_authorized_user"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Add a supplementary cardholder",
+      "Remove an authorized user",
+      "Set spending limit for authorized user",
+      "Check supplementary card fee",
+      "Track supplementary card delivery",
+      "Update authorized user details",
+      "Review authorized user transactions",
+      "Convert authorized user to primary"
+    ],
+    "numberOfConversations": 4480
+  },
+  "Update Personal Details": {
+    "description": "Customer conversations handled under Update Personal Details. Covers 8 sub-intents, such as update mailing address.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about update personal details."
+    },
+    "channelIntent": [
+      "update_personal_details",
+      "ask_about_update_personal_details"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Update mailing address",
+      "Update phone number",
+      "Update email address",
+      "Update name after legal change",
+      "Update employment and income details",
+      "Update marital status",
+      "Update communication preferences",
+      "Verify identity for a detail change"
+    ],
+    "numberOfConversations": 92933
+  },
+  "PIN Management": {
+    "description": "Customer conversations handled under PIN Management. Covers 8 sub-intents, such as set a pin for a new card.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about pin management."
+    },
+    "channelIntent": [
+      "pin_management",
+      "ask_about_pin_management"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Set a PIN for a new card",
+      "Reset a forgotten PIN",
+      "Change existing PIN",
+      "Unblock PIN after failed attempts",
+      "Retrieve PIN via secure channel",
+      "Set PIN for international ATM use",
+      "Understand PIN security policy",
+      "Report PIN compromise"
+    ],
+    "numberOfConversations": 375455
+  },
+  "Balance Transfer": {
+    "description": "Customer conversations handled under Balance Transfer. Covers 8 sub-intents, such as check balance transfer eligibility.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about balance transfer."
+    },
+    "channelIntent": [
+      "balance_transfer",
+      "ask_about_balance_transfer"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Check balance transfer eligibility",
+      "Initiate a balance transfer",
+      "Check balance transfer fee",
+      "Understand promotional transfer rate",
+      "Track balance transfer status",
+      "Cancel a pending balance transfer",
+      "Transfer balance from another bank card",
+      "Understand repayment order after transfer"
+    ],
+    "numberOfConversations": 8072
+  },
+  "Cash Advance": {
+    "description": "Customer conversations handled under Cash Advance. Covers 8 sub-intents, such as check cash advance limit.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about cash advance."
+    },
+    "channelIntent": [
+      "cash_advance",
+      "ask_about_cash_advance"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Check cash advance limit",
+      "Withdraw cash advance at ATM",
+      "Understand cash advance fees",
+      "Understand cash advance interest accrual",
+      "Repay a cash advance early",
+      "Dispute a cash advance charge",
+      "Request emergency cash abroad",
+      "Disable cash advance feature"
+    ],
+    "numberOfConversations": 578886
+  },
+  "Installment Plan Conversion": {
+    "description": "Customer conversations handled under Installment Plan Conversion. Covers 8 sub-intents, such as convert a purchase to installments.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about installment plan conversion."
+    },
+    "channelIntent": [
+      "installment_plan_conversion",
+      "ask_about_installment_plan_conversion"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Convert a purchase to installments",
+      "Convert full balance to installments",
+      "Check installment plan interest rate",
+      "Check remaining installment tenure",
+      "Foreclose an installment plan early",
+      "Check installment prepayment charges",
+      "Cancel a newly created plan",
+      "Change installment tenure"
+    ],
+    "numberOfConversations": 23598
+  },
+  "Credit Score Inquiry": {
+    "description": "Customer conversations handled under Credit Score Inquiry. Covers 8 sub-intents, such as check current credit score.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about credit score inquiry."
+    },
+    "channelIntent": [
+      "credit_score_inquiry",
+      "ask_about_credit_score_inquiry"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Check current credit score",
+      "Understand factors affecting the score",
+      "Check score change since last month",
+      "Dispute a credit bureau record",
+      "Understand hard vs soft inquiry",
+      "Get score improvement guidance",
+      "Enroll in credit score monitoring",
+      "Request a credit report copy"
+    ],
+    "numberOfConversations": 24380
+  },
+  "Card Delivery Status": {
+    "description": "Customer conversations handled under Card Delivery Status. Covers 8 sub-intents, such as track new card shipment.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about card delivery status."
+    },
+    "channelIntent": [
+      "card_delivery_status",
+      "ask_about_card_delivery_status"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Track new card shipment",
+      "Report card not received",
+      "Change delivery address",
+      "Reschedule card delivery",
+      "Collect card from branch",
+      "Verify courier identity",
+      "Report card delivered to wrong address",
+      "Request redelivery after failed attempt"
+    ],
+    "numberOfConversations": 5395
+  },
+  "Insurance and Protection Plans": {
+    "description": "Customer conversations handled under Insurance and Protection Plans. Covers 8 sub-intents, such as check bundled travel insurance cover.",
+    "sampleConversation": {
+      "conversationText": "Hi, I have a question about insurance and protection plans."
+    },
+    "channelIntent": [
+      "insurance_and_protection_plans",
+      "ask_about_insurance_protection_plans"
+    ],
+    "parentIntent": null,
+    "subIntent": [
+      "Check bundled travel insurance cover",
+      "Check purchase protection cover",
+      "Enroll in payment protection plan",
+      "File an insurance claim",
+      "Track claim status",
+      "Cancel a protection plan",
+      "Understand exclusions and limits",
+      "Request policy documents"
+    ],
+    "numberOfConversations": 1557
+  }
+}
