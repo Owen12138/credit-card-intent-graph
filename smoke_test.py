@@ -110,6 +110,77 @@ for n, d in g.nodes(data=True):
                 g.nodes[nb]["series"][t] for nb in g.neighbors(n)
             ), (n, t)
 
+# --- life event occurrences, and the edge widths they drive --------------------
+import math as _m
+
+import figure
+
+occ = volumes.LIFE_OCCURRENCES
+assert set(occ) == set(taxonomy.LIFE_EVENTS), set(occ) ^ set(taxonomy.LIFE_EVENTS)
+assert min(occ.values()) == volumes.MIN_LIFE_OCCURRENCES, min(occ.values())
+assert max(occ.values()) == volumes.MAX_LIFE_OCCURRENCES, max(occ.values())
+
+# Stratified, so the ten events actually spread over the four decades instead of
+# clumping. Every decade of the range holds at least one event.
+_decades = {int(_m.log10(v)) for v in occ.values()}
+assert len(_decades) >= 4, sorted(occ.values())
+
+# The encoding itself: more occurrences must never draw a thinner edge.
+_by_occ = sorted(occ, key=lambda e: occ[e])
+_widths = [gb.life_edge_width(occ[e]) for e in _by_occ]
+assert _widths == sorted(_widths), list(zip(_by_occ, _widths))
+assert len(set(_widths)) == len(_widths), "two events collapsed onto one width"
+assert _widths[0] == gb.LIFE_EDGE_WIDTH_RANGE[0], _widths[0]
+assert _widths[-1] == gb.LIFE_EDGE_WIDTH_RANGE[1], _widths[-1]
+
+# ...and it is visible: a 10x difference in occurrences has to be worth more
+# than a pixel, or nobody can read it off the screen.
+_decade = (gb.LIFE_EDGE_WIDTH_RANGE[1] - gb.LIFE_EDGE_WIDTH_RANGE[0]) / 4
+assert _decade > 1.0, f"a 10x difference is only {_decade:.2f}px"
+
+# Every edge of one event carries that event's count; the number belongs to the
+# event, not to the sub-intent it reaches.
+for event, links in taxonomy.LIFE_EVENTS.items():
+    for ui, sub in links:
+        edge = g.edges[event, gb.sub_id(ui, sub)]
+        assert edge["occurrences"] == occ[event], (event, edge["occurrences"])
+        assert edge["width"] == gb.life_edge_width(occ[event]), event
+
+# Nothing else varies: the structural edges keep their fixed widths.
+for u, v, d in g.edges(data=True):
+    if d["edge_type"] != gb.EDGE_LIFE_SUB:
+        assert d["width"] == gb.EDGE_WIDTHS[d["edge_type"]], (u, v, d)
+
+# --- edge traces ---------------------------------------------------------------
+# A Plotly line trace has ONE width, so per-edge widths mean one trace per
+# distinct width. The grouping has to stay lossless: every edge drawn exactly
+# once, or the picture quietly loses links.
+_groups = figure.edge_groups(g, set(gb.EDGE_COLORS))
+_drawn = [tuple(sorted(p)) for grp in _groups for p in grp["pairs"]]
+assert len(_drawn) == g.number_of_edges(), (len(_drawn), g.number_of_edges())
+assert set(_drawn) == {tuple(sorted(e)) for e in g.edges()}, "edges lost in grouping"
+assert len(_drawn) == len(set(_drawn)), "an edge is drawn twice"
+assert len({grp["name"] for grp in _groups}) == len(_groups), "trace names collide"
+
+for grp in _groups:
+    for u, v in grp["pairs"]:
+        assert g.edges[u, v]["width"] == grp["width"], (u, v)
+
+_life_groups = [gr for gr in _groups if gr["kind"] == gb.EDGE_LIFE_SUB]
+assert len(_life_groups) == len(set(_widths)), len(_life_groups)
+assert sum(len(gr["pairs"]) for gr in _life_groups) == sum(
+    len(v) for v in taxonomy.LIFE_EVENTS.values()
+)
+
+# and the figure really applies them
+_pos = gb.compute_layout(g, gb.LAYOUT_CLUSTERS)
+_fig = figure.build_figure(
+    g, _pos, gb.compute_node_sizes(g, gb.SCALE_LOG), set(), set(gb.EDGE_COLORS)
+)
+_lines = [t for t in _fig.data if t.mode == "lines"]
+assert len(_lines) == len(_groups), (len(_lines), len(_groups))
+assert [t.line.width for t in _lines] == [gr["width"] for gr in _groups]
+
 # --- node sizing --------------------------------------------------------------
 for period in [None, *range(P)]:
     for scale in gb.SIZE_SCALES:
@@ -345,6 +416,11 @@ print(
 )
 print(f"    product=1 unified=31 sub=248 life_events=10 complaints=10")
 print(f"    life-event links={le}  complaint links={cm}")
+print(
+    f"    life events {volumes.fmt(min(occ.values()))}..{volumes.fmt(max(occ.values()))} "
+    f"occurrences -> edge width {min(_widths)}..{max(_widths)}px, "
+    f"{_decade:.2f}px per 10x, drawn in {len(_life_groups)} traces"
+)
 print(
     f"    cluster purity: clustered {cluster_pur:.1f}%  wedges {wedge_purity:.1f}%  "
     f"plain spring {spring_purity:.1f}%  (sub-intents nearest their own parent)"

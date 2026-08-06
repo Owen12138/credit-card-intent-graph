@@ -90,6 +90,43 @@ EDGE_COLORS = {
     EDGE_COMPLAINT_SUB: "#9b5de5",
 }
 
+# Line widths in screen pixels. The structural edges are hairlines because there
+# are 279 of them and they are scaffolding, not signal.
+EDGE_WIDTHS = {
+    EDGE_PRODUCT_UI: 0.8,
+    EDGE_UI_SUB: 0.8,
+    EDGE_COMPLAINT_SUB: 1.6,
+}
+
+# Life-event edges are the exception: their width carries the event's occurrence
+# count, so a life event discovered 100,000 times draws a visibly heavier line
+# into its sub-intents than one discovered 10 times.
+#
+# The floor is not 0. An edge thinner than about half a pixel disappears on a
+# standard display, and a life event that exists but is rare has to remain
+# visible - it is still a real link in the taxonomy.
+# The span is what makes the encoding readable: it is spread over four decades,
+# so each 10x in occurrences is worth (7.0 - 0.8) / 4 = about 1.6px. A narrower
+# span puts a 10x difference inside a pixel, which nobody can see.
+LIFE_EDGE_WIDTH_RANGE = (0.8, 7.0)
+
+
+def life_edge_width(occurrences: int) -> float:
+    """Width in px for a life-event edge, from the event's occurrence count.
+
+    Log scale, matching how node volumes are scaled and for the same reason:
+    the range spans four decades, so a linear map would leave everything below
+    ~20,000 occurrences pinned to the floor and indistinguishable.
+    """
+    lo, hi = volumes.LIFE_OCCURRENCE_RANGE
+    w_lo, w_hi = LIFE_EDGE_WIDTH_RANGE
+    if hi <= lo:
+        return (w_lo + w_hi) / 2
+
+    value = min(max(occurrences, lo), hi)
+    t = (math.log10(value) - math.log10(lo)) / (math.log10(hi) - math.log10(lo))
+    return round(w_lo + t * (w_hi - w_lo), 3)
+
 
 def sub_id(unified_intent: str, sub_intent: str) -> str:
     """Sub-intent node id, namespaced by its parent unified intent."""
@@ -137,6 +174,7 @@ def build_graph() -> nx.Graph:
 
     zeros = [0] * volumes.N_PERIODS
     for event, links in taxonomy.LIFE_EVENTS.items():
+        occurrences = volumes.LIFE_OCCURRENCES[event]
         g.add_node(
             event,
             label=event,
@@ -145,9 +183,19 @@ def build_graph() -> nx.Graph:
             series=list(zeros),
             volume=0,
             trend=None,
+            occurrences=occurrences,
         )
+        # Every edge from one event carries that event's count, so all of its
+        # links draw at the same weight. The number is a property of the event,
+        # not of which sub-intent it happens to reach.
         for ui, sub in links:
-            g.add_edge(event, sub_id(ui, sub), edge_type=EDGE_LIFE_SUB)
+            g.add_edge(
+                event,
+                sub_id(ui, sub),
+                edge_type=EDGE_LIFE_SUB,
+                occurrences=occurrences,
+                width=life_edge_width(occurrences),
+            )
 
     for complaint, links in taxonomy.COMPLAINTS.items():
         g.add_node(
@@ -161,6 +209,15 @@ def build_graph() -> nx.Graph:
         )
         for ui, sub in links:
             g.add_edge(complaint, sub_id(ui, sub), edge_type=EDGE_COMPLAINT_SUB)
+
+    # Every edge knows its own width. Only the life-event ones vary; the rest
+    # take the fixed width for their kind, so the renderer can group by width
+    # without special-casing which kind it is looking at.
+    # Not setdefault: its default is evaluated eagerly, and EDGE_WIDTHS has no
+    # entry for the life-event edges that already carry their own width.
+    for _, _, data in g.edges(data=True):
+        if "width" not in data:
+            data["width"] = EDGE_WIDTHS[data["edge_type"]]
 
     # Life events and complaints carry no volume of their own; report the traffic
     # of the sub-intents they touch so hover still says something useful.

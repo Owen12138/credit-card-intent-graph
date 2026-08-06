@@ -255,6 +255,58 @@ assert(
 assert(shown(lastText(subTrace.trace)) === 0, "clearing focus left labels on at 1x");
 console.log("click again: focus cleared, labels back to zoom rules");
 
+// ---- 6b. focusing a life event keeps its edge weight ------------------------
+// Life-event edge width encodes the event's occurrence count. The focus overlay
+// redraws those edges, so if it used one fixed width the encoding would vanish
+// on the click that examines it most closely.
+function lastFocusWidth() {
+  for (let i = calls.length - 1; i >= 0; i--) {
+    const c = calls[i];
+    if (c.kind !== "restyle" || c.update["line.width"] === undefined) continue;
+    if (c.idx.indexOf(META.focusTrace) !== -1) return c.update["line.width"];
+  }
+  return null;
+}
+
+const lifeIds = Object.keys(META.lifeEdgeWidth);
+assert(lifeIds.length > 0, "no life events in META");
+const byWidth = (pick) =>
+  lifeIds.reduce((a, b) => (pick(META.lifeEdgeWidth[a], META.lifeEdgeWidth[b]) ? a : b));
+const heaviest = byWidth((a, b) => a >= b);
+const lightest = byWidth((a, b) => a <= b);
+assert(
+  META.lifeEdgeWidth[heaviest] > META.lifeEdgeWidth[lightest],
+  "every life event has the same width - this test proves nothing"
+);
+
+handlers["plotly_click"]({ points: [{ customdata: [heaviest] }] });
+assert(
+  lastFocusWidth() === Math.max(META.lifeEdgeWidth[heaviest], META.focusWidth),
+  `focusing '${heaviest}' drew the overlay at ${lastFocusWidth()}, ` +
+    `not its own ${META.lifeEdgeWidth[heaviest]}`
+);
+clearFocusIfAny();
+
+// the rarest event is a hairline, so the overlay lifts it to the floor
+handlers["plotly_click"]({ points: [{ customdata: [lightest] }] });
+assert(
+  lastFocusWidth() === META.focusWidth,
+  `a ${META.lifeEdgeWidth[lightest]}px edge should be floored at ${META.focusWidth}`
+);
+clearFocusIfAny();
+
+// any other node mixes widths, so it falls back to the default
+handlers["plotly_click"]({ points: [{ customdata: [subTrace.ids[0]] }] });
+assert(
+  lastFocusWidth() === META.focusWidth,
+  `a sub-intent should use the default overlay width, got ${lastFocusWidth()}`
+);
+clearFocusIfAny();
+console.log(
+  `focus overlay: '${heaviest}' keeps ${META.lifeEdgeWidth[heaviest]}px, ` +
+    `'${lightest}' floored to ${META.focusWidth}px`
+);
+
 // ---- 7. the manual override works both ways ---------------------------------
 element("label-mode").onclick(); // auto -> always
 assert(

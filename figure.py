@@ -13,6 +13,46 @@ import graph_builder as gb
 import volumes
 
 
+def edge_groups(g: nx.Graph, edge_kinds: set[str]) -> list[dict]:
+    """One entry per edge trace, in the order `build_figure` emits them.
+
+    A Plotly line trace carries a single `line.width` for every segment in it,
+    so edges that differ in width cannot share a trace. Life-event edges are the
+    only ones that vary, and their width comes from the event's occurrence
+    count - so they split into one trace per distinct width, which is at most
+    one per life event.
+
+    interactive_html needs the same grouping to tell the browser which node
+    pairs each trace draws, so the ordering lives here rather than being
+    reconstructed - two implementations of this that drift apart would silently
+    redraw the wrong edges when a node is dragged.
+    """
+    groups: list[dict] = []
+    for kind in gb.EDGE_COLORS:
+        if kind not in edge_kinds:
+            continue
+
+        by_width: dict[float, list[list[str]]] = {}
+        for u, v, data in g.edges(data=True):
+            if data["edge_type"] != kind:
+                continue
+            by_width.setdefault(data["width"], []).append([u, v])
+
+        label = kind.replace("-", " -> ").replace("_", " ")
+        for width in sorted(by_width, reverse=True):
+            groups.append(
+                {
+                    "kind": kind,
+                    "width": width,
+                    "color": gb.EDGE_COLORS[kind],
+                    "pairs": by_width[width],
+                    # Unique per trace: the meta builder indexes traces by name.
+                    "name": label if len(by_width) == 1 else f"{label} @{width}",
+                }
+            )
+    return groups
+
+
 def build_figure(
     g: nx.Graph,
     pos: dict,
@@ -25,31 +65,26 @@ def build_figure(
 ) -> go.Figure:
     fig = go.Figure()
 
-    # --- edges, one trace per kind so colors and the legend stay meaningful ---
-    for kind, color in gb.EDGE_COLORS.items():
-        if kind not in edge_kinds:
-            continue
+    # --- edges, grouped by kind and width (see edge_groups) -------------------
+    for group in edge_groups(g, edge_kinds):
         xs: list = []
         ys: list = []
-        for u, v, data in g.edges(data=True):
-            if data["edge_type"] != kind:
-                continue
+        for u, v in group["pairs"]:
             x0, y0 = pos[u]
             x1, y1 = pos[v]
             xs += [x0, x1, None]
             ys += [y0, y1, None]
         if not xs:
             continue
-        width = 1.6 if kind in (gb.EDGE_LIFE_SUB, gb.EDGE_COMPLAINT_SUB) else 0.8
         fig.add_trace(
             go.Scatter(
                 x=xs,
                 y=ys,
                 mode="lines",
-                line=dict(width=width, color=color),
+                line=dict(width=group["width"], color=group["color"]),
                 hoverinfo="skip",
                 opacity=0.55,
-                name=kind.replace("-", " -> ").replace("_", " "),
+                name=group["name"],
                 showlegend=False,
             )
         )
@@ -81,6 +116,10 @@ def build_figure(
                 else "Conversations"
             )
             parts.append(f"{noun} ({when}): {volumes.fmt(value)}")
+
+            # The life event's own metric, and what its edge widths encode.
+            if ntype == gb.LIFE_EVENT:
+                parts.append(f"Occurrences: {volumes.fmt(data['occurrences'])}")
 
             if period is not None:
                 change = volumes.delta(data["series"], period)

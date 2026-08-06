@@ -28,6 +28,42 @@ only, never off the product or the unified intents. A single life event or
 complaint can link to many sub-intents across different services (e.g.
 *Travelling Abroad* touches 7 sub-intents spread over 6 unified intents).
 
+## Life event occurrences and edge thickness
+
+A life event carries a metric of its own: **how many times it was discovered**,
+from 10 to 100,000. **The thickness of its edges is that count** — a life event
+discovered 100,000 times draws a visibly heavier line into each of its
+sub-intents than one discovered 10 times.
+
+| | |
+|---|---|
+| Occurrence range | 10 – 100,000 (four decades) |
+| Edge width | 0.8 – 7.0 px, log-scaled |
+| Worth of a 10× difference | ~1.55 px |
+
+Log, for the same reason node sizes are: over four decades a linear map would
+pin everything below ~20,000 to the floor and draw it as one indistinguishable
+hairline. The floor is 0.8 px rather than 0, because a rare life event is still
+a real link in the taxonomy and has to stay visible.
+
+The count belongs to the **event**, not to the link, so all of one event's edges
+draw at the same weight. This matters for rendering: a Plotly line trace carries
+a single `line.width` for every segment in it, so edges of differing width cannot
+share a trace. `figure.edge_groups()` splits them — one trace per distinct width,
+so 4 edge traces become 13 — and `interactive_html` reads the same function to
+tell the browser which node pairs each trace draws. Two implementations of that
+grouping would silently redraw the wrong edges when a node is dragged.
+
+Clicking a life event keeps its weight: the focus overlay redraws the
+highlighted edges at that event's own width (floored at 2.4 px) rather than one
+fixed width, so the encoding survives the click that examines it most closely.
+
+Occurrences are a single all-time count with **no per-period series**, so edge
+widths hold still while the timeline runs — only node sizes move. Note also that
+a life event node's *size* still comes from the conversation traffic of the
+sub-intents it touches, which is a different number measuring a different thing;
+hover shows both.
+
 ## Conversation volumes and the timeline
 
 Every unified intent and sub-intent carries a conversation count **for each of 5

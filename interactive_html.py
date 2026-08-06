@@ -28,13 +28,18 @@ import plotly.graph_objects as go
 
 import graph_builder as gb
 import volumes
-from figure import build_figure
+from figure import build_figure, edge_groups
 
 DIV_ID = "intent-graph"
 
 DIM_NODE = 0.10
 DIM_EDGE = 0.05
 FOCUS_EDGE_COLOR = "#111827"
+# Floor for the focus overlay. Focusing a life event redraws its edges at that
+# event's own width so the occurrence encoding survives the highlight, but a
+# rare event's hairline would be lost under the overlay colour, so it is lifted
+# to at least this.
+FOCUS_EDGE_WIDTH = 2.4
 
 # How far in you must zoom before sub-intent labels appear. 1.0 is the whole
 # graph; 2.2 means roughly the middle 45% of the canvas fills the view, by which
@@ -85,6 +90,10 @@ def _hover(g: nx.Graph, nodes: list[str], ntype: str, period: int) -> list[str]:
             else "Conversations"
         )
         parts.append(f"{noun} ({when}): {volumes.fmt(gb.node_volume(g, n, period))}")
+        # Occurrences do not vary by period, but they must be repeated in every
+        # frame - a frame's hovertext replaces the trace's, it does not merge.
+        if ntype == gb.LIFE_EVENT:
+            parts.append(f"Occurrences: {volumes.fmt(data['occurrences'])}")
         change = volumes.delta(data["series"], period)
         if change is not None:
             prev = data["series"][period - 1]
@@ -137,16 +146,12 @@ def build_figure_with_timeline(
     # Which node pairs each edge trace draws. Dragging a node has to redraw the
     # lines that touch it, and an edge trace is one flat run of segments, so the
     # browser needs the pairs to rebuild it. build_figure emits the edge traces
-    # first, in EDGE_COLORS order, skipping any kind with no edges - so the
-    # running index here matches its trace numbering.
-    edge_pairs = []
-    t_idx = 0
-    for kind in gb.EDGE_COLORS:
-        pairs = [[u, v] for u, v, d in g.edges(data=True) if d["edge_type"] == kind]
-        if not pairs:
-            continue
-        edge_pairs.append({"trace": t_idx, "pairs": pairs})
-        t_idx += 1
+    # first, in edge_groups order, so the running index here matches its trace
+    # numbering - and both come from the same function, so they cannot drift.
+    edge_pairs = [
+        {"trace": i, "pairs": group["pairs"]}
+        for i, group in enumerate(edge_groups(g, set(gb.EDGE_COLORS)))
+    ]
     assert [e["trace"] for e in edge_pairs] == edge_trace_idx, "edge trace mismatch"
 
     # Node traces, in the order build_figure emitted them.
@@ -168,7 +173,7 @@ def build_figure_with_timeline(
             x=[],
             y=[],
             mode="lines",
-            line=dict(width=2.4, color=FOCUS_EDGE_COLOR),
+            line=dict(width=FOCUS_EDGE_WIDTH, color=FOCUS_EDGE_COLOR),
             hoverinfo="skip",
             showlegend=False,
             name="focus-edges",
@@ -305,6 +310,15 @@ def build_figure_with_timeline(
         "springMs": SPRING_MS,
         "dimNode": DIM_NODE,
         "dimEdge": DIM_EDGE,
+        # Life-event edge width, by event. All of one event's edges share it,
+        # so focusing that event can redraw its overlay at the same weight
+        # instead of flattening it to the default.
+        "lifeEdgeWidth": {
+            n: gb.life_edge_width(d["occurrences"])
+            for n, d in g.nodes(data=True)
+            if d["node_type"] == gb.LIFE_EVENT
+        },
+        "focusWidth": FOCUS_EDGE_WIDTH,
     }
     return fig, meta
 
@@ -703,7 +717,19 @@ FOCUS_JS = """
     Plotly.restyle(gd, { "marker.opacity": opacities }, idx);
     Plotly.restyle(gd, { opacity: META.dimEdge }, META.edgeTraces);
     var seg = edgeSegments(set);
-    Plotly.restyle(gd, { x: [seg[0]], y: [seg[1]] }, [META.focusTrace]);
+    // Focusing a life event highlights edges that all share one width - its
+    // own - so the overlay can carry it and the occurrence encoding survives
+    // the click. Any other node mixes widths, so it falls back to the default.
+    var own = META.lifeEdgeWidth[current];
+    Plotly.restyle(
+      gd,
+      {
+        x: [seg[0]],
+        y: [seg[1]],
+        "line.width": own ? Math.max(own, META.focusWidth) : META.focusWidth,
+      },
+      [META.focusTrace]
+    );
     refreshLabels();
   }
 

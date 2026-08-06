@@ -147,6 +147,66 @@ SUB_TOTALS = {key: sum(s) for key, s in SUB_SERIES.items()}
 PRODUCT_TOTAL = sum(PRODUCT_SERIES)
 
 
+# =============================================================================
+# Life event occurrences
+# =============================================================================
+# A life event carries a metric of its own: how many times it was discovered.
+# This is NOT conversation volume - the node's `volume` is still the traffic of
+# the sub-intents it touches, which is a different number measuring a different
+# thing. Occurrences are a single all-time count with no per-period series, so
+# life-event edge widths hold still while the timeline runs.
+MIN_LIFE_OCCURRENCES = 10
+MAX_LIFE_OCCURRENCES = 100_000
+LIFE_SEED = SEED + 1
+
+
+def generate_life_occurrences(
+    seed: int = LIFE_SEED,
+    min_occurrences: int = MIN_LIFE_OCCURRENCES,
+    max_occurrences: int = MAX_LIFE_OCCURRENCES,
+) -> dict[str, int]:
+    """One occurrence count per life event, spanning the full range.
+
+    Drawn log-uniformly, then stretched so the quietest event lands exactly on
+    the floor and the busiest exactly on the ceiling. With only 10 samples the
+    raw draw covers maybe half of four decades, which would leave the configured
+    range meaningless and the thickest edge barely thicker than the thinnest.
+    """
+    rng = random.Random(seed)
+    log_min, log_max = math.log10(min_occurrences), math.log10(max_occurrences)
+
+    events = list(taxonomy.LIFE_EVENTS)
+    step = (log_max - log_min) / len(events)
+
+    # One draw per band rather than ten free draws across the whole range. A
+    # plain uniform draw of ten samples clumps: the first attempt put six of the
+    # ten within a single decade of each other, which the width scale then drew
+    # as six near-identical lines. Stratifying spreads them, and the events are
+    # shuffled afterwards so the order in the taxonomy carries no signal.
+    draws = [log_min + (i + rng.random()) * step for i in range(len(events))]
+    rng.shuffle(draws)
+    raw = dict(zip(events, draws))
+
+    lo, hi = min(raw.values()), max(raw.values())
+    span = hi - lo
+
+    if span <= 0:  # one event, or a freak draw - nothing to stretch
+        return {event: min_occurrences for event in raw}
+
+    return {
+        event: round(10 ** (log_min + (v - lo) * (log_max - log_min) / span))
+        for event, v in raw.items()
+    }
+
+
+LIFE_OCCURRENCES = generate_life_occurrences()
+LIFE_OCCURRENCE_RANGE = (
+    min(LIFE_OCCURRENCES.values()),
+    max(LIFE_OCCURRENCES.values()),
+)
+LIFE_OCCURRENCE_TOTAL = sum(LIFE_OCCURRENCES.values())
+
+
 def fmt(value: int | float) -> str:
     """Thousands-separated volume for display."""
     return f"{round(value):,}"
