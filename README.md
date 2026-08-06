@@ -38,36 +38,13 @@ sub-intents than one discovered 10 times.
 | | |
 |---|---|
 | Occurrence range | 10 – 100,000 (four decades) |
-| Edge width | 1.0 – 12.0 px, **linear** |
-| Set by | `graph_builder.LIFE_EDGE_SCALE` |
+| Edge width | 0.8 – 7.0 px, log-scaled |
+| Worth of a 10× difference | ~1.55 px |
 
-**Hover any life-event edge for its exact number.** A line trace only reports
-hover at its vertices, and those are the node positions where the node's own
-tooltip already wins — so each edge carries an invisible marker at its midpoint
-instead, and those markers ride along when a node is dragged.
-
-The scale is deliberately extreme. Occurrences run over four decades, so a
-straight proportional map spends nearly the whole width range on the top decade:
-the busiest event draws at the full 12 px while everything under about 20,000
-collapses onto the floor as one hairline. That is the point — it makes the
-dominant life events unmissable — but it does mean the smaller ones are not
-distinguishable from each other by eye. The hover is what recovers them.
-
-`LIFE_EDGE_SCALE = LIFE_EDGE_LOG` switches to the alternative: about 2.75 px per
-10×, so every event is distinguishable from its neighbours but no single one
-dominates. Both are tested, and both are guaranteed monotonic — more occurrences
-can never draw a thinner edge under either.
-
-| Occurrences | Linear | Log |
-|---:|---:|---:|
-| 100,000 | 12.0 px | 12.0 px |
-| 31,627 | 4.5 px | 10.6 px |
-| 4,175 | 1.5 px | 8.2 px |
-| 257 | 1.0 px | 4.9 px |
-| 10 | 1.0 px | 1.0 px |
-
-The floor is 1.0 px rather than 0, because a rare life event is still a real link
-in the taxonomy and has to stay visible.
+Log, for the same reason node sizes are: over four decades a linear map would
+pin everything below ~20,000 to the floor and draw it as one indistinguishable
+hairline. The floor is 0.8 px rather than 0, because a rare life event is still
+a real link in the taxonomy and has to stay visible.
 
 The count belongs to the **event**, not to the link, so all of one event's edges
 draw at the same weight. This matters for rendering: a Plotly line trace carries

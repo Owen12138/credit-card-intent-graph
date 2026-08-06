@@ -41,11 +41,6 @@ FOCUS_EDGE_COLOR = "#111827"
 # to at least this.
 FOCUS_EDGE_WIDTH = 2.4
 
-# Hit area of the invisible hover target sitting on each life-event edge. Big
-# enough to catch the pointer on a 1px line, small enough not to steal hover
-# from the nodes at either end.
-EDGE_HOVER_PX = 12
-
 # How far in you must zoom before sub-intent labels appear. 1.0 is the whole
 # graph; 2.2 means roughly the middle 45% of the canvas fills the view, by which
 # point only a fraction of the 248 sub-intents are on screen and their labels
@@ -186,40 +181,6 @@ def build_figure_with_timeline(
     )
     focus_trace = len(fig.data) - 1
 
-    # Invisible hover targets, one at the midpoint of every life-event edge.
-    # A line trace only reports hover at its vertices, and those are the node
-    # positions, where the node's own hover already wins - so the number an
-    # edge encodes is unreachable without a marker of its own. Kept off the
-    # node traces so it never enters focus, dragging or the size-with-zoom
-    # maths; a constant marker size is also what keeps it easy to hit.
-    hover_pairs: list[list[str]] = []
-    hover_text: list[str] = []
-    for u, v, d in g.edges(data=True):
-        if d["edge_type"] != gb.EDGE_LIFE_SUB:
-            continue
-        event, sub = (u, v) if g.nodes[u]["node_type"] == gb.LIFE_EVENT else (v, u)
-        hover_pairs.append([event, sub])
-        hover_text.append(
-            f"<b>{g.nodes[event]['label']}</b> &rarr; {g.nodes[sub]['label']}"
-            f"<br>Occurrences: {volumes.fmt(d['occurrences'])}"
-            f"<br><i>Edge width is this number</i>"
-        )
-
-    fig.add_trace(
-        go.Scatter(
-            x=[(pos[u][0] + pos[v][0]) / 2 for u, v in hover_pairs],
-            y=[(pos[u][1] + pos[v][1]) / 2 for u, v in hover_pairs],
-            mode="markers",
-            marker=dict(size=EDGE_HOVER_PX, color=gb.EDGE_COLORS[gb.EDGE_LIFE_SUB],
-                        opacity=0),
-            hovertext=hover_text,
-            hoverinfo="text",
-            showlegend=False,
-            name="life-edge-hover",
-        )
-    )
-    edge_hover = {"trace": len(fig.data) - 1, "pairs": hover_pairs}
-
     # --- frames: sizes and hover only -----------------------------------------
     frames = []
     frame_sizes = []  # [period][trace] -> sizes at 1x, scaled by the browser
@@ -358,9 +319,6 @@ def build_figure_with_timeline(
             if d["node_type"] == gb.LIFE_EVENT
         },
         "focusWidth": FOCUS_EDGE_WIDTH,
-        # Midpoint hover targets. Dragging a node has to carry them along, or
-        # the number would stay behind where the edge used to be.
-        "edgeHover": edge_hover,
     }
     return fig, meta
 
@@ -602,19 +560,6 @@ FOCUS_JS = """
       xs.push(ex);
       ys.push(ey);
     });
-
-    // The hover targets ride the midpoints of the edges they describe.
-    if (META.edgeHover) {
-      var hx = [], hy = [];
-      META.edgeHover.pairs.forEach(function (p) {
-        var a = POS[p[0]], b = POS[p[1]];
-        hx.push((a[0] + b[0]) / 2);
-        hy.push((a[1] + b[1]) / 2);
-      });
-      idx.push(META.edgeHover.trace);
-      xs.push(hx);
-      ys.push(hy);
-    }
 
     if (focusSet) {
       var seg = edgeSegments(focusSet);

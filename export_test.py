@@ -47,50 +47,6 @@ for frame in fig.frames:
     assert set(frame.traces) <= node_trace_ids, frame.name
 assert not (set(meta["edgeTraces"]) & node_trace_ids), "edge/node traces overlap"
 
-# --- hover targets on the life-event edges ------------------------------------
-# The width of a life-event edge encodes the event's occurrence count, so the
-# count has to be readable. A line trace only reports hover at its vertices,
-# which are the node positions, so each edge gets an invisible marker at its
-# midpoint instead.
-hover = meta["edgeHover"]
-life_edges = [
-    (u, v) for u, v, d in g.edges(data=True) if d["edge_type"] == gb.EDGE_LIFE_SUB
-]
-assert len(hover["pairs"]) == len(life_edges), (len(hover["pairs"]), len(life_edges))
-assert {tuple(sorted(p)) for p in hover["pairs"]} == {
-    tuple(sorted(e)) for e in life_edges
-}, "hover targets do not match the life-event edges"
-
-# every pair is (event, sub-intent) in that order, so the browser can midpoint it
-for event, sub in hover["pairs"]:
-    assert g.nodes[event]["node_type"] == gb.LIFE_EVENT, event
-    assert g.nodes[sub]["node_type"] == gb.SUB_INTENT, sub
-
-hover_trace = fig.data[hover["trace"]]
-assert hover["trace"] not in node_trace_ids, "hover targets sit on a node trace"
-assert hover["trace"] not in meta["edgeTraces"], "hover targets sit on an edge trace"
-assert hover["trace"] != meta["focusTrace"]
-assert hover_trace.marker.opacity == 0, "the hover targets are visible"
-assert hover_trace.showlegend is False
-assert hover_trace.hoverinfo == "text"
-assert len(hover_trace.hovertext) == len(life_edges)
-
-# the number is actually in the tooltip, and it is the edge's own number
-for (event, sub), text in zip(hover["pairs"], hover_trace.hovertext):
-    assert volumes.fmt(g.edges[event, sub]["occurrences"]) in text, text
-    assert g.nodes[event]["label"] in text, text
-
-# and each marker sits at the midpoint of the edge it describes
-for i, (event, sub) in enumerate(hover["pairs"]):
-    mx = (meta["pos"][event][0] + meta["pos"][sub][0]) / 2
-    my = (meta["pos"][event][1] + meta["pos"][sub][1]) / 2
-    assert abs(hover_trace.x[i] - mx) < 1e-9, (event, sub)
-    assert abs(hover_trace.y[i] - my) < 1e-9, (event, sub)
-
-# a click on one must not be mistaken for a node: the handler keys on customdata
-assert hover_trace.customdata is None, "hover targets would register as node clicks"
-print(f"edge hover: {len(life_edges)} invisible midpoint targets, each naming its count")
-
 # axes are pinned, and double-click cannot reset them out from under the user
 assert fig.layout.xaxis.autorange is False and fig.layout.xaxis.range is not None
 assert fig.layout.yaxis.autorange is False and fig.layout.yaxis.range is not None

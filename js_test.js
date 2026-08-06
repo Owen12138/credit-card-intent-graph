@@ -560,62 +560,7 @@ console.log("a press that does not travel still focuses, not drags");
 
 clearFocusIfAny();
 
-// ---- 11. the edge-hover targets ride along with a drag ----------------------
-// They sit at edge midpoints, so a dragged node has to carry them - otherwise
-// the number stays behind, hovering empty space where the edge used to be.
-document.getElementById("zoom-reset").onclick();
-clearFocusIfAny();
-
-const lifeNode = META.edgeHover.pairs[0][0];
-const lifeAt = nodeIndexOf(lifeNode);
-const lifeFrom = pixelOf(lifeNode);
-
-calls.length = 0;
-listeners["mousedown"]({
-  clientX: lifeFrom[0],
-  clientY: lifeFrom[1],
-  preventDefault() {},
-  stopPropagation() {},
-});
-winListeners["mousemove"]({ clientX: lifeFrom[0] + 140, clientY: lifeFrom[1] + 100 });
-
-const heldLife = lastXY(lifeAt.trace);
-assert(heldLife, "dragging the life event produced no update");
-const lifeTo = [heldLife[0][lifeAt.i], heldLife[1][lifeAt.i]];
-assert(
-  Math.abs(lifeTo[0] - META.pos[lifeNode][0]) > 1e-6,
-  `'${lifeNode}' did not move`
-);
-
-const hoverXY = lastXY(META.edgeHover.trace);
-assert(hoverXY, "the hover targets were not redrawn");
-
-let tracked = 0;
-META.edgeHover.pairs.forEach((p, k) => {
-  const touched = p[0] === lifeNode || p[1] === lifeNode;
-  const other = p[0] === lifeNode ? p[1] : p[0];
-  const from = touched ? lifeTo : META.pos[p[0]];
-  const mx = touched
-    ? (from[0] + META.pos[other][0]) / 2
-    : (META.pos[p[0]][0] + META.pos[p[1]][0]) / 2;
-  const my = touched
-    ? (from[1] + META.pos[other][1]) / 2
-    : (META.pos[p[0]][1] + META.pos[p[1]][1]) / 2;
-  assert(
-    Math.abs(hoverXY[0][k] - mx) < 1e-9 && Math.abs(hoverXY[1][k] - my) < 1e-9,
-    touched
-      ? "a hover target stayed behind where the edge used to be"
-      : "an unrelated hover target moved"
-  );
-  if (touched) tracked++;
-});
-assert(tracked > 0, `'${lifeNode}' has no hover targets - this test proves nothing`);
-winListeners["mouseup"]({});
-console.log(`drag '${lifeNode}': ${tracked} hover targets tracked their midpoints`);
-
-clearFocusIfAny();
-
-// ---- 12. clicks on edges are ignored ----------------------------------------
+// ---- 11. clicks on edges are ignored ----------------------------------------
 calls.length = 0;
 handlers["plotly_click"]({ points: [{}] });
 assert(calls.length === 0, "a click without customdata should be ignored");

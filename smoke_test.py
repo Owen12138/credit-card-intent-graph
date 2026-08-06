@@ -125,37 +125,18 @@ assert max(occ.values()) == volumes.MAX_LIFE_OCCURRENCES, max(occ.values())
 _decades = {int(_m.log10(v)) for v in occ.values()}
 assert len(_decades) >= 4, sorted(occ.values())
 
-# The encoding itself: more occurrences must never draw a thinner edge. True of
-# either scale, so switching LIFE_EDGE_SCALE can never invert the picture.
+# The encoding itself: more occurrences must never draw a thinner edge.
 _by_occ = sorted(occ, key=lambda e: occ[e])
-for _s in (gb.LIFE_EDGE_LINEAR, gb.LIFE_EDGE_LOG):
-    _w = [gb.life_edge_width(occ[e], _s) for e in _by_occ]
-    assert _w == sorted(_w), (_s, list(zip(_by_occ, _w)))
-    assert _w[0] == gb.LIFE_EDGE_WIDTH_RANGE[0], (_s, _w[0])
-    assert _w[-1] == gb.LIFE_EDGE_WIDTH_RANGE[1], (_s, _w[-1])
-
 _widths = [gb.life_edge_width(occ[e]) for e in _by_occ]
-_median = sorted(_widths)[len(_widths) // 2]
+assert _widths == sorted(_widths), list(zip(_by_occ, _widths))
+assert len(set(_widths)) == len(_widths), "two events collapsed onto one width"
+assert _widths[0] == gb.LIFE_EDGE_WIDTH_RANGE[0], _widths[0]
+assert _widths[-1] == gb.LIFE_EDGE_WIDTH_RANGE[1], _widths[-1]
 
-if gb.LIFE_EDGE_SCALE == gb.LIFE_EDGE_LOG:
-    # Log's promise is that every event is distinguishable from its neighbours,
-    # and that a 10x difference is worth more than a pixel.
-    assert len(set(_widths)) == len(_widths), "two events collapsed onto one width"
-    _per_decade = (gb.LIFE_EDGE_WIDTH_RANGE[1] - gb.LIFE_EDGE_WIDTH_RANGE[0]) / 4
-    assert _per_decade > 1.0, f"a 10x difference is only {_per_decade:.2f}px"
-else:
-    # Linear's promise is the opposite one: the busiest event towers over the
-    # rest. The flip side - everything small collapsing onto the floor - is the
-    # accepted cost of the scale, not a defect, which is why the exact number
-    # lives on the edge's hover.
-    assert _widths[-1] >= 4 * _median, (_widths[-1], _median)
-    # Measured in pixels, not in float equality: 1.002px and 1.005px are
-    # different numbers and the same line.
-    _squashed = [w for w in _widths if w <= gb.LIFE_EDGE_WIDTH_RANGE[0] + 1.0]
-    assert len(_squashed) >= len(_widths) // 2, (
-        f"only {len(_squashed)} of {len(_widths)} events land near the floor - "
-        "is this really the linear scale?"
-    )
+# ...and it is visible: a 10x difference in occurrences has to be worth more
+# than a pixel, or nobody can read it off the screen.
+_decade = (gb.LIFE_EDGE_WIDTH_RANGE[1] - gb.LIFE_EDGE_WIDTH_RANGE[0]) / 4
+assert _decade > 1.0, f"a 10x difference is only {_decade:.2f}px"
 
 # Every edge of one event carries that event's count; the number belongs to the
 # event, not to the sub-intent it reaches.
@@ -437,8 +418,8 @@ print(f"    product=1 unified=31 sub=248 life_events=10 complaints=10")
 print(f"    life-event links={le}  complaint links={cm}")
 print(
     f"    life events {volumes.fmt(min(occ.values()))}..{volumes.fmt(max(occ.values()))} "
-    f"occurrences -> edge width {min(_widths)}..{max(_widths)}px "
-    f"({gb.LIFE_EDGE_SCALE}, median {_median}px), drawn in {len(_life_groups)} traces"
+    f"occurrences -> edge width {min(_widths)}..{max(_widths)}px, "
+    f"{_decade:.2f}px per 10x, drawn in {len(_life_groups)} traces"
 )
 print(
     f"    cluster purity: clustered {cluster_pur:.1f}%  wedges {wedge_purity:.1f}%  "

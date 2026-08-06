@@ -105,37 +105,26 @@ EDGE_WIDTHS = {
 # The floor is not 0. An edge thinner than about half a pixel disappears on a
 # standard display, and a life event that exists but is rare has to remain
 # visible - it is still a real link in the taxonomy.
-LIFE_EDGE_WIDTH_RANGE = (1.0, 12.0)
-
-# How occurrences map onto that span.
-#
-# LINEAR is deliberately extreme. Occurrences run over four decades, so a
-# straight proportional map spends almost the whole width range on the top
-# decade: the busiest event draws at the full 12px while everything under about
-# 20,000 collapses onto the floor and reads as one hairline. That is the point -
-# it makes the handful of dominant life events unmissable, at the cost of any
-# distinction among the rest. Hover the edge for the exact number.
-#
-# LOG spreads the four decades evenly, about 2.75px per 10x, so every event is
-# distinguishable from its neighbours but no single one dominates. Switch this
-# one constant to compare.
-LIFE_EDGE_LINEAR = "linear"
-LIFE_EDGE_LOG = "log"
-LIFE_EDGE_SCALE = LIFE_EDGE_LINEAR
+# The span is what makes the encoding readable: it is spread over four decades,
+# so each 10x in occurrences is worth (7.0 - 0.8) / 4 = about 1.6px. A narrower
+# span puts a 10x difference inside a pixel, which nobody can see.
+LIFE_EDGE_WIDTH_RANGE = (0.8, 7.0)
 
 
-def life_edge_width(occurrences: int, scale: str = "") -> float:
-    """Width in px for a life-event edge, from the event's occurrence count."""
+def life_edge_width(occurrences: int) -> float:
+    """Width in px for a life-event edge, from the event's occurrence count.
+
+    Log scale, matching how node volumes are scaled and for the same reason:
+    the range spans four decades, so a linear map would leave everything below
+    ~20,000 occurrences pinned to the floor and indistinguishable.
+    """
     lo, hi = volumes.LIFE_OCCURRENCE_RANGE
     w_lo, w_hi = LIFE_EDGE_WIDTH_RANGE
     if hi <= lo:
         return (w_lo + w_hi) / 2
 
     value = min(max(occurrences, lo), hi)
-    if (scale or LIFE_EDGE_SCALE) == LIFE_EDGE_LOG:
-        t = (math.log10(value) - math.log10(lo)) / (math.log10(hi) - math.log10(lo))
-    else:
-        t = (value - lo) / (hi - lo)
+    t = (math.log10(value) - math.log10(lo)) / (math.log10(hi) - math.log10(lo))
     return round(w_lo + t * (w_hi - w_lo), 3)
 
 
