@@ -473,6 +473,11 @@ def render_page(
         full_html=False,
         include_plotlyjs=include_plotlyjs,
         div_id=DIV_ID,
+        # plotly.py defaults auto_play to True, so ANY figure with frames starts
+        # animating the moment the page loads - it emits a Plotly.animate() call
+        # right after newPlot. The timeline is here to be driven, not to run on
+        # its own, so it must open on the first period and stay there.
+        auto_play=False,
         config={
             "scrollZoom": True,
             "displaylogo": False,

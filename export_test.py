@@ -128,6 +128,13 @@ external_links = re.findall(r"<link[^>]*\shref=[\"'](https?://[^\"']+)", html, r
 assert not external_scripts, f"page loads external scripts: {external_scripts}"
 assert not external_links, f"page loads external stylesheets: {external_links}"
 
+# The page must NOT start animating on load. plotly.py defaults auto_play=True
+# for any figure with frames, which emits a Plotly.animate() straight after
+# newPlot and plays the timeline through on every open. Nothing here calls
+# Plotly.animate directly - focus uses restyle - so any occurrence is auto-play
+# having crept back.
+assert "Plotly.animate(" not in html, "page auto-plays the timeline on load"
+
 # focus wiring is present and its embedded metadata is valid JSON
 assert "plotly_click" in html, "no click handler"
 assert "plotly_animated" in html, "no post-animation reassert"
