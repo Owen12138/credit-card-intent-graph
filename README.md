@@ -416,11 +416,12 @@ A unified intent record carries `description`, `sampleConversation`,
 A sub-intent record is identical except `parentIntent` names its unified intent
 and there is no `subIntent` list.
 
-The **Focus** tab picks a unified intent and, optionally, a sub-intent beneath
-it. The most specific selection wins: choose a sub-intent and its description,
-channel intents, counts and samples replace the parent's. Three channel cards
-always render — a channel that doesn't carry the intent shows an empty card
-rather than disappearing, since the gap is itself worth seeing.
+**Intent detail** sits under the canvas on the Graph tab. It picks a unified
+intent and, optionally, a sub-intent beneath it. The most specific selection
+wins: choose a sub-intent and its description, channel intents, counts and
+samples replace the parent's. Three channel cards always render — a channel that
+doesn't carry the intent shows an empty card rather than disappearing, since the
+gap is itself worth seeing.
 
 ### How the numbers relate to the graph
 

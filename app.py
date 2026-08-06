@@ -196,7 +196,7 @@ cols[3].metric("Sub-intents", counts[gb.SUB_INTENT])
 cols[4].metric("Life events", counts[gb.LIFE_EVENT])
 cols[5].metric("Complaints", counts[gb.COMPLAINT])
 
-tab_graph, tab_focus, tab_tables = st.tabs(["Graph", "Focus", "Data"])
+tab_graph, tab_tables = st.tabs(["Graph", "Data"])
 
 with tab_graph:
     if view.number_of_nodes() == 0:
@@ -241,7 +241,12 @@ with tab_graph:
             "on survive. Drag to pan, hover for volumes."
         )
 
-with tab_focus:
+with tab_graph:
+    # Re-entering the same tab appends to it, so the detail view sits under the
+    # canvas rather than behind a separate tab.
+    st.divider()
+    st.subheader("Intent detail")
+
     UNIFIED_ONLY = "— none: show the unified intent —"
 
     picked_ui = st.selectbox(
@@ -272,7 +277,15 @@ with tab_focus:
     st.markdown(f"### {name}")
     if kind == "sub":
         st.caption(f"Sub-intent of **{picked_ui}**")
-    st.write(carried[0]["description"] if carried else "No description available.")
+
+    description = carried[0]["description"] if carried else "No description available."
+    st.markdown(
+        "<div style='font-size:1.15rem; line-height:1.6; margin:0.2rem 0 1rem;"
+        " padding:0.85rem 1.1rem; border-left:4px solid #1d70b8;"
+        " background:rgba(29,112,184,0.08); border-radius:6px;'>"
+        f"{description}</div>",
+        unsafe_allow_html=True,
+    )
 
     across = channels.total(channel_data, name, kind)
     head = st.columns(3)
@@ -297,17 +310,12 @@ with tab_focus:
                 st.info("Not handled on this channel.")
                 continue
 
-            share = rec["numberOfConversations"] / across if across else 0
-            st.metric(
-                "Conversations",
-                volumes.fmt(rec["numberOfConversations"]),
-                delta=f"{share:.0%} of all channels",
-                delta_color="off",
-            )
+            st.metric("Conversations", volumes.fmt(rec["numberOfConversations"]))
 
             st.caption("Channel intents")
-            for ci in rec["channelIntent"]:
-                st.code(ci, language=None)
+            # Two trailing spaces is a markdown hard break, so each intent gets
+            # its own line instead of running together into a paragraph.
+            st.markdown("  \n".join(f"**{ci}**" for ci in rec["channelIntent"]))
 
             text = rec.get("sampleConversation", {}).get("conversationText")
             st.caption("Sample conversation")
