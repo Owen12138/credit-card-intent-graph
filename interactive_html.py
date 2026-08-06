@@ -261,7 +261,9 @@ FOCUS_JS = """
   // Every label decision funnels through here, so zoom and focus compose
   // instead of overwriting one another.
   function zoomFactor() {
-    var ax = (gd.layout && gd.layout.xaxis) || (gd._fullLayout && gd._fullLayout.xaxis);
+    // _fullLayout is what Plotly actually renders from and is always current
+    // after a zoom; gd.layout is the fallback for stubs and older builds.
+    var ax = (gd._fullLayout && gd._fullLayout.xaxis) || (gd.layout && gd.layout.xaxis);
     if (!ax || !ax.range || !META.baseSpan) return 1;
     var span = Math.abs(ax.range[1] - ax.range[0]);
     return span > 0 ? META.baseSpan / span : 1;

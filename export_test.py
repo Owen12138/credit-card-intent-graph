@@ -96,6 +96,16 @@ for n in g.nodes():
 for m in meta["nodeTraces"]:
     trace = fig.data[m["trace"]]
     shown = sum(1 for t in (trace.text or []) if t)
+
+    # Every node trace must keep "+text" in its mode even when it starts with no
+    # labels at all. Plotly silently ignores text restyled into a "markers"
+    # trace, so without this the zoom reveal does nothing - which is exactly the
+    # bug that shipped when sub-intent labels stopped being emitted up front.
+    assert "text" in trace.mode, (
+        f"{m['type']} trace is mode={trace.mode!r}; labels revealed later "
+        "would never render"
+    )
+
     if m["type"] == gb.SUB_INTENT:
         # Not merely blanked by script after paint - never emitted, so all 248
         # cannot flash on screen while the page settles.

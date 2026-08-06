@@ -18,6 +18,37 @@ const META = JSON.parse(src.match(/var META = (\{[\s\S]*?\});\s*\n/)[1]);
 const subTrace = META.nodeTraces.find((t) => t.type === META.subIntent);
 const uiTrace = META.nodeTraces.find((t) => t.type === "unified_intent");
 
+// ---- the traces the script restyles must be able to render text --------------
+// Plotly silently drops text restyled into a trace whose mode is plain
+// "markers", so driving the events is not enough - the trace config has to
+// allow a label to appear in the first place.
+function extractNewPlotData(page) {
+  // Anchor on the div id: the inlined plotly.js bundle contains its own
+  // "Plotly.newPlot(" strings in documentation examples.
+  const at = page.search(/Plotly\.newPlot\(\s*["']intent-graph["']/);
+  if (at === -1) throw new Error("real newPlot call not found");
+  const start = page.indexOf("[", at);
+  let depth = 0;
+  for (let i = start; i < page.length; i++) {
+    if (page[i] === "[") depth++;
+    else if (page[i] === "]" && --depth === 0) return JSON.parse(page.slice(start, i + 1));
+  }
+  throw new Error("could not extract the newPlot data array");
+}
+
+const traces = extractNewPlotData(html);
+META.nodeTraces.forEach((t) => {
+  const mode = traces[t.trace].mode || "";
+  if (!mode.includes("text")) {
+    console.error(
+      `FAIL: ${t.type} trace is mode="${mode}" - Plotly would ignore any label ` +
+        "the script reveals"
+    );
+    process.exit(1);
+  }
+});
+console.log(`all ${META.nodeTraces.length} node traces can render text`);
+
 // ---- stubs -------------------------------------------------------------------
 const handlers = {};
 const calls = [];

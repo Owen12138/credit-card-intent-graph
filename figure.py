@@ -98,7 +98,10 @@ def build_figure(
             go.Scatter(
                 x=xs,
                 y=ys,
-                mode="markers+text" if any(texts) else "markers",
+                # Always keep "+text", even when every label starts empty. A
+                # trace set to plain "markers" ignores any text restyled into it
+                # later, so semantic zoom could never reveal a label.
+                mode="markers+text",
                 text=texts,
                 textposition="top center",
                 textfont=dict(size=9 if ntype == gb.SUB_INTENT else 11),
