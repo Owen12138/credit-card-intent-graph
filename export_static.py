@@ -19,7 +19,7 @@ from pathlib import Path
 import graph_builder as gb
 from interactive_html import render_page
 
-LAYOUT = "Spring (force-directed)"
+LAYOUT = gb.LAYOUT_WEDGES
 SCALE = gb.SCALE_LOG
 EMPHASIS = 1.8
 HEIGHT = 780

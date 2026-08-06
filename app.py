@@ -64,8 +64,15 @@ st.sidebar.title("Graph controls")
 
 layout_algo = st.sidebar.selectbox(
     "Layout",
-    ["Spring (force-directed)", "Radial (by type)", "Kamada-Kawai", "Layered (hierarchy)"],
+    gb.LAYOUTS,
     key="layout",
+    help=(
+        "Anchored wedges pins the product at the centre and the 31 services "
+        "evenly around a ring, each with its sub-intents fanned outward, then "
+        "lets everything else relax - so each service keeps its own slice "
+        "instead of clusters overlapping. Plain force-directed is the "
+        "unconstrained original."
+    ),
 )
 
 view_mode = st.sidebar.radio(

@@ -81,6 +81,46 @@ byte-identical across periods. Axis ranges are fixed to the layout's own extent,
 since Plotly would otherwise autorange around the markers and let a growing node
 nudge the whole view.
 
+### Anchored wedges (default layout)
+
+A plain spring layout on this graph turns into a hairball for three specific
+reasons: the product hub pulls all 31 services toward the centre where they
+compete for the same ring; sub-intents are degree-1 leaves with no angular
+discipline, so each service's cloud overlaps its neighbours'; and the 101
+life-event/complaint cross-links act as long springs that drag unrelated
+services together.
+
+The anchored layout addresses all three:
+
+- The **product is pinned at the origin** and the **31 services pinned evenly
+  around a ring**, held fixed through a short spring relax. Each service
+  therefore owns an angular slice that nothing can encroach on.
+- Ring order is by volume, walked in **golden-ratio strides** so the busiest
+  services land on opposite sides instead of bunching into one arc.
+- Each service's **8 sub-intents are seeded in a fan** just beyond its parent, at
+  alternating radii so a cluster reads as a clump rather than a neat arc, with a
+  little deterministic jitter.
+- Sub-intents, life events and complaints are **only seeded, never pinned** — the
+  relax pass lets them settle, so the result still looks force-directed rather
+  than drawn with a compass.
+- During that relax, **parent→child edges pull 3×** and **cross-links only 0.18×**,
+  so services ball up while the cross-links stay visible without distorting the
+  geometry. Those weights are applied to a throwaway copy of the graph, so the
+  plain `Spring (force-directed)` option is untouched and behaves exactly as
+  before.
+
+Measured on the share of sub-intents whose *nearest* unified intent is their own
+parent — which is what "messy" really meant:
+
+| Layout | Cluster purity | Overlapping pairs |
+|---|---|---|
+| **Anchored wedges** | **94.4%** | 0.016% |
+| Spring (force-directed) | 49.6% | 0.000% |
+
+Loosening the relax constant to `k=0.7` pushes purity to 97% but multiplies
+overlaps sevenfold, so the tuning stops short of that. `smoke_test.py` asserts
+purity stays above 90% and at least 25 points ahead of the plain spring.
+
 ### Click to focus
 
 Click any node to isolate it and everything it connects to — the rest of the
@@ -155,7 +195,7 @@ Then open http://localhost:8501.
 ## Controls
 
 - **Timeline** (above the canvas) — drag or click through Apr–Aug 2026, or *All periods* for totals.
-- **Layout** — Spring (force-directed), Radial by type, Kamada-Kawai, or Layered hierarchy.
+- **Layout** — Anchored wedges (default), Spring (force-directed), Radial by type, Kamada-Kawai, or Layered hierarchy.
 - **View** — full graph, or focus on a single unified intent and its 2-hop neighbourhood.
 - **Unified intents shown** — trim the 31 services to compare a handful side by side.
 - **Scale by conversation volume** — log / square root / linear / uniform, plus **Emphasis** and a size multiplier.

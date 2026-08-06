@@ -30,15 +30,19 @@ for n, d in g.nodes(data=True):
         for nb in g.neighbors(n):
             assert g.nodes[nb]["node_type"] == gb.SUB_INTENT, (n, nb)
 
-# every layout produces a position for every node
-for algo in [
-    "Spring (force-directed)",
-    "Kamada-Kawai",
-    "Radial (by type)",
-    "Layered (hierarchy)",
-]:
+def same_positions(a, b, tol=1e-9):
+    return set(a) == set(b) and all(
+        abs(a[n][0] - b[n][0]) < tol and abs(a[n][1] - b[n][1]) < tol for n in a
+    )
+
+
+# every layout produces a position for every node, deterministically
+LAYOUTS = {}
+for algo in gb.LAYOUTS:
     pos = gb.compute_layout(g, algo)
     assert set(pos) == set(g.nodes), algo
+    assert same_positions(pos, gb.compute_layout(g, algo)), f"{algo} is not deterministic"
+    LAYOUTS[algo] = pos
 
 # filtering: one branch keeps 1 UI + 8 subs, and drops orphaned event nodes
 one = gb.filter_graph(g, set(gb.NODE_TYPES), {"Travelling Abroad" and "Travel Notification"})
@@ -190,6 +194,56 @@ s = gb.compute_node_sizes(g, gb.SCALE_LOG)
 doubled = gb.compute_node_sizes(g, gb.SCALE_LOG, multiplier=2.0)
 assert all(abs(doubled[n] - 2 * s[n]) < 1e-9 for n in s)
 
+# --- the anchored wedge layout is measurably tidier ---------------------------
+UIS = [n for n, d in g.nodes(data=True) if d["node_type"] == gb.UNIFIED_INTENT]
+SUBS = [n for n, d in g.nodes(data=True) if d["node_type"] == gb.SUB_INTENT]
+
+
+def cluster_purity(pos):
+    """Share of sub-intents whose nearest unified intent is their OWN parent.
+
+    This is the number that says whether services occupy distinct regions or
+    bleed into each other, which is what 'messy' actually meant.
+    """
+    hit = 0
+    for s in SUBS:
+        x, y = pos[s]
+        nearest = min(UIS, key=lambda u: (pos[u][0] - x) ** 2 + (pos[u][1] - y) ** 2)
+        hit += nearest == g.nodes[s]["parent"]
+    return 100 * hit / len(SUBS)
+
+
+wedge_purity = cluster_purity(LAYOUTS[gb.LAYOUT_WEDGES])
+spring_purity = cluster_purity(LAYOUTS[gb.LAYOUT_SPRING])
+assert wedge_purity > 90, f"wedge layout purity fell to {wedge_purity:.1f}%"
+assert wedge_purity > spring_purity + 25, (wedge_purity, spring_purity)
+
+# every service occupies its own angular slice, and the busiest are spread
+# around the ring rather than bunched into one arc
+wedge_pos = LAYOUTS[gb.LAYOUT_WEDGES]
+import math as _m
+
+angles = sorted(_m.atan2(wedge_pos[u][1], wedge_pos[u][0]) for u in UIS)
+gaps = [angles[i + 1] - angles[i] for i in range(len(angles) - 1)]
+even = 2 * _m.pi / len(UIS)
+assert all(abs(gp - even) < 1e-6 for gp in gaps), "services are not evenly spaced"
+
+# the product sits at the centre, not out on the rim
+assert wedge_pos[taxonomy.PRODUCT][0] ** 2 + wedge_pos[taxonomy.PRODUCT][1] ** 2 < 0.01
+
+# the top 5 services by volume are not all crammed into one quadrant
+top5 = sorted(UIS, key=lambda u: -g.nodes[u]["volume"])[:5]
+top_angles = sorted(_m.atan2(wedge_pos[u][1], wedge_pos[u][0]) for u in top5)
+spread = max(
+    (top_angles[(i + 1) % 5] - top_angles[i]) % (2 * _m.pi) for i in range(5)
+)
+assert spread < _m.pi, f"busiest services bunched into one arc (largest gap {spread:.2f})"
+
+# a filtered view still lays out cleanly
+small = gb.filter_graph(g, set(gb.NODE_TYPES), {"Balance Transfer", "PIN Management"})
+small_pos = gb.compute_layout(small, gb.LAYOUT_WEDGES)
+assert set(small_pos) == set(small.nodes)
+
 le = sum(len(v) for v in taxonomy.LIFE_EVENTS.values())
 cm = sum(len(v) for v in taxonomy.COMPLAINTS.values())
 print(f"OK  nodes={c['nodes']}  edges={c['edges']}  periods={P}")
@@ -210,3 +264,7 @@ print(
 )
 print(f"    product=1 unified=31 sub=248 life_events=10 complaints=10")
 print(f"    life-event links={le}  complaint links={cm}")
+print(
+    f"    cluster purity: wedges {wedge_purity:.1f}%  vs  plain spring "
+    f"{spring_purity:.1f}%  (sub-intents nearest their own parent)"
+)
