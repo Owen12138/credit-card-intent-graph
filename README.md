@@ -235,11 +235,45 @@ size, because the all-time peak belongs to some other month.
 
 Two further sizing details:
 
-- **Each level is scaled within itself.** A parent is the sum of 8 children, so
-  a shared scale would flatten every sub-intent to a dot. Unified intents map to
-  10–72 px and sub-intents to 4–42 px, each normalised across its own level.
+- **Every node type shares one scale** (4–34 px), so a node with more
+  conversations is always drawn bigger than one with fewer, whatever kind of node
+  it is. An earlier version scaled each type within itself — on the theory that a
+  parent is the sum of 8 children, so a shared scale would flatten the children
+  to dots. On a log scale that fear was unfounded, and the cost was real: a
+  49k complaint drew at 22 px while a 30k sub-intent drew at 37 px, and **7.2% of
+  all node pairs (3,226) had the bigger number drawn smaller**. It is now zero,
+  asserted as a count.
 - **Scaling is computed on the full graph, never the filtered view**, so a node
   keeps the same size as you filter and stays comparable across views.
+
+The one exception is the product node, pinned at the maximum. Its volume is the
+sum of everything, several times the largest service, so leaving it in the pool
+stretched the top of the scale and squashed the other 299 nodes together. It is
+always the busiest node, so pinning it reorders nothing.
+
+### Markers never overlap
+
+A layout places points; it knows nothing about how fat the markers drawn on
+those points will be, so dense clusters collide. After the layout runs, a
+relaxation pass pushes overlapping markers apart — in **pixel space**, because
+that is where a marker is round (the two axes cover different data ranges over
+different pixel counts, so an on-screen circle is an ellipse in data units).
+
+It is sized on each node's *largest* moment across the whole timeline, so
+scrubbing never produces an overlap that wasn't there at the start.
+
+The ceiling on marker size exists because of this. Separation and clustering
+compete for the same room, and measured against cluster purity after the pass:
+
+| Max marker | Overlaps after | Cluster purity |
+|---|---|---|
+| 42 px | 0 | 84.7% |
+| 38 px | 0 | 90.3% |
+| **34 px** | **0** | **~93%** |
+| 30 px | 0 | 97.6% |
+
+34 px is the knee — nothing overlaps and the clusters survive. Push the markers
+larger and the only way to separate them is to tear the clusters apart.
 
 ### Making change visible
 

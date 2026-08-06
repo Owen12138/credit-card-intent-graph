@@ -53,6 +53,11 @@ LABEL_ZOOM = 2.2
 # scroll tick paints twice and the nodes visibly spring between sizes. Instead
 # the page takes over zooming entirely and pushes the new ranges and the new
 # sizes through a single Plotly.update, which is one repaint per step.
+# Roughly the plot area the canvas gets, used to resolve marker overlaps in the
+# space where a marker is actually round. Only the aspect really matters.
+PLOT_PX_W = 1250.0
+PLOT_CHROME_PX = 140     # margins plus the timeline slider below the plot
+
 ZOOM_MIN = 0.25          # how far out you may go, as a fraction of the fitted view
 ZOOM_MAX = 25.0
 ZOOM_STEP = 1.18         # per wheel notch
@@ -99,7 +104,17 @@ def build_figure_with_timeline(
 
     Returns the figure and the metadata the browser needs to run focus.
     """
-    sizes0 = gb.compute_node_sizes(g, scale, multiplier, 0, emphasis)
+    per_period = [
+        gb.compute_node_sizes(g, scale, multiplier, t, emphasis)
+        for t in range(volumes.N_PERIODS)
+    ]
+    sizes0 = per_period[0]
+
+    # Push overlapping markers apart before anything is drawn. Sized on each
+    # node's LARGEST moment across the timeline, so scrubbing never creates an
+    # overlap that was not there at the start.
+    biggest = {n: max(s[n] for s in per_period) for n in g.nodes()}
+    pos = gb.relax_overlaps(pos, biggest, px_w=PLOT_PX_W, px_h=height - PLOT_CHROME_PX)
 
     # Sub-intent labels are left out of the initial render and switched on by the
     # browser once you zoom past LABEL_ZOOM. Emitting them here and blanking them
@@ -144,7 +159,7 @@ def build_figure_with_timeline(
     frames = []
     frame_sizes = []  # [period][trace] -> sizes at 1x, scaled by the browser
     for t, label in enumerate(volumes.PERIODS):
-        sizes = gb.compute_node_sizes(g, scale, multiplier, t, emphasis)
+        sizes = per_period[t]
         per_trace = [[round(sizes[n], 3) for n in m["ids"]] for m in node_meta]
         frame_sizes.append(per_trace)
         frames.append(

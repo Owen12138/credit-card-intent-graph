@@ -118,19 +118,57 @@ for period in [None, *range(P)]:
             assert set(s) == set(g.nodes), (scale, period, emphasis)
             assert all(v > 0 for v in s.values()), (scale, period, emphasis)
 
-            for ntype in (gb.UNIFIED_INTENT, gb.SUB_INTENT):
-                lo, hi = gb.SIZE_RANGES[ntype]
-                typed = {
-                    n: s[n] for n, d in g.nodes(data=True) if d["node_type"] == ntype
-                }
-                if scale != gb.SCALE_UNIFORM:
-                    assert min(typed.values()) >= lo - 1e-9, (scale, period, emphasis)
-                    assert max(typed.values()) <= hi + 1e-9, (scale, period, emphasis)
-                    # bigger volume must never produce a smaller marker, at any
-                    # emphasis - the curve must stay monotonic
-                    ordered = sorted(typed, key=lambda n: gb.node_volume(g, n, period))
-                    vals = [typed[n] for n in ordered]
-                    assert vals == sorted(vals), (scale, period, emphasis, ntype)
+            if scale == gb.SCALE_UNIFORM:
+                continue
+
+            lo, hi = gb.SIZE_RANGE
+            assert min(s.values()) >= lo - 1e-9, (scale, period, emphasis)
+            assert max(s.values()) <= hi + 1e-9, (scale, period, emphasis)
+
+            # THE sizing guarantee, and it spans every node type: more
+            # conversations must never be drawn smaller than fewer, whether the
+            # two nodes are a complaint and a sub-intent or anything else. A
+            # per-type scale broke this - a 49k complaint drew at 22px while a
+            # 30k sub-intent drew at 37px.
+            ordered = sorted(s, key=lambda n: (gb.node_volume(g, n, period), n))
+            vals = [s[n] for n in ordered]
+            assert vals == sorted(vals), (scale, period, emphasis)
+
+# Spelled out as a count, because this is the failure the sizing model had: with
+# a per-type scale 3,226 of 44,850 node pairs (7.2%) had the bigger number drawn
+# smaller. It must be exactly zero.
+_s = gb.compute_node_sizes(g, gb.SCALE_LOG, 1.0, 0, 1.8)
+_live = [n for n, d in g.nodes(data=True) if d["series"][0] > 0]
+inversions = sum(
+    1
+    for i, a in enumerate(_live)
+    for b in _live[i + 1 :]
+    if (g.nodes[a]["series"][0] - g.nodes[b]["series"][0]) * (_s[a] - _s[b]) < 0
+)
+assert inversions == 0, f"{inversions} node pairs drawn out of order by volume"
+
+# the specific pair that exposed it
+_complaint = "Hidden or Unexpected Fees"
+_sub = gb.sub_id("Cash Advance", "Understand cash advance fees")
+assert g.nodes[_complaint]["series"][0] > g.nodes[_sub]["series"][0]
+assert _s[_complaint] > _s[_sub], (_s[_complaint], _s[_sub])
+
+# --- overlaps -----------------------------------------------------------------
+# A layout places points and knows nothing about how fat the markers on them
+# will be, so dense clusters collide. Sized on each node's largest moment across
+# the timeline, so no period overlaps.
+_per = [gb.compute_node_sizes(g, gb.SCALE_LOG, 1.0, t, 1.8) for t in range(P)]
+_big = {n: max(x[n] for x in _per) for n in g.nodes()}
+
+for _layout in (gb.LAYOUT_CLUSTERS, gb.LAYOUT_WEDGES):
+    _p = gb.compute_layout(g, _layout)
+    _r = gb.relax_overlaps(_p, _big, px_h=640)
+    left = gb.count_overlaps(_r, _big)
+    assert left == 0, f"{_layout}: {left} markers still overlap"
+
+overlaps_before = gb.count_overlaps(gb.compute_layout(g, gb.LAYOUT_CLUSTERS), _big)
+relaxed_pos = gb.relax_overlaps(gb.compute_layout(g, gb.LAYOUT_CLUSTERS), _big, px_h=640)
+assert overlaps_before > 0, "nothing overlapped to begin with - test is vacuous"
 
 # emphasis only expands, never reorders
 plain = gb.compute_node_sizes(g, gb.SCALE_SQRT, period=0, emphasis=1.0)
@@ -243,6 +281,12 @@ def affinity_ratio(pos):
     return (sum(rel) / len(rel)) / (sum(unrel) / len(unrel))
 
 
+# Separating the markers must not undo the clustering. Pushing nodes wherever
+# there was room dropped purity from 98% to 73%; keeping the ceiling on marker
+# size is what lets both hold at once.
+relaxed_purity = cluster_purity(relaxed_pos)
+assert relaxed_purity > 90, f"overlap pass tore the clusters apart ({relaxed_purity:.1f}%)"
+
 cluster_aff = affinity_ratio(LAYOUTS[gb.LAYOUT_CLUSTERS])
 spring_aff = affinity_ratio(LAYOUTS[gb.LAYOUT_SPRING])
 assert cluster_aff < 0.60, f"related services are not pulled together ({cluster_aff:.2f})"
@@ -308,4 +352,8 @@ print(
 print(
     f"    related services sit at {cluster_aff:.2f}x the distance of unrelated ones "
     f"when clustered, vs {spring_aff:.2f}x under plain spring"
+)
+print(
+    f"    overlaps {overlaps_before} -> 0 after separation; purity holds at "
+    f"{relaxed_purity:.1f}%; {inversions} size inversions across all node types"
 )

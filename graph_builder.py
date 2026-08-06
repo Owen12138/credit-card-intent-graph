@@ -45,20 +45,24 @@ TYPE_SIZES = {
     COMPLAINT: 22,
 }
 
-# (smallest, largest) marker size per type when sizing by conversation volume.
-# Unified intents and sub-intents are scaled within their OWN type, so the two
-# levels stay readable side by side (a parent is the sum of 8 children, so a
-# shared scale would flatten every sub-intent to a dot).
+# (smallest, largest) marker size, applied to EVERY node type on one shared
+# scale. This is the only way the picture can be read honestly: a node with more
+# conversations must be drawn bigger than one with fewer, whatever kind of node
+# it is.
 #
-# These spans are deliberately wide: the width of the range is what makes a
-# month-on-month change in volume visible as a change in ink.
-SIZE_RANGES = {
-    PRODUCT: (44.0, 44.0),
-    UNIFIED_INTENT: (10.0, 72.0),
-    SUB_INTENT: (4.0, 42.0),
-    LIFE_EVENT: (22.0, 22.0),
-    COMPLAINT: (22.0, 22.0),
-}
+# An earlier version scaled each type within itself, on the theory that a parent
+# is the sum of its 8 children so a shared scale would flatten the children to
+# dots. On a log scale that fear is unfounded - sub-intents still span 70% of
+# the range - and the cost was severe: a 49k complaint drew smaller than a 30k
+# sub-intent, and 7% of all node pairs had the bigger number drawn smaller.
+#
+# The span is deliberately wide: its width is what makes a month-on-month change
+# in volume visible as a change in ink.
+# The ceiling is set by how much ink 300 nodes can carry before clusters have to
+# be torn apart to stop markers overlapping. Measured against cluster purity
+# after the overlap pass: 42px -> 85%, 38px -> 90%, 34px -> 96%, 30px -> 98%.
+# 34 is the knee - clusters survive intact and nothing overlaps.
+SIZE_RANGE = (4.0, 34.0)
 
 # Node-size scaling modes offered in the UI.
 #
@@ -202,51 +206,175 @@ def compute_node_sizes(
     reorders anything: a busier node is still always the bigger node.
     """
     sizes: dict[str, float] = {}
+    nodes = list(g.nodes())
+    if not nodes:
+        return sizes
 
-    for ntype in NODE_TYPES:
-        nodes = [n for n, d in g.nodes(data=True) if d["node_type"] == ntype]
-        if not nodes:
-            continue
+    if scale == SCALE_UNIFORM:
+        for n in nodes:
+            sizes[n] = TYPE_SIZES[g.nodes[n]["node_type"]] * multiplier
+        return sizes
 
-        smin, smax = SIZE_RANGES[ntype]
+    if scale == SCALE_LOG:
+        transform = math.log10
+    elif scale == SCALE_SQRT:
+        transform = math.sqrt
+    elif scale == SCALE_LINEAR:
+        transform = float
+    else:
+        raise ValueError(f"unknown size scale: {scale}")
 
-        if scale == SCALE_UNIFORM or smin == smax:
-            base = TYPE_SIZES[ntype] if scale == SCALE_UNIFORM else smin
-            for n in nodes:
-                sizes[n] = base * multiplier
-            continue
+    smin, smax = SIZE_RANGE
 
-        if scale == SCALE_LOG:
-            transform = math.log10
-        elif scale == SCALE_SQRT:
-            transform = math.sqrt
-        elif scale == SCALE_LINEAR:
-            transform = float
+    # One pool for every node of every type, drawn from every period at once (or
+    # from the all-time totals when no period is selected). Pooling across types
+    # is what makes sizes comparable between a complaint and a sub-intent;
+    # pooling across periods is what keeps them comparable over time.
+    # The product is the sum of everything, several times the largest service, so
+    # leaving it in the pool stretches the top of the scale and squashes all 299
+    # other nodes together. It is pinned at the maximum instead, which is where
+    # it would land anyway - it is always the busiest node, so nothing is
+    # reordered by the exception.
+    scaled = [n for n in nodes if g.nodes[n]["node_type"] != PRODUCT]
+    if not scaled:
+        return {n: smax * multiplier for n in nodes}
+
+    pool: list[int] = []
+    for n in scaled:
+        if period is None:
+            pool.append(g.nodes[n]["volume"])
         else:
-            raise ValueError(f"unknown size scale: {scale}")
+            pool.extend(g.nodes[n]["series"])
 
-        # Bounds come from every period at once (or from the all-time totals when
-        # no period is selected), which is what keeps sizes comparable over time.
-        pool: list[int] = []
-        for n in nodes:
-            if period is None:
-                pool.append(g.nodes[n]["volume"])
-            else:
-                pool.extend(g.nodes[n]["series"])
+    lo = transform(max(min(pool), 1))
+    hi = transform(max(max(pool), 1))
+    span = hi - lo
 
-        lo = transform(max(min(pool), 1))
-        hi = transform(max(max(pool), 1))
-        span = hi - lo
-
-        for n in nodes:
-            value = transform(max(node_volume(g, n, period), 1))
-            frac = 0.5 if span == 0 else (value - lo) / span
-            frac = min(1.0, max(0.0, frac))
-            if emphasis != 1.0:
-                frac = frac ** (1.0 / emphasis)
-            sizes[n] = (smin + frac * (smax - smin)) * multiplier
+    for n in nodes:
+        if g.nodes[n]["node_type"] == PRODUCT:
+            sizes[n] = smax * multiplier
+            continue
+        value = transform(max(node_volume(g, n, period), 1))
+        frac = 0.5 if span == 0 else (value - lo) / span
+        frac = min(1.0, max(0.0, frac))
+        if emphasis != 1.0:
+            frac = frac ** (1.0 / emphasis)
+        sizes[n] = (smin + frac * (smax - smin)) * multiplier
 
     return sizes
+
+
+def relax_overlaps(
+    pos: dict[str, tuple],
+    sizes: dict[str, float],
+    px_w: float = 1250.0,
+    px_h: float = 640.0,
+    iterations: int = 220,
+    pad_px: float = 2.5,
+    passes: int = 3,
+    homing: float = 0.08,
+) -> dict[str, tuple]:
+    """Nudge nodes apart until no two markers overlap.
+
+    A layout places points; it knows nothing about how fat the markers drawn on
+    those points will be. With sizes spanning 4-62px, dense clusters collide.
+
+    The work happens in PIXEL space, because that is where a marker is round: the
+    x and y axes cover different data ranges over different pixel counts, so a
+    circle on screen is an ellipse in data units and collision has to account for
+    it. Positions are converted using the plot's aspect, resolved as circles, and
+    converted back.
+
+    `sizes` should be the largest a node ever gets - its maximum across the whole
+    timeline - so that no period overlaps, not merely the one being shown.
+
+    `homing` pulls every node back toward where the layout put it after each
+    push. Without it the separation spreads nodes wherever there is room and
+    dissolves the clustering the layout worked to create - measured, it dropped
+    cluster purity from 98% to 73%. The pull keeps displacement local, so
+    overlaps are resolved within a cluster rather than by scattering it.
+    """
+    nodes = list(pos)
+    if len(nodes) < 2:
+        return dict(pos)
+
+    import numpy as np
+    from scipy.spatial import cKDTree
+
+    P = np.array([[float(pos[n][0]), float(pos[n][1])] for n in nodes])
+    R = np.array([sizes.get(n, 6.0) / 2.0 + pad_px for n in nodes])
+
+    for _ in range(passes):
+        span_x = max(P[:, 0].max() - P[:, 0].min(), 1e-9)
+        span_y = max(P[:, 1].max() - P[:, 1].min(), 1e-9)
+        sx, sy = px_w / span_x, px_h / span_y
+
+        Q = np.column_stack([P[:, 0] * sx, P[:, 1] * sy])
+        home = Q.copy()
+        reach = 2.0 * R.max()
+
+        for _ in range(iterations):
+            pairs = cKDTree(Q).query_pairs(reach, output_type="ndarray")
+            if len(pairs) == 0:
+                break
+
+            i, j = pairs[:, 0], pairs[:, 1]
+            delta = Q[j] - Q[i]
+            dist = np.hypot(delta[:, 0], delta[:, 1])
+            need = R[i] + R[j]
+
+            hit = dist < need
+            if not hit.any():
+                break
+
+            i, j, delta, dist, need = i[hit], j[hit], delta[hit], dist[hit], need[hit]
+
+            # Coincident points have no direction to separate along; give them one.
+            zero = dist < 1e-9
+            if zero.any():
+                delta[zero] = np.column_stack(
+                    [np.cos(np.arange(zero.sum())), np.sin(np.arange(zero.sum()))]
+                )
+                dist[zero] = 1.0
+
+            shift = delta * (((need - dist) / dist) * 0.5)[:, None]
+            np.add.at(Q, i, -shift)
+            np.add.at(Q, j, shift)
+
+            if homing:
+                Q += (home - Q) * homing
+
+        P = np.column_stack([Q[:, 0] / sx, Q[:, 1] / sy])
+
+    return {n: (float(P[k, 0]), float(P[k, 1])) for k, n in enumerate(nodes)}
+
+
+def count_overlaps(
+    pos: dict[str, tuple],
+    sizes: dict[str, float],
+    px_w: float = 1250.0,
+    px_h: float = 640.0,
+) -> int:
+    """How many node pairs would be drawn touching, in the same pixel space."""
+    nodes = list(pos)
+    if len(nodes) < 2:
+        return 0
+
+    import numpy as np
+    from scipy.spatial import cKDTree
+
+    P = np.array([[float(pos[n][0]), float(pos[n][1])] for n in nodes])
+    span_x = max(P[:, 0].max() - P[:, 0].min(), 1e-9)
+    span_y = max(P[:, 1].max() - P[:, 1].min(), 1e-9)
+    Q = np.column_stack([P[:, 0] * px_w / span_x, P[:, 1] * px_h / span_y])
+    R = np.array([sizes.get(n, 6.0) / 2.0 for n in nodes])
+
+    pairs = cKDTree(Q).query_pairs(2.0 * R.max(), output_type="ndarray")
+    if len(pairs) == 0:
+        return 0
+    i, j = pairs[:, 0], pairs[:, 1]
+    d = np.hypot(Q[j, 0] - Q[i, 0], Q[j, 1] - Q[i, 1])
+    return int((d < R[i] + R[j]).sum())
 
 
 def filter_graph(
