@@ -345,10 +345,11 @@ Then open http://localhost:8501.
 
 ## Controls
 
+- **Unified intent** (above the canvas, not in the sidebar) — picks both the detail shown and the service the graph draws.
 - **Timeline** (above the canvas) — drag or click through Apr–Aug 2026, or *All periods* for totals.
 - **Layout** — Clustered organic hubs (default), Anchored wedges, Spring (force-directed), Radial by type, Kamada-Kawai, or Layered hierarchy.
 - **View** — full graph, or focus on a single unified intent and its 2-hop neighbourhood.
-- **Unified intents shown** — trim the 31 services to compare a handful side by side.
+- **View** — the graph always shows one service, chosen by the intent picker above the canvas.
 - **Scale by conversation volume** — log / square root / linear / uniform, plus **Emphasis** and a size multiplier.
 - **Node types / Labels** — toggle each layer's visibility and its text labels independently.
 - **Hide sub-intent labels below** — all 248 sub-intent labels show by default; raise this to keep only the busier ones when the canvas gets crowded.
@@ -416,12 +417,20 @@ A unified intent record carries `description`, `sampleConversation`,
 A sub-intent record is identical except `parentIntent` names its unified intent
 and there is no `subIntent` list.
 
-**Intent detail** sits under the canvas on the Graph tab. It picks a unified
-intent and, optionally, a sub-intent beneath it. The most specific selection
-wins: choose a sub-intent and its description, channel intents, counts and
-samples replace the parent's. Three channel cards always render — a channel that
-doesn't carry the intent shows an empty card rather than disappearing, since the
-gap is itself worth seeing.
+**Intent detail** sits above the canvas on the Graph tab, and its unified intent
+picker is the single control for both: pick a service and the graph below
+redraws to that service's subgraph. There is no separate selection in the
+sidebar, so the two can't disagree.
+
+A sub-intent is an optional second level. It changes the detail — description,
+channel intents, counts — but **deliberately does not change the graph**, which
+stays the top-level picture for the service. `app_test.py` asserts both halves:
+that switching the unified intent moves the graph, and that switching the
+sub-intent leaves it exactly as it was.
+
+Three channel cards always render — a channel that doesn't carry the intent
+shows an empty card rather than disappearing, since the gap is itself worth
+seeing.
 
 ### How the numbers relate to the graph
 

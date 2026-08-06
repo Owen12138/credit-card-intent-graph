@@ -83,25 +83,9 @@ layout_algo = st.sidebar.selectbox(
     ),
 )
 
-view_mode = st.sidebar.radio(
-    "View", ["Full graph", "Focus on one unified intent"], index=0, key="view_mode"
-)
-
-all_uis = list(taxonomy.UNIFIED_INTENTS)
-
-if view_mode == "Focus on one unified intent":
-    focus_ui = st.sidebar.selectbox("Unified intent", all_uis)
-    selected_uis = {focus_ui}
-else:
-    focus_ui = None
-    selected_uis = set(
-        st.sidebar.multiselect(
-            "Unified intents shown",
-            all_uis,
-            default=all_uis,
-            help="Trim the 31 services down to compare a handful side by side.",
-        )
-    )
+# Which unified intent the graph shows is chosen in the detail view above the
+# canvas, not here - one picker drives both, so the graph is always showing the
+# intent the cards describe.
 
 st.sidebar.markdown("**Node size**")
 size_scale = st.sidebar.selectbox(
@@ -162,24 +146,6 @@ label_threshold = st.sidebar.slider(
 
 height = st.sidebar.slider("Canvas height (px)", 500, 1400, 800, step=50)
 
-# =============================================================================
-# Build the view
-# =============================================================================
-view = gb.filter_graph(full, visible_types, selected_uis)
-if focus_ui and focus_ui in view:
-    view = gb.neighborhood(view, focus_ui, depth=2)
-
-counts = gb.summary(view)
-
-labelled = set()
-for node, data in view.nodes(data=True):
-    ntype = data["node_type"]
-    if ntype not in label_types:
-        continue
-    if ntype == gb.SUB_INTENT and data["volume"] < label_threshold:
-        continue
-    labelled.add(node)
-
 st.title("Credit Card intent graph")
 st.caption(
     "Product -> unified intents -> sub-intents, with life events and complaints "
@@ -188,63 +154,13 @@ st.caption(
     "zoom."
 )
 
-cols = st.columns(6)
-cols[0].metric("Conversations (all periods)", volumes.fmt(counts["conversations"]))
-cols[1].metric("Nodes", counts["nodes"])
-cols[2].metric("Unified intents", counts[gb.UNIFIED_INTENT])
-cols[3].metric("Sub-intents", counts[gb.SUB_INTENT])
-cols[4].metric("Life events", counts[gb.LIFE_EVENT])
-cols[5].metric("Complaints", counts[gb.COMPLAINT])
-
 tab_graph, tab_tables = st.tabs(["Graph", "Data"])
 
 with tab_graph:
-    if view.number_of_nodes() == 0:
-        st.warning("Nothing to draw - widen the filters in the sidebar.")
-    else:
-        node_key = tuple(sorted(view.nodes()))
-        pos = layout_for(node_key, layout_algo, view)
-
-        # The whole canvas - timeline, play button, focus - runs in the browser.
-        # Streamlit only rebuilds it when one of these sidebar values changes,
-        # and every one of those genuinely moves nodes, so resetting the view
-        # there is the correct behaviour.
-        html = page_html(
-            node_key,
-            tuple(sorted(labelled)),
-            layout_algo,
-            size_scale,
-            size_emphasis,
-            size_multiplier,
-            height,
-            view,
-            pos,
-        )
-        st.iframe(html, height=height + 150)
-
-        st.caption(
-            "**Timeline** - press Play or drag the slider under the canvas. "
-            "**Drag** - pull any node clear to look at it; its edges and labels "
-            "follow, and it eases back into place when you let go. "
-            "**Focus** - click any node to isolate it and everything it connects "
-            "to; click it again or press Clear to restore. *Focus depth: 2* "
-            "widens focus to neighbours-of-neighbours, so a service also picks up "
-            "the life events and complaints hanging off its sub-intents. "
-            "**Labels** - the 248 sub-intent labels stay hidden until you zoom in "
-            "past ~2.2x, so the whole-graph view stays readable; focusing a node "
-            "labels its neighbourhood at any zoom, and *Sub-intent labels* "
-            "overrides to always or off. "
-            "**Zoom** - scroll, or use the +/- buttons. Nodes are circles drawn "
-            "on the graph: they shrink as you zoom out, so the spacing between "
-            "them survives and they never pile up. *Reset view* refits. "
-            "All of it runs in the browser, so your zoom and the period you are "
-            "on survive. Drag to pan, hover for volumes."
-        )
-
-with tab_graph:
-    # Re-entering the same tab appends to it, so the detail view sits under the
-    # canvas rather than behind a separate tab.
-    st.divider()
+    # =========================================================================
+    # Intent detail. The unified intent picked here also decides what the graph
+    # below draws, so there is one control rather than two that can disagree.
+    # =========================================================================
     st.subheader("Intent detail")
 
     UNIFIED_ONLY = "— none: show the unified intent —"
@@ -253,14 +169,15 @@ with tab_graph:
         "Unified intent",
         list(taxonomy.UNIFIED_INTENTS),
         key="focus_unified",
+        help="Also sets which unified intent the graph below draws.",
     )
     picked_sub = st.selectbox(
         "Sub-intent",
         [UNIFIED_ONLY] + taxonomy.UNIFIED_INTENTS[picked_ui],
         key="focus_sub",
         help=(
-            "Optional second-level filter. Leave it unset to see the unified "
-            "intent's own data; pick one and its data takes precedence."
+            "Optional second level. It changes the detail below it, not the "
+            "graph - the graph stays the top-level picture for the service."
         ),
     )
 
@@ -287,18 +204,9 @@ with tab_graph:
         unsafe_allow_html=True,
     )
 
-    across = channels.total(channel_data, name, kind)
-    head = st.columns(3)
-    head[0].metric("Conversations, all channels", volumes.fmt(across))
-    head[1].metric("Channels carrying it", f"{len(carried)} of {len(rows)}")
-    if kind == "unified":
-        head[2].metric(
-            "Sub-intents in this service", len(taxonomy.UNIFIED_INTENTS[picked_ui])
-        )
-
     st.markdown("#### By channel")
-    cols = st.columns(len(rows))
-    for col, (channel, rec) in zip(cols, rows):
+    cards = st.columns(len(rows))
+    for col, (channel, rec) in zip(cards, rows):
         with col, st.container(border=True):
             st.markdown(f"**{channel.label}**")
             st.caption(channel.blurb)
@@ -317,37 +225,73 @@ with tab_graph:
             # its own line instead of running together into a paragraph.
             st.markdown("  \n".join(f"**{ci}**" for ci in rec["channelIntent"]))
 
-            text = rec.get("sampleConversation", {}).get("conversationText")
-            st.caption("Sample conversation")
-            if text:
-                st.markdown(f"> {text}")
-            else:
-                st.caption("None recorded.")
+    st.divider()
 
-    if kind == "unified":
-        st.markdown("#### Sub-intents of this unified intent")
-        sub_rows = []
-        for sub in taxonomy.UNIFIED_INTENTS[picked_ui]:
-            row = {"Sub-intent": sub}
-            for channel, rec in channels.records(channel_data, sub, "sub"):
-                row[channel.label] = rec["numberOfConversations"] if rec else None
-            row["All channels"] = channels.total(channel_data, sub, "sub")
-            sub_rows.append(row)
-        st.dataframe(
-            pd.DataFrame(sub_rows),
-            width="stretch",
-            hide_index=True,
-            column_config={
-                **{
-                    c.label: st.column_config.NumberColumn(format="%,d")
-                    for c in channels.CHANNELS
-                },
-                "All channels": st.column_config.NumberColumn(format="%,d"),
-            },
+    # =========================================================================
+    # The graph, for the unified intent picked above. A sub-intent selection
+    # deliberately does not narrow it - this stays the whole service.
+    # =========================================================================
+    view = gb.filter_graph(full, visible_types, {picked_ui})
+    if picked_ui in view:
+        view = gb.neighborhood(view, picked_ui, depth=2)
+
+    counts = gb.summary(view)
+
+    labelled = set()
+    for node, data in view.nodes(data=True):
+        ntype = data["node_type"]
+        if ntype not in label_types:
+            continue
+        if ntype == gb.SUB_INTENT and data["volume"] < label_threshold:
+            continue
+        labelled.add(node)
+
+    st.subheader(f"Graph: {picked_ui}")
+
+    cols = st.columns(6)
+    cols[0].metric("Conversations (all periods)", volumes.fmt(counts["conversations"]))
+    cols[1].metric("Nodes", counts["nodes"])
+    cols[2].metric("Unified intents", counts[gb.UNIFIED_INTENT])
+    cols[3].metric("Sub-intents", counts[gb.SUB_INTENT])
+    cols[4].metric("Life events", counts[gb.LIFE_EVENT])
+    cols[5].metric("Complaints", counts[gb.COMPLAINT])
+
+    if view.number_of_nodes() == 0:
+        st.warning("Nothing to draw - widen the filters in the sidebar.")
+    else:
+        node_key = tuple(sorted(view.nodes()))
+        pos = layout_for(node_key, layout_algo, view)
+
+        # The whole canvas - timeline, play button, focus - runs in the browser.
+        # Streamlit only rebuilds it when one of these values changes, and every
+        # one of those genuinely moves nodes, so resetting the view there is the
+        # correct behaviour.
+        html = page_html(
+            node_key,
+            tuple(sorted(labelled)),
+            layout_algo,
+            size_scale,
+            size_emphasis,
+            size_multiplier,
+            height,
+            view,
+            pos,
         )
+        st.iframe(html, height=height + 150)
+
         st.caption(
-            "Blank means that channel does not carry the sub-intent at all, "
-            "which is why a channel's unified total can be lower than another's."
+            "**Timeline** - press Play or drag the slider under the canvas. "
+            "**Drag** - pull any node clear to look at it; its edges and labels "
+            "follow, and it eases back into place when you let go. "
+            "**Focus** - click any node to isolate it and everything it connects "
+            "to; click it again or press Clear to restore. "
+            "**Labels** - sub-intent labels stay hidden until you zoom in past "
+            "~2.2x; focusing a node labels its neighbourhood at any zoom. "
+            "**Zoom** - scroll, or use the +/- buttons. Nodes are circles drawn "
+            "on the graph: they shrink as you zoom out, so the spacing between "
+            "them survives and they never pile up. *Reset view* refits. "
+            "All of it runs in the browser, so your zoom and the period you are "
+            "on survive. Drag to pan, hover for volumes."
         )
 
 with tab_tables:
