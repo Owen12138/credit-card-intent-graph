@@ -147,10 +147,27 @@ assert 'addEventListener' in CODE and '"wheel"' in CODE, "wheel zoom not handled
 # the coordinates itself. Nothing may read META.pos after startup, or a dragged
 # node's edges and focus overlay would still point at where it used to be.
 assert '"mousedown"' in CODE and '"mouseup"' in CODE, "drag not wired up"
-body = CODE[CODE.index("function edgeSegments") :]
-assert "META.pos" not in body.split("layoutBtn")[0].replace(
-    "Object.keys(META.pos)", ""
-), "something still reads the starting positions instead of the live ones"
+assert "springHome" in CODE, "released nodes do not spring back"
+
+
+def _fn(name):
+    """Body of a top-level function in the canvas script."""
+    start = CODE.index("function " + name)
+    depth, i = 0, CODE.index("{", start)
+    for j in range(i, len(CODE)):
+        depth += CODE[j] == "{"
+        depth -= CODE[j] == "}"
+        if depth == 0:
+            return CODE[start : j + 1]
+    raise AssertionError(name)
+
+
+# Everything that DRAWS must read the live positions. META.pos is the starting
+# arrangement and the spring's target, nothing else - a renderer reading it would
+# leave a dragged node's edges pointing at where it used to be.
+for fn in ("redrawPositions", "edgeSegments", "hitTest"):
+    assert "META.pos" not in _fn(fn), f"{fn} reads the starting positions, not POS"
+assert "META.pos" in _fn("springHome"), "the spring has no home to return to"
 
 # every edge trace must be reconstructable, or a drag cannot redraw the lines
 assert len(meta["edgePairs"]) == len(meta["edgeTraces"]), meta["edgePairs"]

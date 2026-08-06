@@ -216,8 +216,8 @@ with tab_graph:
 
         st.caption(
             "**Timeline** - press Play or drag the slider under the canvas. "
-            "**Drag** - pick up any node and move it; its edges and labels "
-            "follow, and *Reset layout* puts everything back. "
+            "**Drag** - pull any node clear to look at it; its edges and labels "
+            "follow, and it eases back into place when you let go. "
             "**Focus** - click any node to isolate it and everything it connects "
             "to; click it again or press Clear to restore. *Focus depth: 2* "
             "widens focus to neighbours-of-neighbours, so a service also picks up "

@@ -58,6 +58,12 @@ LABEL_ZOOM = 2.2
 PLOT_PX_W = 1250.0
 PLOT_CHROME_PX = 140     # margins plus the timeline slider below the plot
 
+# A dragged node follows the cursor, then eases back to where the layout put it
+# when released. Nothing is ever permanently rearranged: drag is for pulling a
+# node clear to look at it, not for editing the layout, so the arrangement the
+# layout computed stays canonical and cannot drift out of shape over a session.
+SPRING_MS = 300
+
 ZOOM_MIN = 0.25          # how far out you may go, as a fraction of the fitted view
 ZOOM_MAX = 25.0
 ZOOM_STEP = 1.18         # per wheel notch
@@ -296,6 +302,7 @@ def build_figure_with_timeline(
         "zoomMax": ZOOM_MAX,
         "zoomStep": ZOOM_STEP,
         "minMarkerPx": MIN_MARKER_PX,
+        "springMs": SPRING_MS,
         "dimNode": DIM_NODE,
         "dimEdge": DIM_EDGE,
     }
@@ -556,6 +563,43 @@ FOCUS_JS = """
     raf(function () { redrawPending = false; redrawPositions(); });
   }
 
+  // Released nodes ease back to where the layout put them. A token per node
+  // cancels an in-flight spring if the same node is grabbed again mid-flight,
+  // so a new drag always wins rather than fighting the animation.
+  var springTokens = {};
+
+  function springHome(id) {
+    var token = (springTokens[id] = (springTokens[id] || 0) + 1);
+    var from = POS[id].slice();
+    var home = META.pos[id];
+    var t0 = null;
+
+    function step(ts) {
+      if (springTokens[id] !== token) return;   // a new drag took over
+
+      if (typeof ts !== "number") {             // no frame clock: just land
+        POS[id] = home.slice();
+        redrawPositions();
+        return;
+      }
+
+      if (t0 === null) t0 = ts;
+      var t = Math.min(1, (ts - t0) / META.springMs);
+      var ease = 1 - Math.pow(1 - t, 3);        // decelerate into place
+
+      POS[id] = [
+        from[0] + (home[0] - from[0]) * ease,
+        from[1] + (home[1] - from[1]) * ease,
+      ];
+      redrawPositions();
+
+      if (t < 1) raf(step);
+      else POS[id] = home.slice();              // exact, not merely close
+    }
+
+    raf(step);
+  }
+
   if (gd.addEventListener) {
     // Capture phase, so Plotly's pan never sees a mousedown that landed on a
     // node. Anywhere else on the canvas still pans as normal.
@@ -564,6 +608,7 @@ FOCUS_JS = """
       function (ev) {
         var id = hitTest(ev);
         if (!id) return;
+        springTokens[id] = (springTokens[id] || 0) + 1;   // cancel any spring
         drag = { id: id, moved: 0, x: ev.clientX, y: ev.clientY };
         if (gd.style) gd.style.cursor = "grabbing";
         ev.preventDefault();
@@ -599,19 +644,13 @@ FOCUS_JS = """
       if (gd.style) gd.style.cursor = "";
       // Plotly never saw the mousedown, so it will not fire plotly_click for a
       // node any more. A press that did not travel is a click, so focus is
-      // toggled here instead.
+      // toggled here instead; anything further was a drag, and lets go home.
       if (done.moved < 4) {
         if (done.id === current) clear(); else focusOn(done.id);
+      } else {
+        springHome(done.id);
       }
     });
-  }
-
-  var layoutBtn = document.getElementById("layout-reset");
-  if (layoutBtn) {
-    layoutBtn.onclick = function () {
-      Object.keys(META.pos).forEach(function (id) { POS[id] = META.pos[id].slice(); });
-      redrawPositions();
-    };
   }
 
   ["zoom-in", "zoom-out", "zoom-reset"].forEach(function (id) {
@@ -832,7 +871,6 @@ PAGE = """<!doctype html>
     <button id="zoom-out">&minus;</button>
     <button id="zoom-in">+</button>
     <button id="zoom-reset">Reset view</button>
-    <button id="layout-reset">Reset layout</button>
     <button id="focus-depth">Focus depth: 1</button>
     <button id="label-mode">Sub-intent labels: auto</button>
     <button id="focus-clear-top">Clear</button>

@@ -208,10 +208,15 @@ sidebar is separate and composes with this — it decides which labels are
 
 Tune the threshold with `LABEL_ZOOM` in `interactive_html.py`.
 
-### Drag to rearrange
+### Drag to pull a node clear
 
-Nodes can be picked up and moved. Their edges, labels and focus highlighting
-follow, and **Reset layout** puts everything back where the layout put it.
+Nodes can be picked up and moved, with their edges, labels and focus
+highlighting following. On release the node **eases back to where the layout put
+it** over ~300 ms.
+
+Drag is for pulling a node clear to look at it, not for editing the layout. The
+arrangement the layout computed stays canonical, so nothing drifts out of shape
+over a session and the overlap guarantee can't be undone by hand.
 
 Plotly cannot drag scatter points, so the page hit-tests the pointer against the
 markers itself, using each node's current radius so a small node sitting on a
@@ -225,10 +230,13 @@ therefore treated as a click and toggles focus directly, so clicking still works
 exactly as before.
 
 All positions are read from one live map, so a dragged node cannot leave its
-edges or its focus overlay pointing at where it used to be — `export_test.py`
-asserts nothing reads the starting positions after startup, and `js_test.js`
-drives a real drag and checks that **all 9** edges attached to the node follow
-it while unrelated edges stay put.
+edges or its focus overlay pointing at where it used to be. `export_test.py`
+parses the script and asserts that every function which *draws* reads the live
+positions, while only the spring reads the starting ones. `js_test.js` drives a
+real drag and checks that **all 9** edges attached to the node follow it while
+held, that it eases home over ~20 frames without overshooting, that the edges
+come home with it, and that re-grabbing a node mid-flight cancels the spring
+rather than fighting it.
 
 ### Click to focus
 

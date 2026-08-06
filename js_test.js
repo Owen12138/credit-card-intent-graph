@@ -91,10 +91,15 @@ const document = {
   getElementById: (id) => (id === "intent-graph" ? gd : element(id)),
 };
 
-// window listeners drive the drag; rAF runs inline so the tests stay deterministic
+// window listeners drive the drag. rAF runs inline but advances a clock, so the
+// spring-back easing progresses and terminates instead of looping on one instant.
 const winListeners = {};
 const window = { addEventListener: (ev, fn) => (winListeners[ev] = fn) };
-const requestAnimationFrame = (fn) => fn();
+let clock = 0;
+const requestAnimationFrame = (fn) => {
+  clock += 16;
+  fn(clock);
+};
 
 vm.runInContext(
   src,
@@ -353,7 +358,7 @@ assert(Math.abs(currentZoom() - META.zoomMax) < 1e-6, `zoom-in ran past the limi
 console.log(`zoom clamped to ${META.zoomMin}x - ${META.zoomMax}x`);
 document.getElementById("zoom-reset").onclick();
 
-// ---- 10. nodes can be dragged, and everything attached follows --------------
+// ---- 10. nodes drag, everything attached follows, and they spring back -----
 function lastXY(traceIndex) {
   for (let i = calls.length - 1; i >= 0; i--) {
     const c = calls[i];
@@ -377,13 +382,14 @@ function pixelOf(id) {
 }
 
 document.getElementById("zoom-reset").onclick();
-document.getElementById("layout-reset").onclick();
 clearFocusIfAny();
 
 const dragTarget = uiTrace.ids[0];
 const dragAt = nodeIndexOf(dragTarget);
 const dragFrom = pixelOf(dragTarget);
+const home = META.pos[dragTarget];
 
+// --- while held, the node follows the cursor ---
 calls.length = 0;
 listeners["mousedown"]({
   clientX: dragFrom[0],
@@ -392,46 +398,39 @@ listeners["mousedown"]({
   stopPropagation() {},
 });
 winListeners["mousemove"]({ clientX: dragFrom[0] + 120, clientY: dragFrom[1] - 90 });
-winListeners["mouseup"]({});
 
-const moved = lastXY(dragAt.trace);
-assert(moved, "dragging produced no position update");
-const before = META.pos[dragTarget];
-const after = [moved[0][dragAt.i], moved[1][dragAt.i]];
+const held = lastXY(dragAt.trace);
+assert(held, "dragging produced no position update");
+const at = [held[0][dragAt.i], held[1][dragAt.i]];
 assert(
-  Math.abs(after[0] - before[0]) > 1e-6 || Math.abs(after[1] - before[1]) > 1e-6,
-  "the dragged node did not move"
+  Math.abs(at[0] - home[0]) > 1e-6 || Math.abs(at[1] - home[1]) > 1e-6,
+  "the dragged node did not follow the cursor"
 );
 console.log(
-  `dragged '${dragTarget}' from (${before[0].toFixed(2)}, ${before[1].toFixed(2)}) ` +
-    `to (${after[0].toFixed(2)}, ${after[1].toFixed(2)})`
+  `held '${dragTarget}': (${home[0].toFixed(2)}, ${home[1].toFixed(2)}) -> ` +
+    `(${at[0].toFixed(2)}, ${at[1].toFixed(2)})`
 );
 
-// its neighbours stayed put - only the dragged node moves
-const others = uiTrace.ids.filter((_, i) => i !== dragAt.i);
+// neighbours in the same trace stayed put
 assert(
-  others.every((id, k) => {
-    const i = uiTrace.ids.indexOf(id);
-    return Math.abs(moved[0][i] - META.pos[id][0]) < 1e-9;
-  }),
+  uiTrace.ids.every((id, i) =>
+    i === dragAt.i ? true : Math.abs(held[0][i] - META.pos[id][0]) < 1e-9
+  ),
   "dragging one node moved others"
 );
 
-// every edge touching it was redrawn to the new position, across all traces
+// every edge touching it was redrawn to the held position, across all traces
 let checked = 0;
 META.edgePairs.forEach((e) => {
   const xy = lastXY(e.trace);
   e.pairs.forEach((p, k) => {
     const isEnd0 = p[0] === dragTarget;
-    const isEnd1 = p[1] === dragTarget;
-    if (!isEnd0 && !isEnd1) {
-      return;
-    }
+    if (!isEnd0 && p[1] !== dragTarget) return;
     assert(xy, `edge trace ${e.trace} was not redrawn`);
-    const got = isEnd0 ? xy[0][k * 3] : xy[0][k * 3 + 1];
-    const gotY = isEnd0 ? xy[1][k * 3] : xy[1][k * 3 + 1];
+    const gx = isEnd0 ? xy[0][k * 3] : xy[0][k * 3 + 1];
+    const gy = isEnd0 ? xy[1][k * 3] : xy[1][k * 3 + 1];
     assert(
-      Math.abs(got - after[0]) < 1e-9 && Math.abs(gotY - after[1]) < 1e-9,
+      Math.abs(gx - at[0]) < 1e-9 && Math.abs(gy - at[1]) < 1e-9,
       `an edge still points at the old position of ${dragTarget}`
     );
     checked++;
@@ -439,30 +438,58 @@ META.edgePairs.forEach((e) => {
 });
 const degree = META.adjacency[dragTarget].length;
 assert(checked === degree, `only ${checked} of ${degree} attached edges were redrawn`);
+console.log(`all ${checked} edges follow it while held`);
 
-// and edges that do not touch it were left exactly where they were
-const untouched = META.edgePairs[0].pairs.findIndex(
-  (p) => p[0] !== dragTarget && p[1] !== dragTarget
-);
-if (untouched !== -1) {
-  const xy = lastXY(META.edgePairs[0].trace);
-  const pair = META.edgePairs[0].pairs[untouched];
-  assert(
-    Math.abs(xy[0][untouched * 3] - META.pos[pair[0]][0]) < 1e-9,
-    "an unrelated edge moved"
-  );
-}
-console.log(`all ${checked} edges attached to '${dragTarget}' follow it; others unmoved`);
+// --- released, it eases back to where the layout put it ---
+calls.length = 0;
+winListeners["mouseup"]({});
 
-// Reset layout restores the original coordinates
-document.getElementById("layout-reset").onclick();
-const restored = lastXY(dragAt.trace);
+const landed = lastXY(dragAt.trace);
+assert(landed, "releasing produced no update");
 assert(
-  Math.abs(restored[0][dragAt.i] - before[0]) < 1e-9 &&
-    Math.abs(restored[1][dragAt.i] - before[1]) < 1e-9,
-  "Reset layout did not restore the original position"
+  Math.abs(landed[0][dragAt.i] - home[0]) < 1e-9 &&
+    Math.abs(landed[1][dragAt.i] - home[1]) < 1e-9,
+  "the node did not return to its layout position"
 );
-console.log("Reset layout restores every node");
+
+// it animated rather than teleporting, and the motion was monotonic homeward
+const frames = calls.filter((c) => c.update.x && c.idx.indexOf(dragAt.trace) !== -1);
+assert(frames.length > 3, `sprang home in ${frames.length} frames - not animated`);
+let prev = Infinity;
+frames.forEach((c) => {
+  const k = c.idx.indexOf(dragAt.trace);
+  const d = Math.abs(c.update.x[k][dragAt.i] - home[0]);
+  assert(d <= prev + 1e-9, "the spring overshot or reversed");
+  prev = d;
+});
+console.log(`released: eased home over ${frames.length} frames, no overshoot`);
+
+// the edges came home with it
+META.edgePairs.forEach((e) => {
+  const xy = lastXY(e.trace);
+  e.pairs.forEach((p, k) => {
+    const isEnd0 = p[0] === dragTarget;
+    if (!isEnd0 && p[1] !== dragTarget) return;
+    const gx = isEnd0 ? xy[0][k * 3] : xy[0][k * 3 + 1];
+    assert(Math.abs(gx - home[0]) < 1e-9, "an edge stayed behind after the spring");
+  });
+});
+
+// grabbing the node again mid-spring must cancel it, not fight it
+listeners["mousedown"]({
+  clientX: dragFrom[0],
+  clientY: dragFrom[1],
+  preventDefault() {},
+  stopPropagation() {},
+});
+winListeners["mousemove"]({ clientX: dragFrom[0] + 60, clientY: dragFrom[1] });
+const regrab = lastXY(dragAt.trace);
+assert(
+  Math.abs(regrab[0][dragAt.i] - home[0]) > 1e-6,
+  "a re-grab was overridden by the in-flight spring"
+);
+winListeners["mouseup"]({});
+console.log("re-grabbing cancels an in-flight spring");
 
 // a press that does not travel is still a click, so focus survives dragging
 calls.length = 0;
