@@ -11,7 +11,7 @@ from pathlib import Path
 import graph_builder as gb
 import volumes
 from export_static import build_html
-from interactive_html import DIV_ID, build_figure_with_timeline
+from interactive_html import DIV_ID, FOCUS_JS, build_figure_with_timeline
 
 g = gb.build_graph()
 pos = gb.compute_layout(g, "Spring (force-directed)")
@@ -118,15 +118,18 @@ assert set(meta["labelled"]) == set(g.nodes()), "label set lost on the way out"
 assert meta["subIntent"] == gb.SUB_INTENT
 assert meta["labelZoom"] > 1, meta["labelZoom"]
 
-# The browser rescales markers by the zoom to keep node sizes fixed relative to
-# the drawing, so it needs the unscaled sizes for every period. They must agree
-# with what the frames carry, or a period change would jump to a different size.
-assert len(meta["frameSizes"]) == volumes.N_PERIODS, len(meta["frameSizes"])
 assert meta["periods"] == volumes.PERIODS
-assert 0 < meta["sizeZoomMin"] < 1 < meta["sizeZoomMax"], meta["sizeZoomMin"]
-for t, frame in enumerate(fig.frames):
-    for j, tr in enumerate(frame.data):
-        assert list(tr.marker.size) == meta["frameSizes"][t][j], (t, j)
+
+# Nodes must hold one size while zooming. The script therefore has no business
+# knowing marker sizes at all - if it can't see them it can't resize them, and
+# resizing from the relayout handler is what made nodes spring between sizes.
+assert "frameSizes" not in meta, "sizes exposed to the script again"
+assert "plotly_relayout" in FOCUS_JS, "zoom handler lost"
+
+# Comments stripped, since they discuss marker.size on purpose.
+CODE = "\n".join(line.split("//")[0] for line in FOCUS_JS.splitlines())
+assert "marker.size" not in CODE, "the canvas script resizes markers"
+assert "marker.opacity" in CODE, "focus dimming lost"
 assert meta["baseSpan"] > 0, meta["baseSpan"]
 # baseSpan must match the pinned axis, or the zoom factor is measured against
 # the wrong reference and labels appear at the wrong moment

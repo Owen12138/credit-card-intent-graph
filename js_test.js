@@ -202,62 +202,26 @@ assert(
 );
 console.log("label mode: always / off / auto all behave");
 
-// ---- 8. marker sizes track the zoom, so nodes stay fixed relative to the
-//         drawing instead of swelling as you zoom out ------------------------
-const base = META.frameSizes[0][META.nodeTraces.indexOf(subTrace)];
+// ---- 8. zooming must never touch marker sizes -------------------------------
+// Nodes have to hold one size. Resizing them from the relayout handler lands
+// after each frame is already painted and once per scroll tick, so it reads as
+// the nodes springing between sizes. This asserts nothing resizes them at all.
+calls.length = 0;
+[0.3, 0.7, 1, 1.5, 2.4, 5, 40].forEach(zoomTo);
 
-zoomTo(1);
-let sizes = lastSize(subTrace.trace);
-assert(sizes, "sizes were never applied");
+const resized = calls.filter((c) => c.update["marker.size"] !== undefined);
 assert(
-  sizes.every((s, i) => Math.abs(s - base[i]) < 1e-6),
-  "at 1x the markers should be exactly their base size"
+  resized.length === 0,
+  `zooming issued ${resized.length} marker.size restyles - nodes will not hold their size`
 );
+assert(lastSize(subTrace.trace) === null, "a marker size was written during zoom");
+console.log(`7 zoom steps, ${calls.length} restyles, none of them marker.size`);
 
-zoomTo(2);
-sizes = lastSize(subTrace.trace);
-assert(
-  sizes.every((s, i) => Math.abs(s - base[i] * 2) < 1e-6),
-  "zooming in 2x should double the markers"
-);
-
-zoomTo(0.5);
-sizes = lastSize(subTrace.trace);
-assert(
-  sizes.every((s, i) => Math.abs(s - base[i] * 0.5) < 1e-6),
-  "zooming out should shrink the markers by the same factor"
-);
-
-// the ratio between a sub-intent and its parent must not drift with zoom -
-// that drift is what made a sub-intent read as big as its service
-const uiBase = META.frameSizes[0][META.nodeTraces.indexOf(uiTrace)];
-for (const factor of [0.3, 1, 2.5, 9]) {
-  zoomTo(factor);
-  const sub = lastSize(subTrace.trace);
-  const ui = lastSize(uiTrace.trace);
-  const got = sub[0] / ui[0];
-  const want = base[0] / uiBase[0];
-  assert(
-    Math.abs(got - want) < 1e-9,
-    `sub/parent size ratio drifted at ${factor}x: ${got.toFixed(4)} vs ${want.toFixed(4)}`
-  );
-}
-console.log("marker sizes scale with zoom; sub/parent ratio holds at every zoom");
-
-// extreme zooms are clamped so markers never become absurd
-zoomTo(500);
-sizes = lastSize(subTrace.trace);
-assert(
-  sizes.every((s, i) => Math.abs(s - base[i] * META.sizeZoomMax) < 1e-6),
-  "runaway zoom should clamp at sizeZoomMax"
-);
-zoomTo(0.001);
-sizes = lastSize(subTrace.trace);
-assert(
-  sizes.every((s, i) => Math.abs(s - base[i] * META.sizeZoomMin) < 1e-6),
-  "runaway zoom-out should clamp at sizeZoomMin"
-);
-console.log(`clamped to ${META.sizeZoomMin}x - ${META.sizeZoomMax}x at the extremes`);
+// only label restyles are allowed, and only when the threshold is crossed
+const nonText = calls.filter((c) => c.update.text === undefined);
+assert(nonText.length === 0, "zoom touched something other than labels");
+assert(calls.length <= 4, `zoom caused ${calls.length} restyles; expected one per crossing`);
+console.log("zoom only ever restyles labels, and only on a threshold crossing");
 zoomTo(1);
 
 // ---- 9. clicks on edges are ignored -----------------------------------------

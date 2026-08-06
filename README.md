@@ -150,23 +150,28 @@ Loosening the relax constant to `k=0.7` pushes purity to 97% but multiplies
 overlaps sevenfold, so the tuning stops short of that. `smoke_test.py` asserts
 purity stays above 90% and at least 25 points ahead of the plain spring.
 
-### Node sizes are fixed relative to the graph, not the screen
+### Node sizes hold constant through a zoom
 
-Plotly sizes markers in **screen pixels**, so by default a node keeps the same
-pixel size however far you zoom. Zoom out and the drawing shrinks around it
-while the dot doesn't, so the markers swell relative to the layout until they
-overlap and a sub-intent reads as big as its parent. Zoom in and they look tiny
-against the wider gaps.
+A node keeps one size no matter how far you zoom. Plotly sizes markers in screen
+pixels and redraws them as part of the zoom render itself, so this is smooth by
+construction — the correct implementation is to leave them alone.
 
-The canvas multiplies every marker by the current zoom, so a node's size stays
-fixed *relative to the drawing* — the picture scales as a whole, the way it
-should. The ratio between any two nodes is then identical at every zoom, which
-`js_test.js` asserts directly across 0.3× to 9×.
+**Do not reintroduce zoom-driven resizing.** It was tried, to keep node sizes
+fixed relative to the drawing rather than the screen, and it has to be driven
+from `plotly_relayout`. That event fires *after* each frame is already painted,
+and once per scroll tick, so every correction lands a beat late and the nodes
+visibly spring between sizes on every notch of the wheel. Plotly has no
+data-space marker sizing, so there is no way to apply it during the render
+instead — the choice is genuinely between constant pixel size and jitter.
 
-Scaling is clamped to `SIZE_ZOOM_MIN`–`SIZE_ZOOM_MAX` (0.4×–4×) so an extreme
-zoom can't produce absurd markers. The stored animation frames are rescaled too,
-so stepping the timeline while zoomed animates to correctly scaled sizes rather
-than snapping back to the unzoomed ones.
+`js_test.js` drives seven zoom steps and asserts that **zero** `marker.size`
+restyles are issued, and `export_test.py` asserts the script can't even see
+marker sizes. The only thing a zoom is allowed to restyle is labels, and only
+when the threshold is crossed.
+
+One consequence, since markers are pixel-sized: zoom out far enough and they
+stop shrinking with the layout, so they crowd together. That is the cost of a
+stable size, and it is the trade this project takes deliberately.
 
 ### Labels appear as you zoom in
 
