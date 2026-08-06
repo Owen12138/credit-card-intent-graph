@@ -120,16 +120,34 @@ assert meta["labelZoom"] > 1, meta["labelZoom"]
 
 assert meta["periods"] == volumes.PERIODS
 
-# Nodes must hold one size while zooming. The script therefore has no business
-# knowing marker sizes at all - if it can't see them it can't resize them, and
-# resizing from the relayout handler is what made nodes spring between sizes.
-assert "frameSizes" not in meta, "sizes exposed to the script again"
-assert "plotly_relayout" in FOCUS_JS, "zoom handler lost"
+# Nodes are circles drawn on the graph, so the browser scales them with the
+# zoom. It needs the 1x sizes for every period, and they must agree with what
+# the frames carry or stepping the timeline would jump to a different size.
+assert len(meta["frameSizes"]) == volumes.N_PERIODS, len(meta["frameSizes"])
+for t, frame in enumerate(fig.frames):
+    for j, tr in enumerate(frame.data):
+        assert list(tr.marker.size) == meta["frameSizes"][t][j], (t, j)
+assert meta["baseX"] == list(fig.layout.xaxis.range)
+assert meta["baseY"] == list(fig.layout.yaxis.range)
+assert 0 < meta["zoomMin"] < 1 < meta["zoomMax"], meta
+assert meta["zoomStep"] > 1 and meta["minMarkerPx"] > 0, meta
 
-# Comments stripped, since they discuss marker.size on purpose.
+# Comments stripped, since they discuss the mechanism on purpose.
 CODE = "\n".join(line.split("//")[0] for line in FOCUS_JS.splitlines())
-assert "marker.size" not in CODE, "the canvas script resizes markers"
+
+# The page owns zooming, and range + size + labels go out in ONE Plotly.update.
+# Splitting them across calls is what made the nodes spring between sizes: the
+# range landed in one repaint and the sizes caught up in the next.
+assert "Plotly.update(" in CODE, "zoom no longer applies changes atomically"
+assert "xaxis.range" in CODE, "zoom does not set the range"
 assert "marker.opacity" in CODE, "focus dimming lost"
+assert 'addEventListener' in CODE and '"wheel"' in CODE, "wheel zoom not handled"
+
+# ...and marker sizes must never be pushed through a plain restyle, which would
+# be a second repaint after the range had already moved.
+for chunk in CODE.split("Plotly.restyle(")[1:]:
+    head = chunk[: chunk.find(");")]
+    assert "marker.size" not in head, "markers resized in a separate repaint"
 assert meta["baseSpan"] > 0, meta["baseSpan"]
 # baseSpan must match the pinned axis, or the zoom factor is measured against
 # the wrong reference and labels appear at the wrong moment
@@ -193,9 +211,17 @@ assert "Plotly.animate(" not in html, "page auto-plays the timeline on load"
 # focus wiring is present and its embedded metadata is valid JSON
 assert "plotly_click" in html, "no click handler"
 assert "plotly_animated" in html, "no post-animation reassert"
-assert "plotly_relayout" in html, "no zoom handler - labels can never appear"
 assert 'id="focus-depth"' in html and 'id="focus-clear-top"' in html
 assert 'id="label-mode"' in html, "no label mode override"
+for bid in ("zoom-in", "zoom-out", "zoom-reset"):
+    assert f'id="{bid}"' in html, f"missing {bid} control"
+
+# Plotly's own zoom paths must stay off: each one moves the range without
+# touching the markers, which is exactly the mismatch being avoided.
+assert '"scrollZoom": false' in html, "plotly scroll zoom still on"
+assert '"doubleClick": false' in html, "double-click zoom still on"
+for removed in ("zoomIn2d", "zoomOut2d", "autoScale2d", "resetScale2d"):
+    assert removed in html, f"{removed} not removed from the modebar"
 embedded = re.search(r"var META = (\{.*?\});\s*\n", html, re.S)
 assert embedded, "focus metadata not embedded"
 parsed = json.loads(embedded.group(1))

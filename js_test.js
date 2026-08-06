@@ -53,13 +53,34 @@ console.log(`all ${META.nodeTraces.length} node traces can render text`);
 const handlers = {};
 const calls = [];
 
+const listeners = {};
 const gd = {
-  layout: { xaxis: { range: [-META.baseSpan / 2, META.baseSpan / 2] } },
+  layout: { xaxis: { range: META.baseX.slice() }, yaxis: { range: META.baseY.slice() } },
+  _fullLayout: {
+    xaxis: { range: META.baseX.slice() },
+    yaxis: { range: META.baseY.slice() },
+    _size: { l: 80, t: 40, w: 900, h: 600 },
+  },
+  _transitionData: { _frames: [] },
   on: (ev, fn) => (handlers[ev] = fn),
+  addEventListener: (ev, fn) => (listeners[ev] = fn),
+  getBoundingClientRect: () => ({ left: 0, top: 0, width: 1060, height: 700 }),
 };
 
 const Plotly = {
-  restyle: (_g, update, idx) => calls.push({ update, idx }),
+  restyle: (_g, update, idx) => calls.push({ kind: "restyle", update, idx }),
+  update: (_g, tr, lay, idx) => {
+    calls.push({ kind: "update", update: tr, layout: lay, idx });
+    // mirror what Plotly would do, so the next read sees the new ranges
+    if (lay["xaxis.range"]) {
+      gd._fullLayout.xaxis.range = lay["xaxis.range"].slice();
+      gd.layout.xaxis.range = lay["xaxis.range"].slice();
+    }
+    if (lay["yaxis.range"]) {
+      gd._fullLayout.yaxis.range = lay["yaxis.range"].slice();
+      gd.layout.yaxis.range = lay["yaxis.range"].slice();
+    }
+  },
 };
 
 const elements = {};
@@ -115,14 +136,31 @@ function assert(cond, msg) {
   }
 }
 
+// Drive real wheel events at the centre of the plot, exactly as a user would.
+function wheel(times, dir) {
+  for (let i = 0; i < times; i++) {
+    listeners["wheel"]({
+      deltaY: dir === "in" ? -100 : 100,
+      clientX: 80 + 900 / 2,
+      clientY: 40 + 600 / 2,
+      preventDefault() {},
+    });
+  }
+}
+
+const currentZoom = () => {
+  const r = gd._fullLayout.xaxis.range;
+  return (META.baseX[1] - META.baseX[0]) / (r[1] - r[0]);
+};
+
 function zoomTo(factor) {
-  const span = META.baseSpan / factor;
-  gd.layout.xaxis.range = [-span / 2, span / 2];
-  handlers["plotly_relayout"]({});
+  document.getElementById("zoom-reset").onclick();
+  const step = Math.log(factor) / Math.log(META.zoomStep);
+  wheel(Math.round(Math.abs(step)), step >= 0 ? "in" : "out");
 }
 
 // ---- 1. zoomed out: no sub-intent labels, other types keep theirs -------------
-assert(handlers["plotly_relayout"], "no relayout handler registered");
+assert(listeners["wheel"], "no wheel handler registered - zoom is not owned by the page");
 assert(handlers["plotly_click"], "no click handler registered");
 
 let subs = lastText(subTrace.trace);
@@ -202,29 +240,94 @@ assert(
 );
 console.log("label mode: always / off / auto all behave");
 
-// ---- 8. zooming must never touch marker sizes -------------------------------
-// Nodes have to hold one size. Resizing them from the relayout handler lands
-// after each frame is already painted and once per scroll tick, so it reads as
-// the nodes springing between sizes. This asserts nothing resizes them at all.
-calls.length = 0;
-[0.3, 0.7, 1, 1.5, 2.4, 5, 40].forEach(zoomTo);
+// ---- 8. circles are drawn ON the graph: they shrink as you zoom out, so the
+//         gaps between nodes survive and they never pile up ------------------
+const base = META.frameSizes[0][META.nodeTraces.indexOf(subTrace)];
+const expected = (z) => base.map((s) => Math.max(META.minMarkerPx, s * z));
 
-const resized = calls.filter((c) => c.update["marker.size"] !== undefined);
+document.getElementById("zoom-reset").onclick();
+let sizes = lastSize(subTrace.trace);
 assert(
-  resized.length === 0,
-  `zooming issued ${resized.length} marker.size restyles - nodes will not hold their size`
+  sizes.every((s, i) => Math.abs(s - expected(1)[i]) < 1e-6),
+  "at the fitted view markers should be exactly their designed size"
 );
-assert(lastSize(subTrace.trace) === null, "a marker size was written during zoom");
-console.log(`7 zoom steps, ${calls.length} restyles, none of them marker.size`);
 
-// only label restyles are allowed, and only when the threshold is crossed
-const nonText = calls.filter((c) => c.update.text === undefined);
-assert(nonText.length === 0, "zoom touched something other than labels");
-assert(calls.length <= 4, `zoom caused ${calls.length} restyles; expected one per crossing`);
-console.log("zoom only ever restyles labels, and only on a threshold crossing");
-zoomTo(1);
+wheel(4, "out");
+let z = currentZoom();
+assert(z < 1, `zooming out should reduce the zoom factor, got ${z}`);
+sizes = lastSize(subTrace.trace);
+assert(
+  sizes.every((s, i) => Math.abs(s - expected(z)[i]) < 1e-6),
+  "markers did not shrink with the view when zooming out"
+);
+console.log(`4 notches out -> zoom ${z.toFixed(3)}, markers scaled to match`);
 
-// ---- 9. clicks on edges are ignored -----------------------------------------
+// THE requirement: a node's size relative to the drawing never changes, so the
+// space between nodes is preserved at every zoom and they cannot overlap more
+// than they do at the fitted view.
+// The plot area is a fixed number of pixels, so a marker of P pixels covers a
+// data width of P * span / areaPixels. Holding a node's size fixed ON THE GRAPH
+// therefore means P * span must be constant - P alone shrinking is the point.
+// Measured on the largest node, which never reaches the minimum-pixel floor.
+const spanNow = () => gd._fullLayout.xaxis.range[1] - gd._fullLayout.xaxis.range[0];
+const biggest = base.indexOf(Math.max.apply(null, base));
+const ratioAt = () => lastSize(subTrace.trace)[biggest] * spanNow();
+
+document.getElementById("zoom-reset").onclick();
+const want = ratioAt();
+for (const n of [1, 3, 6, 10]) {
+  document.getElementById("zoom-reset").onclick();
+  wheel(n, "out");
+  assert(
+    Math.abs(ratioAt() / want - 1) < 1e-6,
+    `size-to-span ratio drifted after ${n} notches out`
+  );
+  document.getElementById("zoom-reset").onclick();
+  wheel(n, "in");
+  assert(
+    Math.abs(ratioAt() / want - 1) < 1e-6,
+    `size-to-span ratio drifted after ${n} notches in`
+  );
+}
+console.log("size-to-span ratio identical at every zoom: spacing is preserved");
+
+// ---- 9. no repaint ever moves the range without also resizing ---------------
+// This is what made the old build snap: Plotly painted the new range first and
+// the sizes were corrected a beat later, so each notch rendered twice.
+calls.length = 0;
+document.getElementById("zoom-reset").onclick();
+wheel(5, "out");
+wheel(8, "in");
+
+const ranged = calls.filter((c) => c.layout && c.layout["xaxis.range"]);
+assert(ranged.length > 0, "zooming produced no range changes at all");
+ranged.forEach((c) => {
+  assert(c.kind === "update", "a range change was not part of a combined update");
+  assert(c.update["marker.size"], "a range moved without resizing the markers");
+  assert(c.update.text, "a range moved without settling the labels");
+});
+assert(
+  calls.every((c) => !(c.kind === "restyle" && c.update["marker.size"])),
+  "markers were resized in a separate repaint - that is the snap"
+);
+console.log(
+  `${ranged.length} zoom steps, every one a single update carrying range + size + labels`
+);
+
+document.getElementById("zoom-reset").onclick();
+assert(Math.abs(currentZoom() - 1) < 1e-9, "reset did not return to the fitted view");
+
+// zoom limits hold
+document.getElementById("zoom-reset").onclick();
+wheel(200, "out");
+assert(Math.abs(currentZoom() - META.zoomMin) < 1e-6, `zoom-out ran past the limit`);
+document.getElementById("zoom-reset").onclick();
+wheel(200, "in");
+assert(Math.abs(currentZoom() - META.zoomMax) < 1e-6, `zoom-in ran past the limit`);
+console.log(`zoom clamped to ${META.zoomMin}x - ${META.zoomMax}x`);
+document.getElementById("zoom-reset").onclick();
+
+// ---- 10. clicks on edges are ignored ----------------------------------------
 calls.length = 0;
 handlers["plotly_click"]({ points: [{}] });
 assert(calls.length === 0, "a click without customdata should be ignored");

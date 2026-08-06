@@ -150,28 +150,40 @@ Loosening the relax constant to `k=0.7` pushes purity to 97% but multiplies
 overlaps sevenfold, so the tuning stops short of that. `smoke_test.py` asserts
 purity stays above 90% and at least 25 points ahead of the plain spring.
 
-### Node sizes hold constant through a zoom
+### Nodes are circles drawn on the graph
 
-A node keeps one size no matter how far you zoom. Plotly sizes markers in screen
-pixels and redraws them as part of the zoom render itself, so this is smooth by
-construction — the correct implementation is to leave them alone.
+Zoom out and the nodes shrink with everything else, so the gaps between them
+survive and they never pile up; zoom in and they grow with the layout. A node's
+size relative to the drawing never changes — it reads as one dot *on the graph*
+rather than a fixed blob stuck to the screen.
 
-**Do not reintroduce zoom-driven resizing.** It was tried, to keep node sizes
-fixed relative to the drawing rather than the screen, and it has to be driven
-from `plotly_relayout`. That event fires *after* each frame is already painted,
-and once per scroll tick, so every correction lands a beat late and the nodes
-visibly spring between sizes on every notch of the wheel. Plotly has no
-data-space marker sizing, so there is no way to apply it during the render
-instead — the choice is genuinely between constant pixel size and jitter.
+Plotly cannot do this natively. `scatter.marker.sizemode` offers only
+`"diameter"` and `"area"`, both in **screen pixels**, so a marker keeps its pixel
+size however far you zoom and appears to swell as the drawing shrinks around it.
+(`layout.shapes` circles *are* data-space, but shapes carry no hover or click.)
 
-`js_test.js` drives seven zoom steps and asserts that **zero** `marker.size`
-restyles are issued, and `export_test.py` asserts the script can't even see
-marker sizes. The only thing a zoom is allowed to restyle is labels, and only
-when the threshold is crossed.
+So the scaling is done in the page — and **where** it happens is the whole
+trick:
 
-One consequence, since markers are pixel-sized: zoom out far enough and they
-stop shrinking with the layout, so they crowd together. That is the cost of a
-stable size, and it is the trade this project takes deliberately.
+> Driving it from `plotly_relayout` does not work. That event fires *after*
+> Plotly has already painted the new range using the old sizes, and once per
+> scroll notch, so every notch paints twice and the nodes visibly spring between
+> sizes.
+
+Instead the page **owns zooming**. A wheel handler (plus `+` / `−` / `Reset
+view`) computes the new axis ranges, the new marker sizes and the new label set,
+and pushes all three through a **single `Plotly.update`** — one repaint per step,
+nothing to catch up. Plotly's own zoom paths are switched off (`scrollZoom`,
+double-click, and the modebar zoom buttons), because each would move the range
+without touching the markers.
+
+Zoom is clamped to `ZOOM_MIN`–`ZOOM_MAX` (0.25×–25×), and `MIN_MARKER_PX` keeps
+the smallest node visible when zoomed right out.
+
+`js_test.js` drives real wheel events and asserts the invariant directly: a
+marker's pixel size times the axis span — its true width on the graph — is
+identical at every zoom, and **every** range change arrives in one combined
+update carrying sizes and labels with it.
 
 ### Labels appear as you zoom in
 

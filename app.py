@@ -224,8 +224,11 @@ with tab_graph:
             "past ~2.2x, so the whole-graph view stays readable; focusing a node "
             "labels its neighbourhood at any zoom, and *Sub-intent labels* "
             "overrides to always or off. "
+            "**Zoom** - scroll, or use the +/- buttons. Nodes are circles drawn "
+            "on the graph: they shrink as you zoom out, so the spacing between "
+            "them survives and they never pile up. *Reset view* refits. "
             "All of it runs in the browser, so your zoom and the period you are "
-            "on survive. Scroll to zoom, drag to pan, hover for volumes."
+            "on survive. Drag to pan, hover for volumes."
         )
 
 with tab_tables:

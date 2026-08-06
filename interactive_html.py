@@ -43,12 +43,20 @@ FOCUS_EDGE_COLOR = "#111827"
 # services, 10 life events, 10 complaints) to stay labelled at every zoom.
 LABEL_ZOOM = 2.2
 
-# Marker sizes are left to Plotly, which draws them at a constant pixel size and
-# rescales them as part of the zoom render itself. That is smooth by
-# construction. Do not reintroduce zoom-driven resizing from plotly_relayout:
-# that event lands after each frame is already painted and fires once per scroll
-# tick, so every correction arrives a beat late and the nodes visibly spring
-# between sizes.
+# Nodes are meant to read as circles drawn ON the graph: zoom out and they
+# shrink with everything else, so the gaps between them survive and they never
+# pile up. Plotly cannot do that natively - scatter marker.sizemode offers only
+# "diameter" and "area", both in screen pixels - so the scaling is done here.
+#
+# The trap is WHERE. Driving it from plotly_relayout means Plotly has already
+# painted the new range with the old sizes before the handler runs, so each
+# scroll tick paints twice and the nodes visibly spring between sizes. Instead
+# the page takes over zooming entirely and pushes the new ranges and the new
+# sizes through a single Plotly.update, which is one repaint per step.
+ZOOM_MIN = 0.25          # how far out you may go, as a fraction of the fitted view
+ZOOM_MAX = 25.0
+ZOOM_STEP = 1.18         # per wheel notch
+MIN_MARKER_PX = 1.2      # keeps a node visible when zoomed right out
 
 
 def _hover(g: nx.Graph, nodes: list[str], ntype: str, period: int) -> list[str]:
@@ -134,9 +142,11 @@ def build_figure_with_timeline(
 
     # --- frames: sizes and hover only -----------------------------------------
     frames = []
+    frame_sizes = []  # [period][trace] -> sizes at 1x, scaled by the browser
     for t, label in enumerate(volumes.PERIODS):
         sizes = gb.compute_node_sizes(g, scale, multiplier, t, emphasis)
         per_trace = [[round(sizes[n], 3) for n in m["ids"]] for m in node_meta]
+        frame_sizes.append(per_trace)
         frames.append(
             go.Frame(
                 name=label,
@@ -230,6 +240,7 @@ def build_figure_with_timeline(
     )
 
     xr = list(fig.layout.xaxis.range)
+    yr = list(fig.layout.yaxis.range)
 
     meta = {
         "nodeTraces": node_meta,
@@ -244,9 +255,16 @@ def build_figure_with_timeline(
         "subIntent": gb.SUB_INTENT,
         "baseSpan": abs(xr[1] - xr[0]),
         "labelZoom": LABEL_ZOOM,
-        # Marker sizes are NOT exposed here. They stay exactly as Plotly drew
-        # them, at a constant pixel size, so nothing touches them on zoom.
+        # Sizes at 1x for every period. The browser multiplies these by the
+        # current zoom so a node keeps its size relative to the graph.
+        "frameSizes": frame_sizes,
         "periods": list(volumes.PERIODS),
+        "baseX": xr,
+        "baseY": yr,
+        "zoomMin": ZOOM_MIN,
+        "zoomMax": ZOOM_MAX,
+        "zoomStep": ZOOM_STEP,
+        "minMarkerPx": MIN_MARKER_PX,
         "dimNode": DIM_NODE,
         "dimEdge": DIM_EDGE,
     }
@@ -271,15 +289,6 @@ FOCUS_JS = """
   // ---- labels ---------------------------------------------------------------
   // Every label decision funnels through here, so zoom and focus compose
   // instead of overwriting one another.
-  function zoomFactor() {
-    // _fullLayout is what Plotly actually renders from and is always current
-    // after a zoom; gd.layout is the fallback for stubs and older builds.
-    var ax = (gd._fullLayout && gd._fullLayout.xaxis) || (gd.layout && gd.layout.xaxis);
-    if (!ax || !ax.range || !META.baseSpan) return 1;
-    var span = Math.abs(ax.range[1] - ax.range[0]);
-    return span > 0 ? META.baseSpan / span : 1;
-  }
-
   function subsVisible() {
     if (labelMode === "always") return true;
     if (labelMode === "off") return false;
@@ -304,25 +313,124 @@ FOCUS_JS = """
   }
 
   // ---- zoom -----------------------------------------------------------------
-  // Marker sizes are deliberately left alone here. Plotly sizes them in screen
-  // pixels and redraws them smoothly as part of the zoom itself, so a node
-  // holds one size throughout. Rescaling them from this handler cannot be
-  // smooth: plotly_relayout fires AFTER each frame is already on screen, and
-  // once per scroll tick, so every correction lands a beat late and reads as
-  // the node springing to a new size. Plotly has no data-space marker sizing,
-  // so there is no way to do it during the render instead.
-  //
-  // The only thing zoom changes is which labels are legible, and that fires
-  // once when the threshold is crossed rather than on every tick.
-  function onZoom() {
-    var now = zoomFactor() >= META.labelZoom;
-    if (now === zoomedIn) return;
-    zoomedIn = now;
-    refreshLabels();
-    setBanner(current, current ? Object.keys(focusSet).length - 1 : 0);
+  // The page owns zooming so that the axis ranges and the marker sizes change
+  // in the SAME repaint. Letting Plotly zoom and correcting the sizes afterwards
+  // from plotly_relayout paints twice per wheel notch, and the nodes visibly
+  // spring between sizes.
+  var period = 0;
+  var zoom = 1;
+  var traceIdx = META.nodeTraces.map(function (t) { return t.trace; });
+
+  function spanX() { return META.baseX[1] - META.baseX[0]; }
+  function spanY() { return META.baseY[1] - META.baseY[0]; }
+
+  function sizesAt(z) {
+    return META.frameSizes[period].map(function (arr) {
+      return arr.map(function (s) {
+        return Math.max(META.minMarkerPx, s * z);
+      });
+    });
   }
 
-  gd.on("plotly_relayout", onZoom);
+  function labelArrays() {
+    return META.nodeTraces.map(function (t) {
+      var isSub = t.type === META.subIntent;
+      return t.ids.map(function (id) { return textFor(id, isSub); });
+    });
+  }
+
+  // Keep the stored frames in step, so stepping the timeline while zoomed
+  // animates to correctly scaled sizes rather than jumping back to the 1x ones.
+  function rescaleFrames(z) {
+    var stored = gd._transitionData && gd._transitionData._frames;
+    if (!stored) return;
+    stored.forEach(function (f) {
+      var t = META.periods.indexOf(f.name);
+      if (t === -1 || !f.data) return;
+      f.data.forEach(function (d, j) {
+        if (!d.marker) return;
+        d.marker.size = META.frameSizes[t][j].map(function (s) {
+          return Math.max(META.minMarkerPx, s * z);
+        });
+      });
+    });
+  }
+
+  // anchorX/anchorY are data coords to hold still - the cursor, or the centre.
+  function setZoom(next, anchorX, anchorY) {
+    next = Math.min(META.zoomMax, Math.max(META.zoomMin, next));
+
+    var xr = currentRange("xaxis", META.baseX);
+    var yr = currentRange("yaxis", META.baseY);
+    if (anchorX === undefined) anchorX = (xr[0] + xr[1]) / 2;
+    if (anchorY === undefined) anchorY = (yr[0] + yr[1]) / 2;
+
+    var newW = spanX() / next;
+    var newH = spanY() / next;
+    var fx = (anchorX - xr[0]) / (xr[1] - xr[0]);
+    var fy = (anchorY - yr[0]) / (yr[1] - yr[0]);
+
+    var x0 = anchorX - fx * newW;
+    var y0 = anchorY - fy * newH;
+
+    zoom = next;
+    zoomedIn = zoom >= META.labelZoom;
+    rescaleFrames(zoom);
+
+    // One call: ranges, sizes and labels land in a single repaint.
+    Plotly.update(
+      gd,
+      { "marker.size": sizesAt(zoom), text: labelArrays() },
+      {
+        "xaxis.range": [x0, x0 + newW],
+        "yaxis.range": [y0, y0 + newH],
+      },
+      traceIdx
+    );
+
+    setBanner(current, current && focusSet ? Object.keys(focusSet).length - 1 : 0);
+  }
+
+  function currentRange(axis, fallback) {
+    var ax = (gd._fullLayout && gd._fullLayout[axis]) || (gd.layout && gd.layout[axis]);
+    return ax && ax.range ? [ax.range[0], ax.range[1]] : fallback.slice();
+  }
+
+  // Pixel -> data, using only the plot area box, so no axis internals are needed.
+  function pointerData(ev) {
+    var size = gd._fullLayout && gd._fullLayout._size;
+    if (!size || !gd.getBoundingClientRect) return [undefined, undefined];
+    var rect = gd.getBoundingClientRect();
+    var fx = (ev.clientX - rect.left - size.l) / size.w;
+    var fy = (ev.clientY - rect.top - size.t) / size.h;
+    if (!(fx >= 0 && fx <= 1 && fy >= 0 && fy <= 1)) return [undefined, undefined];
+    var xr = currentRange("xaxis", META.baseX);
+    var yr = currentRange("yaxis", META.baseY);
+    return [xr[0] + fx * (xr[1] - xr[0]), yr[1] - fy * (yr[1] - yr[0])];
+  }
+
+  if (gd.addEventListener) {
+    gd.addEventListener(
+      "wheel",
+      function (ev) {
+        ev.preventDefault();
+        var at = pointerData(ev);
+        var dir = ev.deltaY < 0 ? META.zoomStep : 1 / META.zoomStep;
+        setZoom(zoom * dir, at[0], at[1]);
+      },
+      { passive: false }
+    );
+  }
+
+  ["zoom-in", "zoom-out", "zoom-reset"].forEach(function (id) {
+    var b = document.getElementById(id);
+    if (!b) return;
+    b.onclick = function () {
+      if (id === "zoom-reset") setZoom(1, (META.baseX[0] + META.baseX[1]) / 2,
+                                          (META.baseY[0] + META.baseY[1]) / 2);
+      else setZoom(zoom * (id === "zoom-in" ? META.zoomStep : 1 / META.zoomStep));
+    };
+  });
 
   function neighbourhood(id, d) {
     var seen = {}, frontier = [id], i, j;
@@ -423,6 +531,12 @@ FOCUS_JS = """
   // Frames only carry marker.size and hovertext, so opacity should survive an
   // animation. Re-assert it when one finishes, in case a Plotly version merges
   // the whole marker object instead of just the size.
+  gd.on("plotly_animatingframe", function (ev) {
+    if (!ev || !ev.name) return;
+    var t = META.periods.indexOf(ev.name);
+    if (t !== -1) period = t;
+  });
+
   gd.on("plotly_animated", function () {
     // Frames carry marker sizes, so re-assert the focus dimming once one lands.
     if (current) apply(neighbourhood(current, depth));
@@ -451,7 +565,7 @@ FOCUS_JS = """
     };
   }
 
-  zoomedIn = zoomFactor() >= META.labelZoom;
+  zoomedIn = zoom >= META.labelZoom;
   refreshLabels();
   setBanner(null);
 })();
@@ -523,6 +637,9 @@ PAGE = """<!doctype html>
 <main>
 {header}
   <div class="bar">
+    <button id="zoom-out">&minus;</button>
+    <button id="zoom-in">+</button>
+    <button id="zoom-reset">Reset view</button>
     <button id="focus-depth">Focus depth: 1</button>
     <button id="label-mode">Sub-intent labels: auto</button>
     <button id="focus-clear-top">Clear</button>
@@ -591,12 +708,24 @@ def render_page(
         # its own, so it must open on the first period and stay there.
         auto_play=False,
         config={
-            "scrollZoom": True,
+            # Plotly's own zoom paths are switched off. Every one of them would
+            # change the axis range without touching the marker sizes, leaving
+            # the nodes the wrong size until something else corrected them. The
+            # wheel handler and the +/- buttons are the only ways to zoom, and
+            # they move ranges and sizes together.
+            "scrollZoom": False,
+            "doubleClick": False,
             "displaylogo": False,
             "responsive": True,
-            # Double-click would reset the zoom, which is exactly what we are
-            # trying to protect. Clearing focus is handled by the buttons.
-            "doubleClick": False,
+            "modeBarButtonsToRemove": [
+                "zoom2d",
+                "zoomIn2d",
+                "zoomOut2d",
+                "autoScale2d",
+                "resetScale2d",
+                "select2d",
+                "lasso2d",
+            ],
         },
         default_width="100%",
         default_height=f"{height}px",
