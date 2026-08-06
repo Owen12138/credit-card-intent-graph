@@ -91,9 +91,25 @@ const document = {
   getElementById: (id) => (id === "intent-graph" ? gd : element(id)),
 };
 
+// window listeners drive the drag; rAF runs inline so the tests stay deterministic
+const winListeners = {};
+const window = { addEventListener: (ev, fn) => (winListeners[ev] = fn) };
+const requestAnimationFrame = (fn) => fn();
+
 vm.runInContext(
   src,
-  vm.createContext({ Plotly, document, Math, JSON, Object, Array, console })
+  vm.createContext({
+    Plotly,
+    document,
+    window,
+    requestAnimationFrame,
+    Math,
+    JSON,
+    Object,
+    Array,
+    Infinity,
+    console,
+  })
 );
 
 // ---- helpers -----------------------------------------------------------------
@@ -128,6 +144,16 @@ function lastOpacity(traceIndex) {
 }
 
 const shown = (arr) => arr.filter((t) => t).length;
+
+function nodeIndexOf(id) {
+  for (const t of META.nodeTraces) {
+    const i = t.ids.indexOf(id);
+    if (i !== -1) return { trace: t.trace, i, ord: META.nodeTraces.indexOf(t) };
+  }
+  throw new Error("unknown node " + id);
+}
+
+const clearFocusIfAny = () => document.getElementById("focus-clear-top").onclick();
 
 function assert(cond, msg) {
   if (!cond) {
@@ -327,7 +353,135 @@ assert(Math.abs(currentZoom() - META.zoomMax) < 1e-6, `zoom-in ran past the limi
 console.log(`zoom clamped to ${META.zoomMin}x - ${META.zoomMax}x`);
 document.getElementById("zoom-reset").onclick();
 
-// ---- 10. clicks on edges are ignored ----------------------------------------
+// ---- 10. nodes can be dragged, and everything attached follows --------------
+function lastXY(traceIndex) {
+  for (let i = calls.length - 1; i >= 0; i--) {
+    const c = calls[i];
+    if (!c.update.x) continue;
+    const at = c.idx.indexOf(traceIndex);
+    if (at !== -1) return [c.update.x[at], c.update.y[at]];
+  }
+  return null;
+}
+
+// pixel position of a node under the current view, mirroring the page's maths
+function pixelOf(id) {
+  const s = gd._fullLayout._size;
+  const xr = gd._fullLayout.xaxis.range;
+  const yr = gd._fullLayout.yaxis.range;
+  const p = META.pos[id];
+  return [
+    ((p[0] - xr[0]) / (xr[1] - xr[0])) * s.w + s.l,
+    ((yr[1] - p[1]) / (yr[1] - yr[0])) * s.h + s.t,
+  ];
+}
+
+document.getElementById("zoom-reset").onclick();
+document.getElementById("layout-reset").onclick();
+clearFocusIfAny();
+
+const dragTarget = uiTrace.ids[0];
+const dragAt = nodeIndexOf(dragTarget);
+const dragFrom = pixelOf(dragTarget);
+
+calls.length = 0;
+listeners["mousedown"]({
+  clientX: dragFrom[0],
+  clientY: dragFrom[1],
+  preventDefault() {},
+  stopPropagation() {},
+});
+winListeners["mousemove"]({ clientX: dragFrom[0] + 120, clientY: dragFrom[1] - 90 });
+winListeners["mouseup"]({});
+
+const moved = lastXY(dragAt.trace);
+assert(moved, "dragging produced no position update");
+const before = META.pos[dragTarget];
+const after = [moved[0][dragAt.i], moved[1][dragAt.i]];
+assert(
+  Math.abs(after[0] - before[0]) > 1e-6 || Math.abs(after[1] - before[1]) > 1e-6,
+  "the dragged node did not move"
+);
+console.log(
+  `dragged '${dragTarget}' from (${before[0].toFixed(2)}, ${before[1].toFixed(2)}) ` +
+    `to (${after[0].toFixed(2)}, ${after[1].toFixed(2)})`
+);
+
+// its neighbours stayed put - only the dragged node moves
+const others = uiTrace.ids.filter((_, i) => i !== dragAt.i);
+assert(
+  others.every((id, k) => {
+    const i = uiTrace.ids.indexOf(id);
+    return Math.abs(moved[0][i] - META.pos[id][0]) < 1e-9;
+  }),
+  "dragging one node moved others"
+);
+
+// every edge touching it was redrawn to the new position, across all traces
+let checked = 0;
+META.edgePairs.forEach((e) => {
+  const xy = lastXY(e.trace);
+  e.pairs.forEach((p, k) => {
+    const isEnd0 = p[0] === dragTarget;
+    const isEnd1 = p[1] === dragTarget;
+    if (!isEnd0 && !isEnd1) {
+      return;
+    }
+    assert(xy, `edge trace ${e.trace} was not redrawn`);
+    const got = isEnd0 ? xy[0][k * 3] : xy[0][k * 3 + 1];
+    const gotY = isEnd0 ? xy[1][k * 3] : xy[1][k * 3 + 1];
+    assert(
+      Math.abs(got - after[0]) < 1e-9 && Math.abs(gotY - after[1]) < 1e-9,
+      `an edge still points at the old position of ${dragTarget}`
+    );
+    checked++;
+  });
+});
+const degree = META.adjacency[dragTarget].length;
+assert(checked === degree, `only ${checked} of ${degree} attached edges were redrawn`);
+
+// and edges that do not touch it were left exactly where they were
+const untouched = META.edgePairs[0].pairs.findIndex(
+  (p) => p[0] !== dragTarget && p[1] !== dragTarget
+);
+if (untouched !== -1) {
+  const xy = lastXY(META.edgePairs[0].trace);
+  const pair = META.edgePairs[0].pairs[untouched];
+  assert(
+    Math.abs(xy[0][untouched * 3] - META.pos[pair[0]][0]) < 1e-9,
+    "an unrelated edge moved"
+  );
+}
+console.log(`all ${checked} edges attached to '${dragTarget}' follow it; others unmoved`);
+
+// Reset layout restores the original coordinates
+document.getElementById("layout-reset").onclick();
+const restored = lastXY(dragAt.trace);
+assert(
+  Math.abs(restored[0][dragAt.i] - before[0]) < 1e-9 &&
+    Math.abs(restored[1][dragAt.i] - before[1]) < 1e-9,
+  "Reset layout did not restore the original position"
+);
+console.log("Reset layout restores every node");
+
+// a press that does not travel is still a click, so focus survives dragging
+calls.length = 0;
+listeners["mousedown"]({
+  clientX: dragFrom[0],
+  clientY: dragFrom[1],
+  preventDefault() {},
+  stopPropagation() {},
+});
+winListeners["mouseup"]({});
+assert(
+  lastOpacity(subTrace.trace).some((o) => o === META.dimNode),
+  "a click on a node no longer focuses it"
+);
+console.log("a press that does not travel still focuses, not drags");
+
+clearFocusIfAny();
+
+// ---- 11. clicks on edges are ignored ----------------------------------------
 calls.length = 0;
 handlers["plotly_click"]({ points: [{}] });
 assert(calls.length === 0, "a click without customdata should be ignored");

@@ -208,6 +208,28 @@ sidebar is separate and composes with this — it decides which labels are
 
 Tune the threshold with `LABEL_ZOOM` in `interactive_html.py`.
 
+### Drag to rearrange
+
+Nodes can be picked up and moved. Their edges, labels and focus highlighting
+follow, and **Reset layout** puts everything back where the layout put it.
+
+Plotly cannot drag scatter points, so the page hit-tests the pointer against the
+markers itself, using each node's current radius so a small node sitting on a
+large one can still be picked up. The mousedown listener runs in the **capture**
+phase and stops propagation when it lands on a node, so Plotly's pan never sees
+it — press anywhere else and the canvas pans as normal.
+
+One consequence worth knowing: because Plotly never sees that mousedown, it no
+longer fires `plotly_click` for nodes. A press that travels less than 4px is
+therefore treated as a click and toggles focus directly, so clicking still works
+exactly as before.
+
+All positions are read from one live map, so a dragged node cannot leave its
+edges or its focus overlay pointing at where it used to be — `export_test.py`
+asserts nothing reads the starting positions after startup, and `js_test.js`
+drives a real drag and checks that **all 9** edges attached to the node follow
+it while unrelated edges stay put.
+
 ### Click to focus
 
 Click any node to isolate it and everything it connects to — the rest of the

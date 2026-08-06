@@ -143,6 +143,24 @@ assert "xaxis.range" in CODE, "zoom does not set the range"
 assert "marker.opacity" in CODE, "focus dimming lost"
 assert 'addEventListener' in CODE and '"wheel"' in CODE, "wheel zoom not handled"
 
+# Dragging: Plotly cannot move scatter points, so the page hit-tests and moves
+# the coordinates itself. Nothing may read META.pos after startup, or a dragged
+# node's edges and focus overlay would still point at where it used to be.
+assert '"mousedown"' in CODE and '"mouseup"' in CODE, "drag not wired up"
+body = CODE[CODE.index("function edgeSegments") :]
+assert "META.pos" not in body.split("layoutBtn")[0].replace(
+    "Object.keys(META.pos)", ""
+), "something still reads the starting positions instead of the live ones"
+
+# every edge trace must be reconstructable, or a drag cannot redraw the lines
+assert len(meta["edgePairs"]) == len(meta["edgeTraces"]), meta["edgePairs"]
+assert [e["trace"] for e in meta["edgePairs"]] == meta["edgeTraces"]
+drawn = sum(len(e["pairs"]) for e in meta["edgePairs"])
+assert drawn == g.number_of_edges(), (drawn, g.number_of_edges())
+for e in meta["edgePairs"]:
+    for u, v in e["pairs"]:
+        assert g.has_edge(u, v), (u, v)
+
 # ...and marker sizes must never be pushed through a plain restyle, which would
 # be a second repaint after the range had already moved.
 for chunk in CODE.split("Plotly.restyle(")[1:]:

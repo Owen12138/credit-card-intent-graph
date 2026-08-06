@@ -128,6 +128,21 @@ def build_figure_with_timeline(
         i for i, t in enumerate(fig.data) if t.mode == "lines" and t.name
     ]
 
+    # Which node pairs each edge trace draws. Dragging a node has to redraw the
+    # lines that touch it, and an edge trace is one flat run of segments, so the
+    # browser needs the pairs to rebuild it. build_figure emits the edge traces
+    # first, in EDGE_COLORS order, skipping any kind with no edges - so the
+    # running index here matches its trace numbering.
+    edge_pairs = []
+    t_idx = 0
+    for kind in gb.EDGE_COLORS:
+        pairs = [[u, v] for u, v, d in g.edges(data=True) if d["edge_type"] == kind]
+        if not pairs:
+            continue
+        edge_pairs.append({"trace": t_idx, "pairs": pairs})
+        t_idx += 1
+    assert [e["trace"] for e in edge_pairs] == edge_trace_idx, "edge trace mismatch"
+
     # Node traces, in the order build_figure emitted them.
     node_meta = []
     by_name = {t.name: i for i, t in enumerate(fig.data) if t.name}
@@ -260,6 +275,7 @@ def build_figure_with_timeline(
     meta = {
         "nodeTraces": node_meta,
         "edgeTraces": edge_trace_idx,
+        "edgePairs": edge_pairs,
         "focusTrace": focus_trace,
         "adjacency": {n: sorted(g.neighbors(n)) for n in g.nodes()},
         "pos": {n: [float(pos[n][0]), float(pos[n][1])] for n in g.nodes()},
@@ -300,6 +316,22 @@ FOCUS_JS = """
 
   var allowed = {};
   META.labelled.forEach(function (id) { allowed[id] = true; });
+
+  // Live positions. Nodes can be dragged, so nothing may read META.pos directly
+  // after startup - it is only the starting point and the target for Reset.
+  var POS = {};
+  Object.keys(META.pos).forEach(function (id) { POS[id] = META.pos[id].slice(); });
+
+  // id -> where it lives, so a drag can find its row in the trace arrays.
+  var nodeAt = {};
+  META.nodeTraces.forEach(function (t, ord) {
+    t.ids.forEach(function (id, i) { nodeAt[id] = { trace: t.trace, ord: ord, i: i }; });
+  });
+
+  var raf =
+    typeof requestAnimationFrame === "function"
+      ? requestAnimationFrame
+      : function (fn) { fn(); };
 
   // ---- labels ---------------------------------------------------------------
   // Every label decision funnels through here, so zoom and focus compose
@@ -437,6 +469,151 @@ FOCUS_JS = """
     );
   }
 
+  // ---- dragging -------------------------------------------------------------
+  // Plotly cannot drag scatter points, so the page hit-tests the pointer against
+  // the markers itself and moves the underlying coordinates. Everything that
+  // reads a position goes through POS, so the edges, the focus overlay and the
+  // labels all follow the node.
+  var drag = null;
+  var redrawPending = false;
+
+  function toPixels(x, y) {
+    var size = gd._fullLayout && gd._fullLayout._size;
+    if (!size) return null;
+    var xr = currentRange("xaxis", META.baseX);
+    var yr = currentRange("yaxis", META.baseY);
+    return [
+      ((x - xr[0]) / (xr[1] - xr[0])) * size.w,
+      ((yr[1] - y) / (yr[1] - yr[0])) * size.h,
+    ];
+  }
+
+  function pointerPixels(ev) {
+    var size = gd._fullLayout && gd._fullLayout._size;
+    if (!size || !gd.getBoundingClientRect) return null;
+    var rect = gd.getBoundingClientRect();
+    return [ev.clientX - rect.left - size.l, ev.clientY - rect.top - size.t];
+  }
+
+  function radiusOf(id) {
+    var at = nodeAt[id];
+    if (!at) return 6;
+    var base = META.frameSizes[period][at.ord][at.i];
+    return Math.max(META.minMarkerPx, base * zoom) / 2;
+  }
+
+  // Nearest marker under the pointer, or null. Smallest-first so a tiny node
+  // sitting on top of a big one can still be picked up.
+  function hitTest(ev) {
+    var p = pointerPixels(ev);
+    if (!p) return null;
+    var best = null, bestR = Infinity;
+    Object.keys(POS).forEach(function (id) {
+      var q = toPixels(POS[id][0], POS[id][1]);
+      if (!q) return;
+      var r = radiusOf(id) + 2;
+      var dx = q[0] - p[0], dy = q[1] - p[1];
+      if (dx * dx + dy * dy <= r * r && r < bestR) { best = id; bestR = r; }
+    });
+    return best;
+  }
+
+  function redrawPositions() {
+    var xs = [], ys = [], idx = [];
+
+    META.nodeTraces.forEach(function (t) {
+      idx.push(t.trace);
+      xs.push(t.ids.map(function (id) { return POS[id][0]; }));
+      ys.push(t.ids.map(function (id) { return POS[id][1]; }));
+    });
+
+    META.edgePairs.forEach(function (e) {
+      var ex = [], ey = [];
+      e.pairs.forEach(function (p) {
+        var a = POS[p[0]], b = POS[p[1]];
+        if (!a || !b) return;
+        ex.push(a[0], b[0], null);
+        ey.push(a[1], b[1], null);
+      });
+      idx.push(e.trace);
+      xs.push(ex);
+      ys.push(ey);
+    });
+
+    if (focusSet) {
+      var seg = edgeSegments(focusSet);
+      idx.push(META.focusTrace);
+      xs.push(seg[0]);
+      ys.push(seg[1]);
+    }
+
+    Plotly.restyle(gd, { x: xs, y: ys }, idx);
+  }
+
+  function scheduleRedraw() {
+    if (redrawPending) return;
+    redrawPending = true;
+    raf(function () { redrawPending = false; redrawPositions(); });
+  }
+
+  if (gd.addEventListener) {
+    // Capture phase, so Plotly's pan never sees a mousedown that landed on a
+    // node. Anywhere else on the canvas still pans as normal.
+    gd.addEventListener(
+      "mousedown",
+      function (ev) {
+        var id = hitTest(ev);
+        if (!id) return;
+        drag = { id: id, moved: 0, x: ev.clientX, y: ev.clientY };
+        if (gd.style) gd.style.cursor = "grabbing";
+        ev.preventDefault();
+        ev.stopPropagation();
+      },
+      true
+    );
+
+    gd.addEventListener("mousemove", function (ev) {
+      if (drag || !gd.style) return;
+      gd.style.cursor = hitTest(ev) ? "grab" : "";
+    });
+  }
+
+  var root = typeof window !== "undefined" ? window : null;
+  if (root && root.addEventListener) {
+    root.addEventListener("mousemove", function (ev) {
+      if (!drag) return;
+      var at = pointerData(ev);
+      if (at[0] === undefined) return;
+      drag.moved = Math.max(
+        drag.moved,
+        Math.abs(ev.clientX - drag.x) + Math.abs(ev.clientY - drag.y)
+      );
+      POS[drag.id] = [at[0], at[1]];
+      scheduleRedraw();
+    });
+
+    root.addEventListener("mouseup", function () {
+      if (!drag) return;
+      var done = drag;
+      drag = null;
+      if (gd.style) gd.style.cursor = "";
+      // Plotly never saw the mousedown, so it will not fire plotly_click for a
+      // node any more. A press that did not travel is a click, so focus is
+      // toggled here instead.
+      if (done.moved < 4) {
+        if (done.id === current) clear(); else focusOn(done.id);
+      }
+    });
+  }
+
+  var layoutBtn = document.getElementById("layout-reset");
+  if (layoutBtn) {
+    layoutBtn.onclick = function () {
+      Object.keys(META.pos).forEach(function (id) { POS[id] = META.pos[id].slice(); });
+      redrawPositions();
+    };
+  }
+
   ["zoom-in", "zoom-out", "zoom-reset"].forEach(function (id) {
     var b = document.getElementById(id);
     if (!b) return;
@@ -468,7 +645,7 @@ FOCUS_JS = """
     Object.keys(set).forEach(function (u) {
       (META.adjacency[u] || []).forEach(function (v) {
         if (!set[v] || u >= v) return;      // each undirected edge once
-        var a = META.pos[u], b = META.pos[v];
+        var a = POS[u], b = POS[v];
         if (!a || !b) return;
         xs.push(a[0], b[0], null);
         ys.push(a[1], b[1], null);
@@ -526,7 +703,7 @@ FOCUS_JS = """
     if (!el) return;
     if (!id) {
       el.innerHTML = "<span class='hint'>Click any node to focus it and its "
-        + "connections. " + labelHint() + "</span>";
+        + "connections, or drag it to rearrange. " + labelHint() + "</span>";
       return;
     }
     el.innerHTML = "<b>" + META.labels[id] + "</b> &middot; " + n
@@ -655,6 +832,7 @@ PAGE = """<!doctype html>
     <button id="zoom-out">&minus;</button>
     <button id="zoom-in">+</button>
     <button id="zoom-reset">Reset view</button>
+    <button id="layout-reset">Reset layout</button>
     <button id="focus-depth">Focus depth: 1</button>
     <button id="label-mode">Sub-intent labels: auto</button>
     <button id="focus-clear-top">Clear</button>
