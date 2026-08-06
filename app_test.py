@@ -70,7 +70,6 @@ a.selectbox(key="focus_unified").select(other_ui).run()
 assert not a.exception, [e.value for e in a.exception]
 switched = metrics(a)
 
-assert f"Graph: {other_ui}" in prose(a), "the graph is not labelled with the selection"
 assert switched[CONV] != m[CONV], (
     "changing the unified intent did not change the graph"
 )
@@ -97,7 +96,6 @@ after_graph = {k: v for k, v in metrics(b).items() if k in before_graph}
 assert after_graph == before_graph, (
     f"picking a sub-intent changed the graph: {before_graph} -> {after_graph}"
 )
-assert f"Graph: {other_ui}" in prose(b), "the graph stopped showing the parent service"
 print("sub-intent selection leaves the graph on the parent service, as intended")
 
 # =============================================================================
@@ -134,10 +132,18 @@ for element in at.metric:
         f"metric '{element.label}' still carries a delta line"
     )
 
-sample = data["virtual-assistant"]["unified"][ui]["sampleConversation"]["conversationText"]
-assert sample not in body, "sample conversations are still rendered"
 assert "Sub-intents of this unified intent" not in body, "the sub-intent table is still there"
-print("removed: detail metric row, deltas, sample conversations, sub-intent table")
+print("removed: detail metric row, deltas, sub-intent table")
+
+# --- and the pieces that must be present -------------------------------------
+for c in channels.CHANNELS:
+    sample = data[c.key]["unified"][ui]["sampleConversation"]["conversationText"]
+    assert sample in body, f"{c.label}: sample conversation missing from the card"
+    assert c.blurb in body, f"{c.label}: the channel blurb is missing"
+print("present: a sample conversation and a channel blurb on all three cards")
+
+# the redundant heading over the graph is gone
+assert "Graph:" not in body, "the graph still repeats the intent name"
 
 # --- sub-intent selected: its data takes precedence in the DETAIL ------------
 picked = subs[0]
@@ -230,7 +236,7 @@ for name in ALL_UIS[:6]:
     a = fresh()
     a.selectbox(key="focus_unified").select(name).run()
     assert not a.exception, (name, [e.value for e in a.exception])
-    assert f"Graph: {name}" in prose(a), name
+    assert name in prose(a), name
 print("detail and graph render together for every unified intent sampled")
 
 print("\nALL APP TESTS PASSED")

@@ -163,6 +163,13 @@ with tab_graph:
     # =========================================================================
     st.subheader("Intent detail")
 
+    # Small uppercase field label, so a card can name its sections without
+    # spending a full line of body text on each.
+    _LABEL = (
+        "<div style='font-size:0.72rem; letter-spacing:0.06em; opacity:0.55;"
+        " text-transform:uppercase; margin:0.55rem 0 0.1rem;'>{}</div>"
+    )
+
     UNIFIED_ONLY = "— none: show the unified intent —"
 
     picked_ui = st.selectbox(
@@ -218,12 +225,31 @@ with tab_graph:
                 st.info("Not handled on this channel.")
                 continue
 
-            st.metric("Conversations", volumes.fmt(rec["numberOfConversations"]))
+            # A compact line rather than st.metric, which is several times taller
+            # and pushed the graph down the page.
+            st.markdown(
+                "<div style='margin:0.1rem 0 0.2rem;'>"
+                "<span style='font-size:1.4rem; font-weight:600;'>"
+                f"{volumes.fmt(rec['numberOfConversations'])}</span>"
+                "<span style='opacity:0.6; font-size:0.85rem;'> conversations</span>"
+                "</div>",
+                unsafe_allow_html=True,
+            )
 
-            st.caption("Channel intents")
+            st.markdown(_LABEL.format("Channel intents"), unsafe_allow_html=True)
             # Two trailing spaces is a markdown hard break, so each intent gets
             # its own line instead of running together into a paragraph.
             st.markdown("  \n".join(f"**{ci}**" for ci in rec["channelIntent"]))
+
+            text = rec.get("sampleConversation", {}).get("conversationText")
+            if text:
+                st.markdown(
+                    _LABEL.format("Sample conversation")
+                    + "<div style='font-size:0.88rem; font-style:italic;"
+                    " opacity:0.85; border-left:3px solid rgba(125,125,125,0.35);"
+                    f" padding-left:0.6rem;'>{text}</div>",
+                    unsafe_allow_html=True,
+                )
 
     st.divider()
 
@@ -246,8 +272,8 @@ with tab_graph:
             continue
         labelled.add(node)
 
-    st.subheader(f"Graph: {picked_ui}")
-
+    # No heading here: the picker directly above already names the service, so
+    # repeating it just costs vertical space.
     cols = st.columns(6)
     cols[0].metric("Conversations (all periods)", volumes.fmt(counts["conversations"]))
     cols[1].metric("Nodes", counts["nodes"])
