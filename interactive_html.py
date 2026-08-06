@@ -36,6 +36,13 @@ DIM_NODE = 0.10
 DIM_EDGE = 0.05
 FOCUS_EDGE_COLOR = "#111827"
 
+# How far in you must zoom before sub-intent labels appear. 1.0 is the whole
+# graph; 2.2 means roughly the middle 45% of the canvas fills the view, by which
+# point only a fraction of the 248 sub-intents are on screen and their labels
+# have room to sit apart. The other node types are few enough (1 product, 31
+# services, 10 life events, 10 complaints) to stay labelled at every zoom.
+LABEL_ZOOM = 2.2
+
 
 def _hover(g: nx.Graph, nodes: list[str], ntype: str, period: int) -> list[str]:
     """Hover text for one node trace in one period."""
@@ -78,8 +85,13 @@ def build_figure_with_timeline(
     Returns the figure and the metadata the browser needs to run focus.
     """
     sizes0 = gb.compute_node_sizes(g, scale, multiplier, 0, emphasis)
+
+    # Sub-intent labels are left out of the initial render and switched on by the
+    # browser once you zoom past LABEL_ZOOM. Emitting them here and blanking them
+    # in script would flash all 248 on screen while the page settles.
+    initial = {n for n in labelled if g.nodes[n]["node_type"] != gb.SUB_INTENT}
     fig = build_figure(
-        g, pos, sizes0, labelled, set(gb.EDGE_COLORS), height, 0, "static"
+        g, pos, sizes0, initial, set(gb.EDGE_COLORS), height, 0, "static"
     )
 
     edge_trace_idx = [
@@ -209,6 +221,8 @@ def build_figure_with_timeline(
         margin=dict(l=10, r=10, t=40, b=95),
     )
 
+    xr = list(fig.layout.xaxis.range)
+
     meta = {
         "nodeTraces": node_meta,
         "edgeTraces": edge_trace_idx,
@@ -216,6 +230,12 @@ def build_figure_with_timeline(
         "adjacency": {n: sorted(g.neighbors(n)) for n in g.nodes()},
         "pos": {n: [float(pos[n][0]), float(pos[n][1])] for n in g.nodes()},
         "labels": {n: g.nodes[n]["label"] for n in g.nodes()},
+        # Which nodes are allowed a label at all, after the per-type toggles and
+        # the volume threshold. Zoom and focus can only narrow this, never widen.
+        "labelled": sorted(labelled),
+        "subIntent": gb.SUB_INTENT,
+        "baseSpan": abs(xr[1] - xr[0]),
+        "labelZoom": LABEL_ZOOM,
         "dimNode": DIM_NODE,
         "dimEdge": DIM_EDGE,
     }
@@ -228,14 +248,57 @@ FOCUS_JS = """
   var gd = document.getElementById("__DIV__");
   if (!gd) return;
 
-  var current = null;
+  var current = null;      // focused node id, or null
+  var focusSet = null;     // ids in the current focus, or null
   var depth = 1;
+  var labelMode = "auto";  // auto | always | off
+  var zoomedIn = false;
 
-  // Original label text per node trace, so clearing focus restores exactly.
-  var originalText = {};
-  META.nodeTraces.forEach(function (t) {
-    originalText[t.trace] = (gd.data[t.trace].text || []).slice();
-  });
+  var allowed = {};
+  META.labelled.forEach(function (id) { allowed[id] = true; });
+
+  // ---- labels ---------------------------------------------------------------
+  // Every label decision funnels through here, so zoom and focus compose
+  // instead of overwriting one another.
+  function zoomFactor() {
+    var ax = (gd.layout && gd.layout.xaxis) || (gd._fullLayout && gd._fullLayout.xaxis);
+    if (!ax || !ax.range || !META.baseSpan) return 1;
+    var span = Math.abs(ax.range[1] - ax.range[0]);
+    return span > 0 ? META.baseSpan / span : 1;
+  }
+
+  function subsVisible() {
+    if (labelMode === "always") return true;
+    if (labelMode === "off") return false;
+    return zoomedIn;
+  }
+
+  function textFor(id, isSub) {
+    if (!allowed[id]) return "";                       // filtered out server-side
+    if (focusSet) return focusSet[id] ? META.labels[id] : "";
+    if (isSub && !subsVisible()) return "";            // too far out to be readable
+    return META.labels[id];
+  }
+
+  function refreshLabels() {
+    var texts = [], idx = [];
+    META.nodeTraces.forEach(function (t) {
+      var isSub = t.type === META.subIntent;
+      idx.push(t.trace);
+      texts.push(t.ids.map(function (id) { return textFor(id, isSub); }));
+    });
+    Plotly.restyle(gd, { text: texts }, idx);
+  }
+
+  function onZoom() {
+    var now = zoomFactor() >= META.labelZoom;
+    if (now === zoomedIn) return;
+    zoomedIn = now;
+    refreshLabels();
+    setBanner(current, current ? Object.keys(focusSet).length - 1 : 0);
+  }
+
+  gd.on("plotly_relayout", onZoom);
 
   function neighbourhood(id, d) {
     var seen = {}, frontier = [id], i, j;
@@ -268,29 +331,31 @@ FOCUS_JS = """
   }
 
   function apply(set) {
-    var opacities = [], texts = [], idx = [];
+    focusSet = set;
+    var opacities = [], idx = [];
     META.nodeTraces.forEach(function (t) {
       idx.push(t.trace);
       opacities.push(t.ids.map(function (id) { return set[id] ? 1 : META.dimNode; }));
-      texts.push(t.ids.map(function (id) { return set[id] ? META.labels[id] : ""; }));
     });
-    Plotly.restyle(gd, { "marker.opacity": opacities, text: texts }, idx);
+    Plotly.restyle(gd, { "marker.opacity": opacities }, idx);
     Plotly.restyle(gd, { opacity: META.dimEdge }, META.edgeTraces);
     var seg = edgeSegments(set);
     Plotly.restyle(gd, { x: [seg[0]], y: [seg[1]] }, [META.focusTrace]);
+    refreshLabels();
   }
 
   function clear() {
     current = null;
-    var opacities = [], texts = [], idx = [];
+    focusSet = null;
+    var opacities = [], idx = [];
     META.nodeTraces.forEach(function (t) {
       idx.push(t.trace);
       opacities.push(t.ids.map(function () { return 1; }));
-      texts.push(originalText[t.trace]);
     });
-    Plotly.restyle(gd, { "marker.opacity": opacities, text: texts }, idx);
+    Plotly.restyle(gd, { "marker.opacity": opacities }, idx);
     Plotly.restyle(gd, { opacity: 0.55 }, META.edgeTraces);
     Plotly.restyle(gd, { x: [[]], y: [[]] }, [META.focusTrace]);
+    refreshLabels();
     setBanner(null);
   }
 
@@ -301,12 +366,20 @@ FOCUS_JS = """
     setBanner(id, Object.keys(set).length - 1);
   }
 
+  function labelHint() {
+    if (labelMode === "always") return "Sub-intent labels: always on.";
+    if (labelMode === "off") return "Sub-intent labels: off.";
+    return zoomedIn
+      ? "Sub-intent labels on — zoom out to hide them again."
+      : "Zoom in to reveal sub-intent labels.";
+  }
+
   function setBanner(id, n) {
     var el = document.getElementById("focus-banner");
     if (!el) return;
     if (!id) {
       el.innerHTML = "<span class='hint'>Click any node to focus it and its "
-        + "connections. Click it again, or press Clear, to show everything.</span>";
+        + "connections. " + labelHint() + "</span>";
       return;
     }
     el.innerHTML = "<b>" + META.labels[id] + "</b> &middot; " + n
@@ -342,6 +415,19 @@ FOCUS_JS = """
   var clearBtn = document.getElementById("focus-clear-top");
   if (clearBtn) clearBtn.onclick = clear;
 
+  var modes = ["auto", "always", "off"];
+  var modeBtn = document.getElementById("label-mode");
+  if (modeBtn) {
+    modeBtn.onclick = function () {
+      labelMode = modes[(modes.indexOf(labelMode) + 1) % modes.length];
+      modeBtn.textContent = "Sub-intent labels: " + labelMode;
+      refreshLabels();
+      setBanner(current, current ? Object.keys(focusSet).length - 1 : 0);
+    };
+  }
+
+  zoomedIn = zoomFactor() >= META.labelZoom;
+  refreshLabels();
   setBanner(null);
 })();
 """
@@ -413,6 +499,7 @@ PAGE = """<!doctype html>
 {header}
   <div class="bar">
     <button id="focus-depth">Focus depth: 1</button>
+    <button id="label-mode">Sub-intent labels: auto</button>
     <button id="focus-clear-top">Clear</button>
     <span id="focus-banner"></span>
   </div>

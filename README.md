@@ -150,6 +150,29 @@ Loosening the relax constant to `k=0.7` pushes purity to 97% but multiplies
 overlaps sevenfold, so the tuning stops short of that. `smoke_test.py` asserts
 purity stays above 90% and at least 25 points ahead of the plain spring.
 
+### Labels appear as you zoom in
+
+All 248 sub-intent labels at once is the single biggest source of visual noise,
+so they are hidden until you zoom past **2.2×** — roughly when the middle 45% of
+the canvas fills the view and only a fraction of them are on screen. The other
+node types (1 product, 31 services, 10 life events, 10 complaints) are few
+enough to stay labelled at every zoom.
+
+Two details worth knowing:
+
+- Sub-intent labels are **never emitted in the initial render**, rather than
+  emitted and blanked by script. Otherwise all 248 would flash on screen while
+  the page settles.
+- **Focusing a node labels its neighbourhood at any zoom**, since only a handful
+  of nodes are left — the zoom rule only applies when nothing is focused.
+
+The **Sub-intent labels** button overrides the behaviour: `auto` (default) →
+`always` → `off`. The `Hide sub-intent labels below` volume slider in the
+sidebar is separate and composes with this — it decides which labels are
+*eligible*, and zoom decides when eligible ones are *shown*.
+
+Tune the threshold with `LABEL_ZOOM` in `interactive_html.py`.
+
 ### Click to focus
 
 Click any node to isolate it and everything it connects to — the rest of the
@@ -257,13 +280,20 @@ sizing, tables) reads the list, so nothing is hard-coded to five.
 | `export_static.py` | Writes `docs/index.html`, the page GitHub Pages serves. |
 | `smoke_test.py` | Structural checks (counts, parentage, layouts, sizing, timeline). |
 | `app_test.py` | End-to-end run of the app via `streamlit.testing.v1.AppTest`. |
-| `export_test.py` | Verifies the static export animates and is self-contained. |
+| `export_test.py` | Verifies the export animates, hides labels and is self-contained. |
+| `js_test.js` | Runs the shipped canvas script against a stubbed Plotly/DOM. |
 
 ```bash
 python smoke_test.py
 python app_test.py
 python export_test.py
+node js_test.js        # needs docs/index.html, so run export_static.py first
 ```
+
+`js_test.js` is the one that exercises browser behaviour without a browser: it
+pulls the script straight out of `docs/index.html`, stubs `Plotly` and the DOM,
+then drives real zoom, click and label-mode events and asserts on the resulting
+`restyle` calls.
 
 ## Publishing
 

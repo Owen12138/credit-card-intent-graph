@@ -220,8 +220,12 @@ with tab_graph:
             "to; click it again or press Clear to restore. *Focus depth: 2* "
             "widens focus to neighbours-of-neighbours, so a service also picks up "
             "the life events and complaints hanging off its sub-intents. "
-            "Both run entirely in the browser, so your zoom and the period you "
-            "are on survive. Scroll to zoom, drag to pan, hover for volumes."
+            "**Labels** - the 248 sub-intent labels stay hidden until you zoom in "
+            "past ~2.2x, so the whole-graph view stays readable; focusing a node "
+            "labels its neighbourhood at any zoom, and *Sub-intent labels* "
+            "overrides to always or off. "
+            "All of it runs in the browser, so your zoom and the period you are "
+            "on survive. Scroll to zoom, drag to pan, hover for volumes."
         )
 
 with tab_tables:

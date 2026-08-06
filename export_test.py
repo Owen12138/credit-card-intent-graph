@@ -90,6 +90,38 @@ assert set(meta["labels"]) == set(g.nodes())
 for n in g.nodes():
     assert meta["adjacency"][n] == sorted(g.neighbors(n)), n
 
+# =============================================================================
+# Semantic zoom: sub-intent labels are absent until you zoom in
+# =============================================================================
+for m in meta["nodeTraces"]:
+    trace = fig.data[m["trace"]]
+    shown = sum(1 for t in (trace.text or []) if t)
+    if m["type"] == gb.SUB_INTENT:
+        # Not merely blanked by script after paint - never emitted, so all 248
+        # cannot flash on screen while the page settles.
+        assert shown == 0, f"{shown} sub-intent labels in the initial render"
+    else:
+        assert shown == len(m["ids"]), (m["type"], shown, len(m["ids"]))
+
+# ...but the browser still knows every label it may reveal
+assert set(meta["labelled"]) == set(g.nodes()), "label set lost on the way out"
+assert meta["subIntent"] == gb.SUB_INTENT
+assert meta["labelZoom"] > 1, meta["labelZoom"]
+assert meta["baseSpan"] > 0, meta["baseSpan"]
+# baseSpan must match the pinned axis, or the zoom factor is measured against
+# the wrong reference and labels appear at the wrong moment
+xr = fig.layout.xaxis.range
+assert abs(meta["baseSpan"] - abs(xr[1] - xr[0])) < 1e-9, (meta["baseSpan"], xr)
+
+# a server-side label filter narrows what zoom can reveal
+sparse = {n for n, d in g.nodes(data=True) if d["node_type"] != gb.SUB_INTENT}
+_, sparse_meta = build_figure_with_timeline(g, pos, sparse)
+assert set(sparse_meta["labelled"]) == sparse
+print(
+    f"semantic zoom: sub-intent labels hidden until {meta['labelZoom']}x, "
+    f"{len(meta['labelled'])} labels available"
+)
+
 # the focus overlay trace exists and starts empty
 overlay = fig.data[meta["focusTrace"]]
 assert overlay.name == "focus-edges"
@@ -138,7 +170,9 @@ assert "Plotly.animate(" not in html, "page auto-plays the timeline on load"
 # focus wiring is present and its embedded metadata is valid JSON
 assert "plotly_click" in html, "no click handler"
 assert "plotly_animated" in html, "no post-animation reassert"
+assert "plotly_relayout" in html, "no zoom handler - labels can never appear"
 assert 'id="focus-depth"' in html and 'id="focus-clear-top"' in html
+assert 'id="label-mode"' in html, "no label mode override"
 embedded = re.search(r"var META = (\{.*?\});\s*\n", html, re.S)
 assert embedded, "focus metadata not embedded"
 parsed = json.loads(embedded.group(1))
