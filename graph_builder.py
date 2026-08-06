@@ -291,13 +291,29 @@ def neighborhood(g: nx.Graph, focus: str, depth: int = 2) -> nx.Graph:
 
 
 # --- layouts ------------------------------------------------------------------
+LAYOUT_CLUSTERS = "Clustered (organic hubs)"
 LAYOUT_WEDGES = "Spring (anchored wedges)"
 LAYOUT_SPRING = "Spring (force-directed)"
 LAYOUT_RADIAL = "Radial (by type)"
 LAYOUT_KK = "Kamada-Kawai"
 LAYOUT_LAYERED = "Layered (hierarchy)"
 
-LAYOUTS = [LAYOUT_WEDGES, LAYOUT_SPRING, LAYOUT_RADIAL, LAYOUT_KK, LAYOUT_LAYERED]
+LAYOUTS = [
+    LAYOUT_CLUSTERS,
+    LAYOUT_WEDGES,
+    LAYOUT_SPRING,
+    LAYOUT_RADIAL,
+    LAYOUT_KK,
+    LAYOUT_LAYERED,
+]
+
+# How strongly two services attract each other in the clustered layout for each
+# life event or complaint they share. The cross-links are what wreck a plain
+# spring; here they are lifted up to the hub graph instead, where they place
+# related services near each other rather than dragging their sub-intents about.
+HUB_AFFINITY = 0.55
+CLUSTER_SPREAD = 0.45   # cluster radius as a fraction of the nearest-hub gap
+CLUSTER_ARC = 5.15      # radians a fan wraps; short of 2pi to leave an inward gap
 
 # Relative spring strengths used by the anchored layout only. Parent-to-child
 # pulls hard so a service balls up; the life-event and complaint cross-links pull
@@ -428,10 +444,155 @@ def _anchored_wedge_layout(g: nx.Graph, seed: int = 42) -> dict[str, tuple]:
     )
 
 
+def _hub_graph(g: nx.Graph) -> nx.Graph:
+    """Services only, joined by how much cross-cutting traffic they share.
+
+    Two services get an edge for every life event or complaint that touches a
+    sub-intent under each of them, so laying THIS out puts related services near
+    each other. It is the same information that turns a plain spring into a
+    hairball, applied one level up where it helps instead of hurts.
+    """
+    hub = nx.Graph()
+    uis = [n for n, d in g.nodes(data=True) if d["node_type"] == UNIFIED_INTENT]
+    hub.add_nodes_from(uis)
+
+    if taxonomy.PRODUCT in g:
+        hub.add_node(taxonomy.PRODUCT)
+        for ui in uis:
+            hub.add_edge(taxonomy.PRODUCT, ui, weight=1.0)
+
+    for node, data in g.nodes(data=True):
+        if data["node_type"] not in (LIFE_EVENT, COMPLAINT):
+            continue
+        parents = sorted(
+            {
+                g.nodes[nb]["parent"]
+                for nb in g.neighbors(node)
+                if g.nodes[nb]["node_type"] == SUB_INTENT
+            }
+            & set(uis)
+        )
+        for i, a in enumerate(parents):
+            for b in parents[i + 1 :]:
+                if hub.has_edge(a, b):
+                    hub[a][b]["weight"] += HUB_AFFINITY
+                else:
+                    hub.add_edge(a, b, weight=HUB_AFFINITY)
+
+    return hub
+
+
+def _clustered_layout(g: nx.Graph, seed: int = 42) -> dict[str, tuple]:
+    """Organic globally, tidy locally.
+
+    Stage 1 lays out only the service hubs with a spring, so where the services
+    sit stays irregular and force-directed - no ring, no fixed slots. Stage 2
+    then places each service's sub-intents in an even flower around their own
+    parent, which makes every cluster uniform and unambiguous. Stage 3 lets the
+    life events and complaints settle among the sub-intents they touch, with
+    everything else held still.
+    """
+    rng = random.Random(seed)
+
+    hub = _hub_graph(g)
+    if hub.number_of_nodes() == 0:
+        return _anchored_wedge_layout(g, seed)
+
+    pos: dict[str, tuple[float, float]] = {
+        n: (float(p[0]), float(p[1]))
+        for n, p in nx.spring_layout(
+            hub,
+            k=2.6 / max(hub.number_of_nodes(), 1) ** 0.5,
+            iterations=260,
+            seed=seed,
+            weight="weight",
+        ).items()
+    }
+
+    uis = [n for n in pos if n != taxonomy.PRODUCT]
+
+    # Cluster radius follows the tightest hub spacing, so flowers never collide
+    # however the spring happens to have arranged the hubs this time.
+    gaps = []
+    for a in uis:
+        others = [b for b in uis if b != a]
+        if others:
+            gaps.append(
+                min(
+                    math.dist(pos[a], pos[b]) for b in others
+                )
+            )
+    gap = sorted(gaps)[len(gaps) // 4] if gaps else 0.4
+    radius = max(gap * CLUSTER_SPREAD, 1e-3)
+
+    origin = pos.get(taxonomy.PRODUCT) or (
+        sum(pos[u][0] for u in uis) / len(uis),
+        sum(pos[u][1] for u in uis) / len(uis),
+    )
+
+    for ui in uis:
+        subs = sorted(
+            n
+            for n in g.neighbors(ui)
+            if g.nodes[n]["node_type"] == SUB_INTENT and g.nodes[n]["parent"] == ui
+        )
+        if not subs:
+            continue
+
+        # Point the gap in the flower back toward the middle, so the edge from
+        # the product reaches its service without cutting through the petals.
+        outward = math.atan2(pos[ui][1] - origin[1], pos[ui][0] - origin[0])
+        for j, sub in enumerate(subs):
+            angle = outward + CLUSTER_ARC * (((j + 0.5) / len(subs)) - 0.5)
+            r = radius * (1 + rng.uniform(-0.06, 0.06))
+            pos[sub] = (pos[ui][0] + r * cos(angle), pos[ui][1] + r * sin(angle))
+
+    floating = [
+        n
+        for n, d in g.nodes(data=True)
+        if d["node_type"] in (LIFE_EVENT, COMPLAINT)
+    ]
+    for node in floating:
+        linked = [pos[nb] for nb in g.neighbors(node) if nb in pos]
+        if linked:
+            pos[node] = (
+                sum(p[0] for p in linked) / len(linked),
+                sum(p[1] for p in linked) / len(linked),
+            )
+        else:
+            pos[node] = (rng.uniform(-0.2, 0.2), rng.uniform(-0.2, 0.2))
+
+    for node in g.nodes():
+        if node not in pos:
+            pos[node] = (rng.uniform(-1, 1), rng.uniform(-1, 1))
+
+    # Stage 3: only the cross-cutting nodes are free to move, so they spread out
+    # instead of stacking on top of each other at a shared centroid.
+    anchored = [n for n in g.nodes() if n not in floating]
+    if floating and anchored and g.number_of_edges():
+        weighted = g.copy()
+        for _, _, data in weighted.edges(data=True):
+            data["weight"] = WEDGE_EDGE_WEIGHTS.get(data["edge_type"], 1.0)
+        pos = nx.spring_layout(
+            weighted,
+            pos=pos,
+            fixed=anchored,
+            k=radius * 1.6,
+            iterations=40,
+            seed=seed,
+            weight="weight",
+        )
+
+    return pos
+
+
 def compute_layout(g: nx.Graph, algorithm: str, seed: int = 42) -> dict[str, tuple]:
     """Positions for every node, keyed by node id."""
     if g.number_of_nodes() == 0:
         return {}
+
+    if algorithm == LAYOUT_CLUSTERS:
+        return _clustered_layout(g, seed)
 
     if algorithm == LAYOUT_WEDGES:
         return _anchored_wedge_layout(g, seed)

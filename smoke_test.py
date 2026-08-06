@@ -194,7 +194,9 @@ s = gb.compute_node_sizes(g, gb.SCALE_LOG)
 doubled = gb.compute_node_sizes(g, gb.SCALE_LOG, multiplier=2.0)
 assert all(abs(doubled[n] - 2 * s[n]) < 1e-9 for n in s)
 
-# --- the anchored wedge layout is measurably tidier ---------------------------
+# --- the organised layouts are measurably tidier ------------------------------
+import math as _m
+
 UIS = [n for n, d in g.nodes(data=True) if d["node_type"] == gb.UNIFIED_INTENT]
 SUBS = [n for n, d in g.nodes(data=True) if d["node_type"] == gb.SUB_INTENT]
 
@@ -215,13 +217,48 @@ def cluster_purity(pos):
 
 wedge_purity = cluster_purity(LAYOUTS[gb.LAYOUT_WEDGES])
 spring_purity = cluster_purity(LAYOUTS[gb.LAYOUT_SPRING])
+cluster_pur = cluster_purity(LAYOUTS[gb.LAYOUT_CLUSTERS])
 assert wedge_purity > 90, f"wedge layout purity fell to {wedge_purity:.1f}%"
 assert wedge_purity > spring_purity + 25, (wedge_purity, spring_purity)
+assert cluster_pur > 95, f"clustered layout purity fell to {cluster_pur:.1f}%"
+
+# The clustered layout lifts the cross-links up to the hub graph, so services
+# that share a life event or complaint should end up genuinely closer together.
+# Without that the whole point of stage 1 is lost.
+import itertools as _it
+
+hub = gb._hub_graph(g)
+shared = {(a, b) for a, b in _it.combinations(sorted(UIS), 2) if hub.has_edge(a, b)}
+assert shared, "no services share a cross-cutting node - affinity is untestable"
+
+
+def affinity_ratio(pos):
+    xs = [pos[u][0] for u in UIS]
+    ys = [pos[u][1] for u in UIS]
+    span = max(max(xs) - min(xs), max(ys) - min(ys))
+    rel, unrel = [], []
+    for a, b in _it.combinations(sorted(UIS), 2):
+        d = _m.dist(tuple(pos[a]), tuple(pos[b])) / span
+        (rel if (a, b) in shared else unrel).append(d)
+    return (sum(rel) / len(rel)) / (sum(unrel) / len(unrel))
+
+
+cluster_aff = affinity_ratio(LAYOUTS[gb.LAYOUT_CLUSTERS])
+spring_aff = affinity_ratio(LAYOUTS[gb.LAYOUT_SPRING])
+assert cluster_aff < 0.60, f"related services are not pulled together ({cluster_aff:.2f})"
+assert cluster_aff < spring_aff, (cluster_aff, spring_aff)
+
+# Stage 2 must give every service an even flower: all 8 sub-intents sit at
+# essentially the same distance from their own parent.
+cpos = LAYOUTS[gb.LAYOUT_CLUSTERS]
+for ui in UIS:
+    kids = [n for n in g.neighbors(ui) if g.nodes[n]["node_type"] == gb.SUB_INTENT]
+    radii = [_m.dist(tuple(cpos[ui]), tuple(cpos[k])) for k in kids]
+    assert max(radii) / min(radii) < 1.2, (ui, min(radii), max(radii))
 
 # every service occupies its own angular slice, and the busiest are spread
 # around the ring rather than bunched into one arc
 wedge_pos = LAYOUTS[gb.LAYOUT_WEDGES]
-import math as _m
 
 angles = sorted(_m.atan2(wedge_pos[u][1], wedge_pos[u][0]) for u in UIS)
 gaps = [angles[i + 1] - angles[i] for i in range(len(angles) - 1)]
@@ -265,6 +302,10 @@ print(
 print(f"    product=1 unified=31 sub=248 life_events=10 complaints=10")
 print(f"    life-event links={le}  complaint links={cm}")
 print(
-    f"    cluster purity: wedges {wedge_purity:.1f}%  vs  plain spring "
-    f"{spring_purity:.1f}%  (sub-intents nearest their own parent)"
+    f"    cluster purity: clustered {cluster_pur:.1f}%  wedges {wedge_purity:.1f}%  "
+    f"plain spring {spring_purity:.1f}%  (sub-intents nearest their own parent)"
+)
+print(
+    f"    related services sit at {cluster_aff:.2f}x the distance of unrelated ones "
+    f"when clustered, vs {spring_aff:.2f}x under plain spring"
 )

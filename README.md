@@ -81,7 +81,36 @@ byte-identical across periods. Axis ranges are fixed to the layout's own extent,
 since Plotly would otherwise autorange around the markers and let a growing node
 nudge the whole view.
 
-### Anchored wedges (default layout)
+### Clustered organic hubs (default layout)
+
+Three stages, each solving a different part of the mess:
+
+1. **Only the 31 service hubs are laid out with a spring**, so where the services
+   sit stays irregular and force-directed — no ring, no fixed slots. Crucially,
+   that hub graph carries an extra edge between any two services that share a
+   life event or complaint. The cross-links are what wreck a plain spring; here
+   they're lifted one level up, where they *place related services near each
+   other* instead of dragging sub-intents around.
+2. **Each service's 8 sub-intents are placed in an even flower** around their own
+   parent, with the gap in the petals pointing back toward the middle so the
+   product edge reaches the hub without cutting through. The radius adapts to the
+   tightest hub spacing, so flowers never collide however the spring arranged
+   things.
+3. **Life events and complaints settle among the sub-intents they touch**, with
+   everything else held fixed, so they spread out instead of stacking on a shared
+   centroid.
+
+| Layout | Cluster purity | Overlapping pairs | Related-service distance |
+|---|---|---|---|
+| **Clustered organic hubs** | **98.0%** | 0.011% | **0.51×** |
+| Anchored wedges | 94.4% | 0.016% | — |
+| Spring (force-directed) | 49.6% | 0.000% | 0.65× |
+
+The last column is the payoff from stage 1: services that share a life event or
+complaint sit at roughly half the distance of unrelated ones, so proximity on the
+canvas now carries meaning.
+
+### Anchored wedges
 
 A plain spring layout on this graph turns into a hairball for three specific
 reasons: the product hub pulls all 31 services toward the centre where they
@@ -195,7 +224,7 @@ Then open http://localhost:8501.
 ## Controls
 
 - **Timeline** (above the canvas) — drag or click through Apr–Aug 2026, or *All periods* for totals.
-- **Layout** — Anchored wedges (default), Spring (force-directed), Radial by type, Kamada-Kawai, or Layered hierarchy.
+- **Layout** — Clustered organic hubs (default), Anchored wedges, Spring (force-directed), Radial by type, Kamada-Kawai, or Layered hierarchy.
 - **View** — full graph, or focus on a single unified intent and its 2-hop neighbourhood.
 - **Unified intents shown** — trim the 31 services to compare a handful side by side.
 - **Scale by conversation volume** — log / square root / linear / uniform, plus **Emphasis** and a size multiplier.
