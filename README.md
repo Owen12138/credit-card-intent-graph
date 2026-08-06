@@ -347,7 +347,7 @@ Then open http://localhost:8501.
 
 - **Timeline** (above the canvas) — drag or click through Apr–Aug 2026, or *All periods* for totals.
 - **Layout** — Clustered organic hubs (default), Anchored wedges, Spring (force-directed), Radial by type, Kamada-Kawai, or Layered hierarchy.
-- **View** — full graph, or focus on a single unified intent and its 2-hop neighbourhood. Which service the focus view draws is chosen by the **Unified intent** picker in Intent detail, not in the sidebar.
+- **View** — full graph, or focus on a single unified intent and its 2-hop neighbourhood. Which service the focus view draws is chosen by the **Unified intent** picker in Intent detail, above the canvas, not in the sidebar. The full graph has no detail section.
 - **Unified intents shown** (full graph only) — trim the 31 services to compare a handful side by side.
 - **Scale by conversation volume** — log / square root / linear / uniform, plus **Emphasis** and a size multiplier.
 - **Node types / Labels** — toggle each layer's visibility and its text labels independently.
@@ -416,23 +416,24 @@ A unified intent record carries `description`, `sampleConversation`,
 A sub-intent record is identical except `parentIntent` names its unified intent
 and there is no `subIntent` list.
 
-**Intent detail** shares the Graph tab with the canvas. It picks a unified
-intent and, optionally, a sub-intent beneath it. The most specific selection
-wins: choose a sub-intent and its description, channel intents, counts and
-samples replace the parent's. Three channel cards always render — a channel that
-doesn't carry the intent shows an empty card rather than disappearing, since the
-gap is itself worth seeing.
+**Intent detail** renders above the canvas in the focus view, and only there —
+it describes one service, which is exactly what that view draws. The full graph
+is all 31, so it shows the canvas alone. Its unified picker doubles as the focus
+view's control, which is why it sits above the graph it redraws.
 
-Its unified picker doubles as the focus view's control, so where it sits depends
-on what it drives:
+It picks a unified intent and, optionally, a sub-intent beneath it. The most
+specific selection wins: choose a sub-intent and its description, channel
+intents, counts and samples replace the parent's. The sub-intent never moves the
+canvas — the graph stays the top-level picture for the whole service. Three
+channel cards always render; a channel that doesn't carry the intent shows an
+empty card rather than disappearing, since the gap is itself worth seeing.
 
-| View | Order | Why |
-| --- | --- | --- |
-| Focus on one unified intent | detail, then canvas | the picker chooses the service, so it belongs above the thing it redraws |
-| Full graph | canvas, then detail | nothing in the detail moves the graph; it reads as a footnote |
-
-The sub-intent picker never moves the canvas in either view — the graph stays
-the top-level picture for the whole service.
+One wrinkle worth knowing before editing `app.py`: Streamlit discards widget
+state for widgets a run doesn't instantiate, and the full graph doesn't
+instantiate the picker. So the detail mirrors its choice into a plain session
+key (`FOCUS_MEMORY`), and the focus branch reads the live widget value first and
+that mirror second. Without it, switching to the full graph and back silently
+resets you to the first service; `app_test.py` asserts the round trip.
 
 ### How the numbers relate to the graph
 

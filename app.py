@@ -17,6 +17,10 @@ from interactive_html import render_page
 
 st.set_page_config(page_title="Credit Card Intent Graph", layout="wide")
 
+# Plain session key, not a widget key, so it outlives runs that do not render
+# the picker. See the focus branch below.
+FOCUS_MEMORY = "focus_unified_remembered"
+
 
 @st.cache_data(show_spinner=False)
 def load_graph() -> nx.Graph:
@@ -92,10 +96,20 @@ all_uis = list(taxonomy.UNIFIED_INTENTS)
 if view_mode == "Focus on one unified intent":
     # Which service the focus view draws is chosen in the Intent detail section
     # at the top of the Graph tab, not here - one picker rather than two that
-    # can disagree. Streamlit has already restored that widget's value into
-    # session state by the time this line runs; on the very first run, before
-    # the selectbox exists, this falls back to the same default it will take.
-    focus_ui = st.session_state.get("focus_unified", all_uis[0])
+    # can disagree. Two keys, read in this order:
+    #
+    #   focus_unified   the live widget value, restored into session state
+    #                   before this line runs, so a change is picked up on the
+    #                   rerun it causes.
+    #   FOCUS_MEMORY    a plain mirror the detail writes on every render.
+    #                   Streamlit drops widget state for widgets a run does not
+    #                   instantiate, and the full graph does not render the
+    #                   detail at all - so without this, switching to the full
+    #                   graph and back would silently reset the selection.
+    remembered = st.session_state.get(
+        "focus_unified", st.session_state.get(FOCUS_MEMORY, all_uis[0])
+    )
+    focus_ui = remembered if remembered in taxonomy.UNIFIED_INTENTS else all_uis[0]
     selected_uis = {focus_ui}
 else:
     focus_ui = None
@@ -257,15 +271,18 @@ def render_graph() -> None:
 def render_detail() -> None:
     st.subheader("Intent detail")
 
+    names = list(taxonomy.UNIFIED_INTENTS)
     picked_ui = st.selectbox(
         "Unified intent",
-        list(taxonomy.UNIFIED_INTENTS),
+        names,
+        # If the widget's own state was dropped - which happens whenever the
+        # full graph runs, since it does not render this - fall back to the
+        # mirror rather than snapping to the first service.
+        index=names.index(st.session_state.get(FOCUS_MEMORY, names[0])),
         key="focus_unified",
-        help=(
-            "In the focus view this also sets which service the graph draws. "
-            "In the full graph it only changes the detail below."
-        ),
+        help="Also sets which service the graph below draws.",
     )
+    st.session_state[FOCUS_MEMORY] = picked_ui
     picked_sub = st.selectbox(
         "Sub-intent",
         [UNIFIED_ONLY] + taxonomy.UNIFIED_INTENTS[picked_ui],
@@ -335,11 +352,9 @@ with tab_graph:
         st.divider()
         render_graph()
     else:
-        # Nothing in the detail moves the full graph, so the canvas leads and
-        # the detail reads as a footnote to it.
+        # The detail describes one service; the full graph is all 31. Nothing
+        # there would be selecting anything on this canvas, so it stays out.
         render_graph()
-        st.divider()
-        render_detail()
 
 with tab_tables:
     st.subheader("Conversations over time")

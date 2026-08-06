@@ -159,34 +159,40 @@ assert graph_metrics(c) == before, (
 )
 print("sub-intent selection leaves the focused graph on the parent service")
 
-# --- the detail sits above the canvas in focus mode, below it in full ---------
+# --- the detail sits above the canvas, and only in focus mode ----------------
 # "Channel intents" is a card's own caption, so it anchors the detail section;
 # "**Timeline**" is the caption under the canvas.
 detail_at, graph_at = caption_order(b, "Channel intents", "**Timeline**")
 assert detail_at < graph_at, "the detail is still under the canvas in focus mode"
 
 full = fresh()
-graph_at, detail_at = caption_order(full, "**Timeline**", "Channel intents")
-assert graph_at < detail_at, "the full graph no longer leads its tab"
-print("order ok: detail above the canvas when focused, below it on the full graph")
+full_text = prose(full)
+for trace in ("Intent detail", "By channel", "Channel intents"):
+    assert trace not in full_text, f"'{trace}' still renders on the full graph"
+assert not [s for s in full.selectbox if s.key in ("focus_unified", "focus_sub")], (
+    "the intent pickers still render on the full graph"
+)
+print("full graph shows the canvas alone; the detail is focus-mode only")
 
 # --- the graph metrics travel with the canvas, not the top of the page --------
 # Metrics render in document order, so the row's position relative to the
 # cards' own "Conversations" metrics says which section it belongs to.
+GRAPH_ROW = [CONV, "Nodes", "Unified intents", "Sub-intents",
+             "Life events", "Complaints"]
+
+
 def metric_order(at_):
     return [m.label for m in at_.metric]
 
 
 focus_labels, full_labels = metric_order(b), metric_order(full)
+assert full_labels == GRAPH_ROW, (
+    f"the full graph renders metrics other than the row: {full_labels}"
+)
 assert focus_labels.index(CONV) > focus_labels.index("Conversations"), (
     f"the metric row is still above the detail when focused: {focus_labels}"
 )
-assert full_labels.index(CONV) < full_labels.index("Conversations"), (
-    f"the metric row no longer leads the full graph: {full_labels}"
-)
-assert focus_labels[focus_labels.index(CONV):focus_labels.index(CONV) + 6] == [
-    CONV, "Nodes", "Unified intents", "Sub-intents", "Life events", "Complaints"
-], focus_labels
+assert focus_labels[focus_labels.index(CONV):] == GRAPH_ROW, focus_labels
 print("order ok: the metric row sits directly above the canvas in both views")
 
 # --- the detail's own metric row is gone --------------------------------------
@@ -201,15 +207,25 @@ for c in channels.CHANNELS:
     assert c.blurb not in detail_text, f"{c.label}: the blurb is still under the title"
 print("removed: the detail metric row and the channel blurbs")
 
-# --- and the full graph ignores the picker entirely ---------------------------
-full_a = fresh()
-full_a.selectbox(key="focus_unified").select(other_ui).run()
-assert not full_a.exception, [e.value for e in full_a.exception]
-assert graph_metrics(full_a) == graph_metrics(full), (
-    "the picker moved the full graph; it should only scope the focus view"
+# --- the selection survives a round trip through the full graph ---------------
+# Streamlit drops widget state for widgets a run does not instantiate, and the
+# full graph does not instantiate the picker. This passes only because the
+# detail mirrors its choice into a plain (non-widget) session key.
+r = focused(other_ui)
+r.radio(key="view_mode").set_value("Full graph").run()
+assert not r.exception, [e.value for e in r.exception]
+assert graph_metrics(r)["Unified intents"] == "31", graph_metrics(r)
+
+r.radio(key="view_mode").set_value(FOCUS).run()
+assert not r.exception, [e.value for e in r.exception]
+assert r.selectbox(key="focus_unified").value == other_ui, (
+    f"the picker reset to {r.selectbox(key='focus_unified').value!r} after a run "
+    f"without it; expected {other_ui!r}"
 )
-assert graph_metrics(full_a)["Unified intents"] == "31", graph_metrics(full_a)
-print("full graph stays whole regardless of the picker")
+assert graph_metrics(r) == graph_metrics(b), (
+    "the focused graph came back on a different service"
+)
+print(f"'{other_ui}' survives a trip through the full graph and back")
 
 # --- the sub-intent table is gone ---------------------------------------------
 assert "Sub-intents of this unified intent" not in prose(b), (
@@ -238,14 +254,14 @@ assert a.warning, "empty view should warn, not crash"
 print("empty view warns cleanly")
 
 # =============================================================================
-# Intent detail (on the Graph tab): three channel cards, two-level selection
+# Intent detail (focus mode only): three channel cards, two-level selection
 # =============================================================================
-at = fresh()
-assert len(at.tabs) == 2, len(at.tabs)
-
 data = channels.load()
-ui = at.selectbox(key="focus_unified").options[0]
+ui = ALL_UIS[0]
 subs = taxonomy.UNIFIED_INTENTS[ui]
+
+at = focused(ui)
+assert len(at.tabs) == 2, len(at.tabs)
 
 # --- unified intent selected, no sub-intent ---------------------------------
 # The per-channel numbers are all that is left of the counts, and they still
@@ -262,10 +278,7 @@ assert shown == [volumes.fmt(v) for v in card_totals], (shown, card_totals)
 body = " ".join(str(x.value) for x in at.markdown)
 assert ui in body, "the selected unified intent is not named"
 unified_desc = data["virtual-assistant"]["unified"][ui]["description"]
-prose = " ".join(
-    str(x.value) for x in list(at.markdown) + list(at.get("text")) + list(at.caption)
-)
-assert unified_desc in prose, "the unified intent description is not shown"
+assert unified_desc in prose(at), "the unified intent description is not shown"
 
 # all three channels are named, whether or not they carry the intent
 for c in channels.CHANNELS:
@@ -284,8 +297,7 @@ print(f"unified '{ui}': 3 cards, {count} channel intents, "
 
 # --- sub-intent selected: its data takes precedence --------------------------
 picked = subs[0]
-a = fresh()
-a.selectbox(key="focus_unified").select(ui).run()
+a = focused(ui)
 a.selectbox(key="focus_sub").select(picked).run()
 assert not a.exception, [e.value for e in a.exception]
 
@@ -336,8 +348,7 @@ if gap is None:
             ui = other
             break
 
-a = fresh()
-a.selectbox(key="focus_unified").select(ui).run()
+a = focused(ui)
 a.selectbox(key="focus_sub").select(gap).run()
 assert not a.exception, [e.value for e in a.exception]
 labels = " ".join(str(x.value) for x in a.markdown)
@@ -347,9 +358,8 @@ assert any("Not handled" in str(i.value) for i in a.info), "no empty-card messag
 print(f"'{gap}' is absent from voice: three cards still shown, one marked unavailable")
 
 # every unified intent renders without error
-for name in list(taxonomy.UNIFIED_INTENTS)[:6]:
-    a = fresh()
-    a.selectbox(key="focus_unified").select(name).run()
+for name in ALL_UIS[:6]:
+    a = focused(name)
     assert not a.exception, (name, [e.value for e in a.exception])
 print("intent detail renders for every unified intent sampled")
 
