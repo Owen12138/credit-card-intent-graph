@@ -117,6 +117,16 @@ for m in meta["nodeTraces"]:
 assert set(meta["labelled"]) == set(g.nodes()), "label set lost on the way out"
 assert meta["subIntent"] == gb.SUB_INTENT
 assert meta["labelZoom"] > 1, meta["labelZoom"]
+
+# The browser rescales markers by the zoom to keep node sizes fixed relative to
+# the drawing, so it needs the unscaled sizes for every period. They must agree
+# with what the frames carry, or a period change would jump to a different size.
+assert len(meta["frameSizes"]) == volumes.N_PERIODS, len(meta["frameSizes"])
+assert meta["periods"] == volumes.PERIODS
+assert 0 < meta["sizeZoomMin"] < 1 < meta["sizeZoomMax"], meta["sizeZoomMin"]
+for t, frame in enumerate(fig.frames):
+    for j, tr in enumerate(frame.data):
+        assert list(tr.marker.size) == meta["frameSizes"][t][j], (t, j)
 assert meta["baseSpan"] > 0, meta["baseSpan"]
 # baseSpan must match the pinned axis, or the zoom factor is measured against
 # the wrong reference and labels appear at the wrong moment

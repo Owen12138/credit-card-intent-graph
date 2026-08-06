@@ -150,6 +150,24 @@ Loosening the relax constant to `k=0.7` pushes purity to 97% but multiplies
 overlaps sevenfold, so the tuning stops short of that. `smoke_test.py` asserts
 purity stays above 90% and at least 25 points ahead of the plain spring.
 
+### Node sizes are fixed relative to the graph, not the screen
+
+Plotly sizes markers in **screen pixels**, so by default a node keeps the same
+pixel size however far you zoom. Zoom out and the drawing shrinks around it
+while the dot doesn't, so the markers swell relative to the layout until they
+overlap and a sub-intent reads as big as its parent. Zoom in and they look tiny
+against the wider gaps.
+
+The canvas multiplies every marker by the current zoom, so a node's size stays
+fixed *relative to the drawing* — the picture scales as a whole, the way it
+should. The ratio between any two nodes is then identical at every zoom, which
+`js_test.js` asserts directly across 0.3× to 9×.
+
+Scaling is clamped to `SIZE_ZOOM_MIN`–`SIZE_ZOOM_MAX` (0.4×–4×) so an extreme
+zoom can't produce absurd markers. The stored animation frames are rescaled too,
+so stepping the timeline while zoomed animates to correctly scaled sizes rather
+than snapping back to the unzoomed ones.
+
 ### Labels appear as you zoom in
 
 All 248 sub-intent labels at once is the single biggest source of visual noise,

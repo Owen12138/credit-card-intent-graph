@@ -86,6 +86,16 @@ function lastText(traceIndex) {
   return null;
 }
 
+function lastSize(traceIndex) {
+  for (let i = calls.length - 1; i >= 0; i--) {
+    const c = calls[i];
+    if (!c.update["marker.size"]) continue;
+    const at = c.idx.indexOf(traceIndex);
+    if (at !== -1) return c.update["marker.size"][at];
+  }
+  return null;
+}
+
 function lastOpacity(traceIndex) {
   for (let i = calls.length - 1; i >= 0; i--) {
     const c = calls[i];
@@ -192,7 +202,65 @@ assert(
 );
 console.log("label mode: always / off / auto all behave");
 
-// ---- 8. clicks on edges are ignored -----------------------------------------
+// ---- 8. marker sizes track the zoom, so nodes stay fixed relative to the
+//         drawing instead of swelling as you zoom out ------------------------
+const base = META.frameSizes[0][META.nodeTraces.indexOf(subTrace)];
+
+zoomTo(1);
+let sizes = lastSize(subTrace.trace);
+assert(sizes, "sizes were never applied");
+assert(
+  sizes.every((s, i) => Math.abs(s - base[i]) < 1e-6),
+  "at 1x the markers should be exactly their base size"
+);
+
+zoomTo(2);
+sizes = lastSize(subTrace.trace);
+assert(
+  sizes.every((s, i) => Math.abs(s - base[i] * 2) < 1e-6),
+  "zooming in 2x should double the markers"
+);
+
+zoomTo(0.5);
+sizes = lastSize(subTrace.trace);
+assert(
+  sizes.every((s, i) => Math.abs(s - base[i] * 0.5) < 1e-6),
+  "zooming out should shrink the markers by the same factor"
+);
+
+// the ratio between a sub-intent and its parent must not drift with zoom -
+// that drift is what made a sub-intent read as big as its service
+const uiBase = META.frameSizes[0][META.nodeTraces.indexOf(uiTrace)];
+for (const factor of [0.3, 1, 2.5, 9]) {
+  zoomTo(factor);
+  const sub = lastSize(subTrace.trace);
+  const ui = lastSize(uiTrace.trace);
+  const got = sub[0] / ui[0];
+  const want = base[0] / uiBase[0];
+  assert(
+    Math.abs(got - want) < 1e-9,
+    `sub/parent size ratio drifted at ${factor}x: ${got.toFixed(4)} vs ${want.toFixed(4)}`
+  );
+}
+console.log("marker sizes scale with zoom; sub/parent ratio holds at every zoom");
+
+// extreme zooms are clamped so markers never become absurd
+zoomTo(500);
+sizes = lastSize(subTrace.trace);
+assert(
+  sizes.every((s, i) => Math.abs(s - base[i] * META.sizeZoomMax) < 1e-6),
+  "runaway zoom should clamp at sizeZoomMax"
+);
+zoomTo(0.001);
+sizes = lastSize(subTrace.trace);
+assert(
+  sizes.every((s, i) => Math.abs(s - base[i] * META.sizeZoomMin) < 1e-6),
+  "runaway zoom-out should clamp at sizeZoomMin"
+);
+console.log(`clamped to ${META.sizeZoomMin}x - ${META.sizeZoomMax}x at the extremes`);
+zoomTo(1);
+
+// ---- 9. clicks on edges are ignored -----------------------------------------
 calls.length = 0;
 handlers["plotly_click"]({ points: [{}] });
 assert(calls.length === 0, "a click without customdata should be ignored");

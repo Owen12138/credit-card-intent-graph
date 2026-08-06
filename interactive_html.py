@@ -43,6 +43,15 @@ FOCUS_EDGE_COLOR = "#111827"
 # services, 10 life events, 10 complaints) to stay labelled at every zoom.
 LABEL_ZOOM = 2.2
 
+# Plotly marker sizes are in screen pixels, so by default a node keeps the same
+# size however far you zoom - which means it grows relative to the shrinking
+# drawing as you zoom out, until the markers swamp the layout and a sub-intent
+# reads as big as its parent. Scaling the markers with the view keeps every
+# node's size fixed RELATIVE TO THE GRAPH, which is what looks right.
+# Clamped so an extreme zoom cannot produce absurd markers.
+SIZE_ZOOM_MIN = 0.40
+SIZE_ZOOM_MAX = 4.00
+
 
 def _hover(g: nx.Graph, nodes: list[str], ntype: str, period: int) -> list[str]:
     """Hover text for one node trace in one period."""
@@ -127,18 +136,21 @@ def build_figure_with_timeline(
 
     # --- frames: sizes and hover only -----------------------------------------
     frames = []
-    for t, label in enumerate(volumes.PERIODS):
+    frame_sizes = []  # [period][trace] -> unscaled sizes, so the browser can
+    for t, label in enumerate(volumes.PERIODS):  # rescale them as you zoom
         sizes = gb.compute_node_sizes(g, scale, multiplier, t, emphasis)
+        per_trace = [[round(sizes[n], 3) for n in m["ids"]] for m in node_meta]
+        frame_sizes.append(per_trace)
         frames.append(
             go.Frame(
                 name=label,
                 traces=[m["trace"] for m in node_meta],
                 data=[
                     go.Scatter(
-                        marker=dict(size=[sizes[n] for n in m["ids"]]),
+                        marker=dict(size=per_trace[i]),
                         hovertext=_hover(g, m["ids"], m["type"], t),
                     )
-                    for m in node_meta
+                    for i, m in enumerate(node_meta)
                 ],
             )
         )
@@ -236,6 +248,12 @@ def build_figure_with_timeline(
         "subIntent": gb.SUB_INTENT,
         "baseSpan": abs(xr[1] - xr[0]),
         "labelZoom": LABEL_ZOOM,
+        # Unscaled marker sizes per period, so the browser can multiply them by
+        # the current zoom and keep node sizes fixed relative to the drawing.
+        "frameSizes": frame_sizes,
+        "periods": list(volumes.PERIODS),
+        "sizeZoomMin": SIZE_ZOOM_MIN,
+        "sizeZoomMax": SIZE_ZOOM_MAX,
         "dimNode": DIM_NODE,
         "dimEdge": DIM_EDGE,
     }
@@ -292,7 +310,52 @@ FOCUS_JS = """
     Plotly.restyle(gd, { text: texts }, idx);
   }
 
+  // ---- marker sizes ---------------------------------------------------------
+  // Plotly sizes markers in screen pixels, so without this a node keeps its
+  // pixel size while the drawing shrinks around it - it looks like it grows as
+  // you zoom out. Multiplying by the zoom keeps each node fixed relative to the
+  // graph, which is what the eye expects.
+  var period = 0;
+  var appliedScale = null;
+
+  function sizeScale() {
+    var z = zoomFactor();
+    return Math.min(META.sizeZoomMax, Math.max(META.sizeZoomMin, z));
+  }
+
+  function scaledFor(t, z) {
+    return META.frameSizes[t].map(function (arr) {
+      return arr.map(function (s) { return s * z; });
+    });
+  }
+
+  function applySizes(force) {
+    var z = sizeScale();
+    if (!force && z === appliedScale) return;
+    appliedScale = z;
+
+    Plotly.restyle(
+      gd,
+      { "marker.size": scaledFor(period, z) },
+      META.nodeTraces.map(function (t) { return t.trace; })
+    );
+
+    // Rescale the stored frames too, so stepping the timeline animates to
+    // correctly scaled sizes instead of snapping back to the unzoomed ones.
+    var stored = gd._transitionData && gd._transitionData._frames;
+    if (stored) {
+      stored.forEach(function (f) {
+        var t = META.periods.indexOf(f.name);
+        if (t === -1 || !f.data) return;
+        f.data.forEach(function (d, j) {
+          if (d.marker) d.marker.size = META.frameSizes[t][j].map(function (s) { return s * z; });
+        });
+      });
+    }
+  }
+
   function onZoom() {
+    applySizes(false);
     var now = zoomFactor() >= META.labelZoom;
     if (now === zoomedIn) return;
     zoomedIn = now;
@@ -301,6 +364,12 @@ FOCUS_JS = """
   }
 
   gd.on("plotly_relayout", onZoom);
+
+  gd.on("plotly_animatingframe", function (ev) {
+    if (!ev || !ev.name) return;
+    var t = META.periods.indexOf(ev.name);
+    if (t !== -1) period = t;
+  });
 
   function neighbourhood(id, d) {
     var seen = {}, frontier = [id], i, j;
@@ -402,6 +471,9 @@ FOCUS_JS = """
   // animation. Re-assert it when one finishes, in case a Plotly version merges
   // the whole marker object instead of just the size.
   gd.on("plotly_animated", function () {
+    // A frame writes its own marker sizes, so re-assert the zoom scaling after
+    // one lands, and the focus dimming with it.
+    applySizes(true);
     if (current) apply(neighbourhood(current, depth));
   });
 
@@ -429,6 +501,7 @@ FOCUS_JS = """
   }
 
   zoomedIn = zoomFactor() >= META.labelZoom;
+  applySizes(true);
   refreshLabels();
   setBanner(null);
 })();
